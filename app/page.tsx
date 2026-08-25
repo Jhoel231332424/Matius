@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/hero-section";
+import { BrandPillarsSection } from "@/components/sections/brand-pillars-section";
 import { CollectionsSection } from "@/components/sections/collections-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
+import { CraftsmanshipSection } from "@/components/sections/craftsmanship-section";
 import {
-  BrandPillarsSection,
-  CraftsmanshipSection,
   FinalCtaSection,
   LeatherDetailSection,
   LifestyleSection,
