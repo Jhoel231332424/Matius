@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
-import { featuredProducts } from "@/data/products";
 import { stores } from "@/data/stores";
 
 export function BrandPillarsSection() {
@@ -23,71 +22,6 @@ export function BrandPillarsSection() {
               <div className="matius-placeholder mt-8 min-h-60">{title} / detalle</div>
               <h3 className="mt-7 font-[family-name:var(--font-display)] text-4xl font-medium">{title}</h3>
               <p className="mt-4 leading-7 text-black/60">{copy}</p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-export function CollectionsSection() {
-  const collections = [
-    { title: "Hombre", href: "/zapatos-hombre" },
-    { title: "Mujer", href: "/zapatos-mujer" },
-    { title: "Oxford", href: "/zapatos-de-cuero" },
-    { title: "Todos los zapatos", href: "/zapatos-de-cuero" },
-  ];
-
-  return (
-    <section id="zapatos" className="bg-[var(--mat-charcoal)] py-[var(--mat-section)] text-white">
-      <Container>
-        <SectionHeading
-          eyebrow="Colecciones"
-          title="Encuentra tu próximo par."
-          description="Explora el universo de calzado Matius desde una mirada más editorial y directa."
-        />
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {collections.map((collection, index) => (
-            <Link
-              key={`${collection.title}-${index}`}
-              href={collection.href}
-              className="group relative min-h-96 overflow-hidden border border-white/15 p-7"
-            >
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,#6a4b36,#24201d)] opacity-80 transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(255,255,255,0.12),transparent_34%)]" />
-              <div className="relative flex h-full flex-col justify-end">
-                <span className="matius-eyebrow text-white/55">Colección</span>
-                <h3 className="mt-2 font-[family-name:var(--font-display)] text-5xl font-medium">{collection.title}</h3>
-                <span className="mt-5 text-sm text-white/70">Explorar →</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-export function FeaturedProductsSection() {
-  return (
-    <section className="py-[var(--mat-section)]">
-      <Container>
-        <SectionHeading
-          eyebrow="Selección"
-          title="Calzado para descubrir."
-          description="Una entrada rápida a modelos y colecciones con consulta directa por WhatsApp."
-        />
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {featuredProducts.map((product) => (
-            <article key={product.id}>
-              <div className="matius-placeholder aspect-[4/5] min-h-0">{product.name}</div>
-              <p className="matius-eyebrow mt-5 text-black/45">{product.category}</p>
-              <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{product.name}</h3>
-              <p className="mt-3 text-sm leading-6 text-black/60">{product.shortDescription}</p>
-              <WhatsAppButton source="product" productName={product.name} variant="ghost" className="mt-4 px-0">
-                Consultar disponibilidad →
-              </WhatsAppButton>
             </article>
           ))}
         </div>
