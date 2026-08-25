@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Geist } from "next/font/google";
 import "./globals.css";
 import { Topbar } from "@/components/layout/topbar";
 import { Navbar } from "@/components/layout/navbar";
@@ -7,6 +8,19 @@ import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { siteConfig } from "@/data/site";
 import { buildOrganizationJsonLd, serializeJsonLd } from "@/lib/seo";
 
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -14,11 +28,9 @@ export const metadata: Metadata = {
     template: "%s | Matius Perfect",
   },
   description: siteConfig.description,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
-    url: "/",
     siteName: siteConfig.name,
     title: "Matius Perfect | Zapatos de cuero en Cochabamba",
     description: siteConfig.description,
@@ -27,10 +39,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const organizationJsonLd = buildOrganizationJsonLd();
+
   return (
-    <html lang="es">
+    <html lang="es" className={`${geist.variable} ${cormorant.variable}`}>
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }}
+        />
         <Topbar />
         <Navbar />
         <main>{children}</main>
