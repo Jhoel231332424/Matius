@@ -4,67 +4,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { stores } from "@/data/stores";
 
-export function BrandPillarsSection() {
-  const pillars = [
-    ["01", "Cuero", "Textura, presencia y carácter como punto de partida de cada colección."],
-    ["02", "Fabricación", "Una propuesta hecha en Cochabamba con atención al detalle y al oficio."],
-    ["03", "Durabilidad", "Calzado pensado para acompañar el uso cotidiano más allá de una temporada."],
-  ];
-
-  return (
-    <section className="py-[var(--mat-section)]">
-      <Container>
-        <SectionHeading eyebrow="Lo que define la marca" title="Cuero, oficio y permanencia." />
-        <div className="mt-12 grid gap-px bg-black/10 lg:grid-cols-3">
-          {pillars.map(([number, title, copy]) => (
-            <article key={title} className="bg-[var(--mat-warm-white)] p-7 sm:p-9">
-              <span className="matius-eyebrow text-black/45">{number}</span>
-              <div className="matius-placeholder mt-8 min-h-60">{title} / detalle</div>
-              <h3 className="mt-7 font-[family-name:var(--font-display)] text-4xl font-medium">{title}</h3>
-              <p className="mt-4 leading-7 text-black/60">{copy}</p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-export function CraftsmanshipSection() {
-  const steps = [
-    ["01", "Material", "La historia comienza mostrando el cuero y los detalles que definen el carácter del producto."],
-    ["02", "Oficio", "La fabricación se presenta desde una mirada humana, cercana y centrada en el trabajo detrás de cada par."],
-    ["03", "Acabado", "El cierre visual pone el foco en costuras, superficies y terminaciones del calzado."],
-  ];
-
-  return (
-    <section id="fabricacion" className="bg-[var(--mat-ivory)] py-[var(--mat-section)]">
-      <Container className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-        <div className="lg:sticky lg:top-32 lg:self-start">
-          <SectionHeading
-            eyebrow="Fabricación"
-            title="Detrás de cada par."
-            description="Una sección para acercar el oficio, el material y el detalle al visitante."
-          />
-          <Link href="/nuestra-fabricacion" className="mt-7 inline-block text-sm font-semibold underline underline-offset-4">
-            Conocer la fabricación →
-          </Link>
-        </div>
-        <div className="grid gap-10">
-          {steps.map(([number, title, copy]) => (
-            <article key={title} className="border-t border-black/15 pt-6">
-              <span className="matius-eyebrow text-black/40">{number}</span>
-              <div className="matius-placeholder mt-5 min-h-80">{title} / proceso</div>
-              <h3 className="mt-5 font-[family-name:var(--font-display)] text-3xl font-medium">{title}</h3>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-black/60">{copy}</p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
 export function LeatherDetailSection() {
   return (
     <section className="py-[var(--mat-section)]">
