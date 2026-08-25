@@ -1,3 +1,6 @@
+"use client";
+
+import { trackWhatsAppClick, type WhatsAppSource } from "@/lib/analytics";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +12,7 @@ export function WhatsAppButton({
   variant = "primary",
   className,
 }: {
-  source?: "hero" | "product" | "store" | "final-cta" | "floating" | "general";
+  source?: WhatsAppSource;
   productName?: string;
   storeName?: string;
   children?: React.ReactNode;
@@ -21,6 +24,7 @@ export function WhatsAppButton({
       href={createWhatsAppUrl({ source, productName, storeName })}
       variant={variant}
       className={className}
+      onClick={() => trackWhatsAppClick({ source, productName, storeName })}
     >
       {children}
     </Button>

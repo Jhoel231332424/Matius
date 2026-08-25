@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CollectionCard } from "@/components/collection/collection-card";
+import { brandMedia } from "@/data/media";
 
 const collections = [
   { title: "Hombre", href: "/zapatos-hombre" },
@@ -20,7 +21,12 @@ export function CollectionsSection() {
         />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {collections.map((collection, index) => (
-            <CollectionCard key={collection.title} {...collection} index={index} />
+            <CollectionCard
+              key={collection.title}
+              {...collection}
+              index={index}
+              image={brandMedia.campaign[index]}
+            />
           ))}
         </div>
       </Container>

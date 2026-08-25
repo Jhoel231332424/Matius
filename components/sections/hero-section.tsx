@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { brandMedia } from "@/data/media";
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion();
@@ -68,30 +70,36 @@ export function HeroSection() {
           initial={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.025 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="matius-hero-grid relative min-h-[30rem] overflow-hidden rounded-[var(--mat-radius-md)] bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[38rem] lg:min-h-[46rem]"
-          aria-label="Dirección visual reservada para una fotografía editorial de calzado Matius Perfect"
+          className="relative min-h-[30rem] overflow-hidden rounded-[var(--mat-radius-md)] bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[38rem] lg:min-h-[46rem]"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(222,210,194,0.35),transparent_34%),linear-gradient(155deg,transparent_20%,rgba(14,13,12,0.72)_82%)]" />
-          <div className="absolute -right-10 top-4 select-none font-[family-name:var(--font-display)] text-[18rem] font-medium leading-none text-white/[0.06] sm:text-[26rem] lg:text-[34rem]">
-            M
-          </div>
+          <Image
+            src={brandMedia.hero.src}
+            alt={brandMedia.hero.alt}
+            fill
+            priority
+            unoptimized
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            style={{ objectPosition: brandMedia.hero.objectPosition }}
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(155deg,rgba(14,13,12,0.04)_20%,rgba(14,13,12,0.72)_90%)]" />
 
           <div className="absolute left-6 top-6 flex items-center gap-3 sm:left-8 sm:top-8">
-            <span className="h-px w-10 bg-white/45" />
-            <span className="matius-eyebrow text-white/65">Leather / Cochabamba</span>
+            <span className="h-px w-10 bg-white/60" />
+            <span className="matius-eyebrow text-white/80">Leather / Cochabamba</span>
           </div>
 
-          <div className="absolute inset-x-6 bottom-6 border-t border-white/20 pt-5 sm:inset-x-8 sm:bottom-8">
+          <figcaption className="absolute inset-x-6 bottom-6 border-t border-white/30 pt-5 sm:inset-x-8 sm:bottom-8">
             <div className="flex items-end justify-between gap-5">
               <div>
-                <p className="matius-eyebrow text-white/50">Dirección de arte</p>
+                <p className="matius-eyebrow text-white/65">Matius Perfect</p>
                 <p className="mt-2 max-w-sm font-[family-name:var(--font-display)] text-3xl leading-none sm:text-4xl">
-                  Material, detalle y carácter.
+                  Elegancia sin esfuerzo.
                 </p>
               </div>
-              <span className="hidden text-xs uppercase tracking-[0.18em] text-white/45 sm:block">01 / Hero</span>
+              <span className="hidden text-xs uppercase tracking-[0.18em] text-white/65 sm:block">Cochabamba · Bolivia</span>
             </div>
-          </div>
+          </figcaption>
         </motion.figure>
       </Container>
 

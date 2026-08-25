@@ -5,6 +5,14 @@ import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 export function ProductCardMatius({ product }: { product: Product }) {
   const primaryImage = product.images[0];
   const secondaryImage = product.images[1];
+  const formattedPrice =
+    product.price !== undefined && product.currency
+      ? new Intl.NumberFormat("es-BO", {
+          style: "currency",
+          currency: product.currency,
+          minimumFractionDigits: 2,
+        }).format(product.price)
+      : null;
 
   return (
     <article className="group">
@@ -42,12 +50,17 @@ export function ProductCardMatius({ product }: { product: Product }) {
         )}
       </div>
 
-      <p className="matius-eyebrow mt-5 text-black/45">{product.category}</p>
-      <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{product.name}</h3>
+      <div className="mt-5 flex items-start justify-between gap-4">
+        <div>
+          <p className="matius-eyebrow text-black/45">{product.category}</p>
+          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{product.name}</h3>
+        </div>
+        {formattedPrice ? <p className="whitespace-nowrap text-sm font-semibold">{formattedPrice}</p> : null}
+      </div>
       <p className="mt-3 text-sm leading-6 text-black/60">{product.shortDescription}</p>
 
       <WhatsAppButton source="product" productName={product.name} variant="ghost" className="mt-4 px-0">
-        Consultar disponibilidad →
+        {product.isDemo ? "Consultar colección →" : "Consultar disponibilidad →"}
       </WhatsAppButton>
     </article>
   );

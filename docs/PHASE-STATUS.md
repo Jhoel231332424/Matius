@@ -1,46 +1,54 @@
 # Phase Status — Matius Perfect
 
-## Foundation + First Visual Pass
+## Fase 1 — Foundation
 
-Estado: **implementado en `feat/landing-foundation`**.
-
-### Completado
+Estado: **completada** en `feat/landing-foundation`.
 
 - Next.js + TypeScript + Tailwind.
 - Design tokens y tipografías con `next/font`.
-- SEO base: metadata, canonical por página, robots, sitemap y JSON-LD builders.
-- Preview `noindex` por defecto.
-- WhatsApp oficial configurado y CTAs contextuales preparados.
-- Topbar, Navbar, Footer y Floating WhatsApp.
-- 10 secciones de Home separadas en módulos independientes.
-- Hero editorial con Motion y soporte para `prefers-reduced-motion`.
-- Brand Pillars.
-- Collections + `CollectionCard` reusable.
-- Featured Products + `ProductCardMatius` reusable.
-- Craftsmanship con sticky scroll storytelling.
-- Leather Detail con motion suave.
-- Lifestyle grid.
-- Lookbook.
-- Stores.
-- Final CTA.
-- GitHub Actions con install, lint, typecheck y build.
+- SEO base y JSON-LD builders.
+- WhatsApp contextual.
+- Layout global.
+- Home modularizada en 10 secciones.
+- Motion editorial controlado.
+- CI con install, lint, typecheck y build.
 
-### Verificación
+## Fase 2 — Producción visual
 
-El CI del HEAD funcional anterior pasó correctamente:
+Estado: **implementada para demo con assets first-party disponibles públicamente**.
 
-- install: success
-- lint: success
-- typecheck: success
-- build: success
+### Completado
 
-### Siguiente fase
+- Registro central de assets en `data/media.ts`.
+- Cuatro imágenes oficiales de campaña integradas.
+- Hero con imagen oficial y prioridad LCP.
+- Brand Pillars con fotografía.
+- Collections con fotografía y links SEO reales.
+- Lifestyle con campaña oficial.
+- Lookbook sin embed de Instagram.
+- Leather Detail usando material first-party.
+- Final CTA con fotografía.
+- Oxford actualizado con precio público `424.95 BOB`.
+- WhatsApp analytics-ready vía `window.dataLayer`.
+- Mapping de assets documentado.
+- QA checklist responsive/accessibility/performance documentada.
+- Remote image allowlist restringida a `matiusperfect.com/assets/**`.
 
-1. Assets reales/autorizados.
-2. Logo definitivo.
-3. Fotografías hero/producto/cuero/fabricación/lifestyle/sucursales.
-4. Analytics para WhatsApp.
-5. QA responsive/accessibility.
-6. Lighthouse/Core Web Vitals.
-7. Datos completos de sucursales y catálogo.
-8. Schema Product/LocalBusiness completo solo con información real.
+### Pendiente del cliente
+
+- Logo maestro/vectorial.
+- Assets originales en máxima resolución.
+- Fotos específicas por producto.
+- Fotos reales de fabricación.
+- Fotos/direcciones/horarios de las tres sucursales.
+- Catálogo completo, tallas, colores, precios y stock.
+- Garantía/cambios y claims técnicos validados.
+
+## Fase siguiente
+
+1. Ejecutar CI sobre este commit.
+2. Inspección visual en preview deploy.
+3. Corregir crops con assets reales si el cliente los entrega.
+4. Validar GA4/GTM si se conecta un proveedor de analytics.
+5. Lighthouse/Core Web Vitals sobre URL desplegada.
+6. Completar LocalBusiness/Product schema únicamente con datos confirmados.
