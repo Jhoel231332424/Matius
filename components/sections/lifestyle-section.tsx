@@ -18,6 +18,7 @@ export function LifestyleSection() {
           eyebrow="Lifestyle"
           title="Hechos para acompañarte."
           description="El producto pasa del detalle al contexto: trabajo, reuniones y momentos cotidianos."
+          tone="dark"
         />
         <div className="mt-12 grid gap-4 md:grid-cols-12">
           {moments.map((moment, index) => {
@@ -35,13 +36,13 @@ export function LifestyleSection() {
                   style={{ objectPosition: image.objectPosition }}
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,12,0.04),rgba(14,13,12,0.72))]" />
-                <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4 border-t border-white/20 pt-4">
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,12,0.04),rgba(14,13,12,0.78))]" />
+                <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4 border-t border-white/25 pt-4">
                   <div>
-                    <span className="matius-eyebrow text-white/60">0{index + 1}</span>
+                    <span className="matius-eyebrow text-white/80">0{index + 1}</span>
                     <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{moment.label}</h3>
                   </div>
-                  <span className="text-xs uppercase tracking-[0.16em] text-white/55">Matius</span>
+                  <span className="text-xs uppercase tracking-[0.16em] text-white/75">Matius</span>
                 </div>
               </article>
             );
