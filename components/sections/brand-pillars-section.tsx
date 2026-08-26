@@ -32,8 +32,8 @@ export function BrandPillarsSection() {
             return (
               <article key={pillar.title} className="group bg-[var(--mat-warm-white)] p-7 sm:p-9">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="matius-eyebrow text-black/45">{pillar.number}</span>
-                  <span className="h-px w-10 bg-black/20 transition-all duration-300 group-hover:w-16" />
+                  <span className="matius-eyebrow text-black/65">{pillar.number}</span>
+                  <span className="h-px w-10 bg-black/25 transition-all duration-300 group-hover:w-16" />
                 </div>
                 <div className="relative mt-8 min-h-60 overflow-hidden bg-[var(--mat-dark-brown)] text-white">
                   <Image
@@ -44,11 +44,11 @@ export function BrandPillarsSection() {
                     style={{ objectPosition: image.objectPosition }}
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,rgba(14,13,12,0.7)_100%)]" />
-                  <span className="matius-eyebrow absolute bottom-5 left-5 text-white/75">{pillar.title}</span>
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,rgba(14,13,12,0.76)_100%)]" />
+                  <span className="matius-eyebrow absolute bottom-5 left-5 text-white/85">{pillar.title}</span>
                 </div>
                 <h3 className="mt-7 font-[family-name:var(--font-display)] text-4xl font-medium">{pillar.title}</h3>
-                <p className="mt-4 leading-7 text-black/60">{pillar.copy}</p>
+                <p className="mt-4 leading-7 text-black/70">{pillar.copy}</p>
               </article>
             );
           })}
