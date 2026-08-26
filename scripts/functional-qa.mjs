@@ -23,6 +23,15 @@ async function assertFocused(locator, message) {
   assert.equal(focused, true, message);
 }
 
+async function waitForFocused(page, locator, message) {
+  const handle = await locator.elementHandle();
+  assert.ok(handle, message);
+  await page.waitForFunction((element) => document.activeElement === element, handle, {
+    timeout: 2_500,
+  });
+  await assertFocused(locator, message);
+}
+
 async function createPage(browser, viewport) {
   const context = await browser.newContext({
     viewport,
@@ -86,7 +95,11 @@ async function testFullscreenMenu(browser) {
     await desktop.page.waitForFunction(() => document.body.style.overflow === "hidden");
 
     const close = dialog.getByRole("button", { name: "Cerrar menú" });
-    await assertFocused(close, "Opening the fullscreen menu should move focus to its close control.");
+    await waitForFocused(
+      desktop.page,
+      close,
+      "Opening the fullscreen menu should move focus to its close control.",
+    );
 
     const menuWhatsApp = dialog.getByRole("link", { name: "Consultar por WhatsApp" });
     await desktop.page.keyboard.press("Shift+Tab");
@@ -104,7 +117,11 @@ async function testFullscreenMenu(browser) {
 
     await desktop.page.keyboard.press("Escape");
     assert.equal(await trigger.getAttribute("aria-expanded"), "false");
-    await assertFocused(trigger, "Escape should close the fullscreen menu and restore focus to the trigger.");
+    await waitForFocused(
+      desktop.page,
+      trigger,
+      "Escape should close the fullscreen menu and restore focus to the trigger.",
+    );
     await desktop.page.waitForFunction(() => document.body.style.overflow !== "hidden");
 
     console.log("✓ Fullscreen menu desktop focus trap, Escape and crossfade state");
@@ -132,7 +149,11 @@ async function testFullscreenMenu(browser) {
 
     const close = dialog.getByRole("button", { name: "Cerrar menú" });
     await close.click();
-    await assertFocused(trigger, "Closing the mobile fullscreen menu should restore focus to the trigger.");
+    await waitForFocused(
+      mobile.page,
+      trigger,
+      "Closing the mobile fullscreen menu should restore focus to the trigger.",
+    );
 
     console.log("✓ Fullscreen menu mobile viewport coverage and close behavior");
   } finally {
