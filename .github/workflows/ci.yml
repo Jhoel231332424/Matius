@@ -36,6 +36,47 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Production route smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm start > /tmp/matius-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          READY=false
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:3000/ > /dev/null; then
+              READY=true
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$READY" != "true" ]; then
+            cat /tmp/matius-next.log
+            exit 1
+          fi
+
+          routes=(
+            "/"
+            "/zapatos-de-cuero"
+            "/zapatos-hombre"
+            "/zapatos-mujer"
+            "/nuestra-fabricacion"
+            "/tiendas"
+            "/tiendas/central"
+            "/tiendas/sucursal-1"
+            "/tiendas/sucursal-2"
+            "/robots.txt"
+            "/sitemap.xml"
+          )
+
+          for route in "${routes[@]}"; do
+            echo "Checking ${route}"
+            curl --fail --silent --show-error "http://localhost:3000${route}" > /dev/null
+          done
+
       - name: Install Lighthouse CI
         run: npm install --global @lhci/cli@0.15.x --no-audit --no-fund
 
