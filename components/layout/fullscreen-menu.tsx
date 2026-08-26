@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties, MouseEvent } from "react";
@@ -102,11 +103,15 @@ export function FullscreenMenu() {
     [],
   );
 
-  const handleSamePageNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleMenuNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     const [targetPath, targetHash] = href.split("#");
     const normalizedPath = targetPath || pathname;
 
-    if (normalizedPath !== pathname) return;
+    if (normalizedPath !== pathname) {
+      event.preventDefault();
+      window.location.assign(href);
+      return;
+    }
 
     event.preventDefault();
     closeMenu();
@@ -192,7 +197,7 @@ export function FullscreenMenu() {
               <p className={styles.kicker}>Matius Perfect · Cochabamba</p>
               <nav aria-label="Navegación fullscreen" className={styles.nav}>
                 {menuItems.map((item, index) => (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     tabIndex={open ? 0 : -1}
@@ -202,12 +207,12 @@ export function FullscreenMenu() {
                     style={{ "--menu-index": index } as CSSProperties}
                     onMouseEnter={() => setActiveIndex(item.imageIndex)}
                     onFocus={() => setActiveIndex(item.imageIndex)}
-                    onClick={(event) => handleSamePageNavigation(event, item.href)}
+                    onClick={(event) => handleMenuNavigation(event, item.href)}
                   >
                     <span className={styles.navIndex}>0{index + 1}</span>
                     <span className={styles.navLabel}>{item.label}</span>
                     <span className={styles.navMeta}>{item.meta}</span>
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
