@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, MouseEvent } from "react";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { brandMedia } from "@/data/media";
@@ -52,15 +52,21 @@ export function FullscreenMenu() {
     requestAnimationFrame(() => setOpen(true));
   };
 
+  useLayoutEffect(() => {
+    if (!open) return;
+
+    const focusClose = () => closeRef.current?.focus({ preventScroll: true });
+    focusClose();
+    const focusTimer = window.setTimeout(focusClose, 0);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    const focusClose = () => closeRef.current?.focus({ preventScroll: true });
-    focusClose();
-    const focusFrame = requestAnimationFrame(focusClose);
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -94,7 +100,6 @@ export function FullscreenMenu() {
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
