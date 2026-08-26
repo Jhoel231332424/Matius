@@ -1,38 +1,60 @@
 # Matius Perfect — Landing Demo
 
-Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión a WhatsApp.
+Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión contextual a WhatsApp.
 
 ## Stack
+
 - Next.js 16 + TypeScript
+- React 19
 - Tailwind CSS 4
-- Motion for React
-- App Router + metadata/robots/sitemap
+- App Router
+- `next/font` con Geist + Cormorant Garamond
+- Interacciones **CSS-first**; no se usa una librería de motion en el bundle actual
+- Metadata, canonical, robots, sitemap y builders JSON-LD
 
 ## Desarrollo
+
 ```bash
 npm install
 npm run dev
 ```
 
 ## Calidad
+
 ```bash
 npm run lint
 npm run typecheck
 npm run build
 ```
 
-El PR de foundation incluye GitHub Actions para ejecutar automáticamente los tres checks.
+GitHub Actions ejecuta además:
+
+- smoke de 11 rutas de producción;
+- 8 snapshots visuales por PR;
+- Lighthouse CI mobile;
+- artifacts de screenshots y reporte Lighthouse.
+
+### Matriz visual automática
+
+Mobile `390×844` y desktop `1440×1000` para:
+
+- Home / Hero
+- Colecciones (`#zapatos`)
+- Fabricación (`#fabricacion`)
+- Contacto / CTA final (`#contacto`)
 
 ## Entorno
+
 Copiar `.env.example` a `.env.local`.
 
 - `NEXT_PUBLIC_SITE_URL`: dominio canónico.
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`: número sin `+` ni espacios.
-- `NEXT_PUBLIC_ALLOW_INDEXING`: dejar `false` en demos/previews y activar solo en producción final.
-- `ALLOWED_DEV_ORIGINS`: lista separada por comas únicamente cuando el entorno de desarrollo la necesite.
+- `NEXT_PUBLIC_ALLOW_INDEXING`: mantener `false` en demos/previews; activar solo en producción final.
+- `ALLOWED_DEV_ORIGINS`: lista separada por comas solo cuando el entorno de desarrollo la requiera.
 
 ## Arquitectura de Home
-Cada bloque principal vive en un módulo independiente dentro de `components/sections/`:
+
+Cada bloque vive como módulo independiente en `components/sections/`:
 
 1. Hero
 2. Brand Pillars
@@ -45,9 +67,59 @@ Cada bloque principal vive en un módulo independiente dentro de `components/sec
 9. Stores
 10. Final CTA
 
-Los componentes reutilizables de producto y colección viven en `components/product/` y `components/collection/`.
+Componentes reutilizables:
 
-## Estado
-La arquitectura, SEO base, WhatsApp, motion y wireframe editorial están implementados. Aún deben sustituirse las superficies visuales temporales por fotografías autorizadas y completar datos del cliente como direcciones, horarios, catálogo final, precios y detalles técnicos de fabricación.
+- `components/product/ProductCardMatius`
+- `components/collection/CollectionCard`
+- primitives en `components/ui/`
+- helpers de WhatsApp, analytics y SEO en `lib/`
 
-Ver `docs/DESIGN-SYSTEM.md` y `docs/IMPLEMENTATION-AUDIT.md`.
+## Design governance
+
+Antes de modificar frontend, leer:
+
+1. `DESIGN.md` — contrato visual y de producto.
+2. `AGENTS.md` — reglas de implementación/QA para agentes.
+3. `docs/DESIGN-SYSTEM.md` — tokens y sistema visual detallado.
+4. `docs/CONVERSION-WHATSAPP.md` — intención, mensajes y eventos.
+5. `docs/QA-CHECKLIST.md` — gates responsive, visuales, a11y y performance.
+
+Skills locales para Codex:
+
+- `.codex/skills/matius-design/SKILL.md`
+- `.codex/skills/matius-cro/SKILL.md`
+- `.codex/skills/matius-seo/SKILL.md`
+- `.codex/skills/matius-visual-qa/SKILL.md`
+
+## Estado actual
+
+La demo ya incluye:
+
+- foundation completa;
+- sistema editorial `Modern Bolivian Leather / Editorial Commerce`;
+- assets first-party oficiales disponibles públicamente;
+- Hero product-first en mobile;
+- colecciones y producto con composición editorial;
+- fabricación CSS sticky sin dependencia de motion;
+- WhatsApp contextual por Hero/producto/sucursal/CTA/floating;
+- `window.dataLayer` preparado para analytics;
+- SEO técnico base;
+- QA automático con rutas, snapshots y Lighthouse.
+
+## Pendiente del cliente antes de producción
+
+- logo maestro/vectorial;
+- originales fotográficos en máxima resolución;
+- fotografías específicas por producto;
+- fotografías reales de fabricación;
+- fotografías, direcciones y horarios de las tres sucursales;
+- catálogo definitivo, tallas, colores, precios y stock;
+- políticas de garantía/cambios/devoluciones;
+- claims técnicos autorizados;
+- testimonios reales si la marca decide usarlos.
+
+La preview debe mantenerse `noindex` hasta disponer de datos/activos finales y definir el dominio de producción.
+
+## PR activo
+
+El desarrollo se mantiene en `feat/landing-foundation` mediante el PR draft #3. No mergear a `main` hasta completar la revisión de preview y los datos de producción.
