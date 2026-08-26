@@ -12,7 +12,7 @@ const asset = (file: string, alt: string, objectPosition = "center"): BrandAsset
 
 export const brandMedia = {
   source: "https://matiusperfect.com/",
-  hero: asset("hero-1.png", "Imagen editorial de calzado Matius Perfect", "center"),
+  hero: asset("hero-1.png", "Imagen editorial de calzado Matius Perfect", "center bottom"),
   campaign: [
     asset("hero-1.png", "Campaña de calzado Matius Perfect", "center"),
     asset("hero-2.png", "Imagen de campaña de Matius Perfect", "center"),
