@@ -1,17 +1,24 @@
-# Matius Perfect — Landing Demo
+# Matius Perfect — Editorial Landing
 
 Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión contextual a WhatsApp.
 
+## Preview actual
+
+- Railway: `https://matius-preview-production.up.railway.app`
+- Branch desplegada: `feat/landing-foundation`
+- PR activo: #3 (draft)
+- Preview protegido con `noindex,nofollow`
+- `main` no se usa para el preview y no debe mergearse sin revisión explícita.
+
 ## Stack
 
-- Next.js 16 + TypeScript
-- React 19
+- Next.js 16 + React 19 + TypeScript
 - Tailwind CSS 4
 - App Router
-- `next/font` con Geist + Cormorant Garamond
-- Interacciones **CSS-first**; no se usa una librería de motion en el bundle actual
+- `next/font`: Geist + Cormorant Garamond
+- Interacciones CSS-first
+- `playwright-core` solo como tooling de QA
 - Metadata, canonical, robots, sitemap y builders JSON-LD
-- `playwright-core` solo como tooling de Visual QA
 
 ## Desarrollo
 
@@ -20,7 +27,7 @@ npm install
 npm run dev
 ```
 
-## Calidad
+## Calidad local / PR
 
 ```bash
 npm run lint
@@ -28,43 +35,48 @@ npm run typecheck
 npm run build
 ```
 
-GitHub Actions ejecuta además:
+El workflow CI añade smoke de rutas, 10 snapshots mobile/desktop y Lighthouse mobile.
 
-- smoke de 11 rutas de producción;
-- **10 snapshots visuales por PR**;
-- Lighthouse CI mobile;
-- artifacts de screenshots y reporte Lighthouse.
+## Live Preview QA
 
-### Matriz visual automática
+`.github/workflows/preview-qa.yml` valida el deployment real de Railway en cada push a `feat/landing-foundation`.
 
-Mobile `390×844` y desktop `1440×1000` para:
+Antes de auditar, espera a que `/api/deployment-info` exponga exactamente `GITHUB_SHA`. Después comprueba:
 
-- Home / Hero
-- Colecciones cerradas (`#zapatos`)
-- Colecciones con panel `Cuero` abierto
-- Fabricación (`#fabricacion`)
-- Contacto / CTA final (`#contacto`)
+- rutas públicas;
+- `/api/health`;
+- `noindex,nofollow`;
+- WhatsApp oficial;
+- ausencia de copy interno/provisional;
+- 10 snapshots mobile/desktop;
+- Lighthouse sobre Railway.
 
-El harness espera la carga real de imágenes lazy después del scroll para evitar snapshots negros/falsos.
+Última línea base live registrada durante esta fase:
 
-## Entorno
+- Performance: 98
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
+- LCP ≈ 2.22 s
+- CLS = 0
+- TBT ≈ 118 ms
 
-Copiar `.env.example` a `.env.local`.
+## Railway runtime
 
-- `NEXT_PUBLIC_SITE_URL`: dominio canónico.
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`: número sin `+` ni espacios.
-- `NEXT_PUBLIC_ALLOW_INDEXING`: mantener `false` en local/previews; activar solo en producción final.
-- `ALLOWED_DEV_ORIGINS`: lista separada por comas solo cuando el entorno de desarrollo la requiera.
+Configuración documentada en `docs/RAILWAY-RUNTIME.md`:
 
-En Vercel Preview, `VERCEL_ENV=preview` fuerza `noindex,nofollow` aunque la variable pública se configure accidentalmente en `true`.
+- start: `npm start`;
+- healthcheck: `/api/health`;
+- healthcheck timeout: 120 s;
+- sleep desactivado;
+- restart: `ON_FAILURE`;
+- máximo 3 reintentos.
 
 ## Arquitectura de Home
 
-Cada bloque vive como módulo independiente en `components/sections/`:
-
 1. Hero
 2. Brand Pillars
-3. Collections
+3. Editorial Collection Accordion
 4. Featured Products
 5. Craftsmanship
 6. Leather Detail
@@ -73,89 +85,62 @@ Cada bloque vive como módulo independiente en `components/sections/`:
 9. Stores
 10. Final CTA
 
-Componentes reutilizables importantes:
-
-- `components/product/ProductCardMatius`
-- `components/collection/CollectionCard` — fallback del grid original
-- `components/collection/collection-accordion.tsx` — experiencia editorial actual de Colecciones
-- primitives en `components/ui/`
-- helpers de WhatsApp, analytics y SEO en `lib/`
-
-## Editorial Collection Accordion
-
-La sección Colecciones usa tres entradas:
-
-- Hombre
-- Mujer
-- Cuero
-
-En desktop se presenta como accordion horizontal con rails verticales y expansión del panel activo. En mobile cambia a accordion vertical, sin dependencia de hover, con cierre visible dentro del contenido.
-
-La categoría `Cuero` es deliberadamente genérica: los assets actuales son imágenes oficiales de campaña y no se deben atribuir a un modelo Oxford específico sin verificación.
-
-Documentación: `docs/FEATURE-10-COLLECTION-ACCORDION.md`.
+Colecciones usa tres entradas: Hombre / Mujer / Cuero. El accordion es horizontal en desktop y vertical en mobile, accesible por click/teclado y sin dependencia funcional de hover.
 
 ## Design governance
 
 Antes de modificar frontend, leer:
 
-1. `DESIGN.md` — contrato visual y de producto.
-2. `AGENTS.md` — reglas de implementación/QA para agentes.
-3. `docs/DESIGN-SYSTEM.md` — tokens y sistema visual detallado.
-4. `docs/CONVERSION-WHATSAPP.md` — intención, mensajes y eventos.
-5. `docs/QA-CHECKLIST.md` — gates responsive, visuales, a11y y performance.
-6. `docs/DEPLOYMENT.md` — reglas de preview/producción e indexación.
+1. `DESIGN.md`
+2. `AGENTS.md`
+3. `docs/DESIGN-SYSTEM.md`
+4. `docs/CONVERSION-WHATSAPP.md`
+5. `docs/QA-CHECKLIST.md`
+6. `docs/DEPLOYMENT.md`
+7. `docs/RAILWAY-RUNTIME.md`
 
-Skills locales para Codex:
+Skills locales de Codex:
 
 - `.codex/skills/matius-design/SKILL.md`
 - `.codex/skills/matius-cro/SKILL.md`
 - `.codex/skills/matius-seo/SKILL.md`
 - `.codex/skills/matius-visual-qa/SKILL.md`
 
-## Estado actual
+## Estado funcional
 
-La demo ya incluye:
+Ya implementado:
 
-- foundation completa;
 - sistema editorial `Modern Bolivian Leather / Editorial Commerce`;
-- assets first-party oficiales disponibles públicamente;
-- Hero product-first en mobile;
-- Editorial Collection Accordion validado cerrado/abierto en mobile y desktop;
-- producto con composición editorial;
-- fabricación CSS sticky sin dependencia de motion;
-- WhatsApp contextual por Hero/producto/sucursal/CTA/floating;
-- floating WhatsApp protegido para no cubrir contenido mobile;
-- `window.dataLayer` preparado para analytics;
-- SEO técnico base + preview `noindex` seguro;
-- QA automático con rutas, 10 snapshots y Lighthouse;
-- HEAD actual con lint, typecheck, build, smoke, snapshots y Lighthouse verdes.
+- assets first-party públicos de campaña;
+- Hero product-first mobile;
+- accordion editorial cerrado/abierto validado;
+- fabricación sticky CSS;
+- WhatsApp contextual por source;
+- copy client-ready en rutas públicas;
+- guard contra copy interno/provisional;
+- SEO técnico y preview noindex;
+- Railway preview;
+- healthcheck y runtime hardening;
+- CI local + Live Preview QA.
 
 ## Pendiente del cliente antes de producción
 
 - logo maestro/vectorial;
-- originales fotográficos en máxima resolución;
-- fotografías específicas por producto;
-- fotografías reales de fabricación;
-- fotografías, direcciones y horarios de las tres sucursales;
+- originales fotográficos de alta resolución;
+- fotografías por producto y fabricación;
+- fotografías/direcciones/horarios de las tres sucursales;
 - catálogo definitivo, tallas, colores, precios y stock;
-- políticas de garantía/cambios/devoluciones;
+- garantía y políticas de cambios/devoluciones;
 - claims técnicos autorizados;
-- testimonios reales si la marca decide usarlos.
+- testimonios reales si se usarán;
+- proveedor de analytics (GA4/GTM/u otro).
 
-## Próximo gate
+## Próximos pasos que no requieren datos del cliente
 
-**Preview Deploy** en una URL separada del sitio oficial.
+1. ampliar QA funcional de interacciones y CTAs;
+2. validar teclado/Escape/aria del accordion en el deploy real;
+3. validar URLs y mensajes contextuales de WhatsApp con Playwright;
+4. revisar comportamiento responsive de rutas secundarias;
+5. mantener PR #3 en draft hasta la revisión explícita.
 
-Después del deploy:
-
-1. QA visual sobre URL real;
-2. prueba de WhatsApp real;
-3. Lighthouse/Core Web Vitals sobre infraestructura desplegada;
-4. revisión mobile/desktop en dispositivos reales;
-5. completar datos/activos del cliente;
-6. sacar el PR de draft solo después de revisión explícita.
-
-## PR activo
-
-El desarrollo se mantiene en `feat/landing-foundation` mediante el PR draft #3. No mergear a `main` hasta completar la revisión de preview y los datos mínimos de producción.
+No activar `NEXT_PUBLIC_ALLOW_INDEXING=true` ni mergear a `main` antes de completar los datos de producción y la revisión final.

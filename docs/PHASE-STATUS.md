@@ -1,202 +1,131 @@
 # Phase Status — Matius Perfect
 
-## Resumen
+## Estado general
 
-Branch activa: `feat/landing-foundation`  
-PR: #3 (draft)
+Branch: `feat/landing-foundation`  
+PR: #3 (draft)  
+Preview: `https://matius-preview-production.up.railway.app`
 
-La landing ya superó foundation, wireframe y primera producción visual. Existe una demo editorial modular, medible y protegida para preview, con reglas versionadas para evitar rediseños arbitrarios por agentes/Codex.
+La landing ya cuenta con diseño editorial, CRO de WhatsApp, QA visual, preview público protegido y validación automática contra Railway.
 
 ## Fase 1 — Foundation
-
 Estado: **completada**.
 
-- Next.js + TypeScript + Tailwind.
-- React/App Router.
-- Design tokens y tipografías mediante `next/font`.
-- `types/`, `data/`, `lib/` y UI primitives.
-- Layout global y floating WhatsApp.
-- Home modularizada en 10 secciones.
-- Rutas de zapatos, fabricación y tiendas.
-- Metadata, canonical por página, sitemap y robots.
-- Builders Organization / LocalBusiness / Product / Breadcrumb.
-- CI base: install, lint, typecheck y build.
+Next.js/React/TypeScript/Tailwind, App Router, tokens, fuentes, data/types/lib, layout, rutas, metadata, sitemap/robots y builders JSON-LD.
 
-## Fase 2 — Producción visual de demo
+## Fase 2 — Producción visual
+Estado: **completada con assets first-party disponibles**.
 
-Estado: **completada con los assets first-party actualmente disponibles**.
-
-- Registro de medios en `data/media.ts`.
-- Cuatro imágenes oficiales de campaña integradas.
-- Hero con prioridad LCP.
-- Brand Pillars, Collections, Lifestyle, Lookbook y Leather Detail con fotografía.
-- Final CTA fotográfico.
-- Oxford conserva la información pública verificada en la capa de producto.
-- Allowlist remota limitada a `matiusperfect.com/assets/**`.
-
-Importante: las imágenes de campaña se usan como universo visual; no se asignan a un modelo concreto sin verificación.
+Fotografía oficial de campaña integrada sin atribuir imágenes a modelos concretos sin verificación.
 
 ## Fase 3 — Design governance
+Estado: **completada**. Commit base: `c21319c`.
 
-Estado: **completada**.
-
-Feature commit: `c21319c`.
-
-- `DESIGN.md` como contrato visual.
-- `AGENTS.md` con reglas obligatorias para agentes/Codex.
-- skills locales:
-  - `matius-design`;
-  - `matius-cro`;
-  - `matius-seo`;
-  - `matius-visual-qa`.
-
-Principio central: `Modern Bolivian Leather / Editorial Commerce`.
+`DESIGN.md`, `AGENTS.md` y skills locales para design/CRO/SEO/visual QA.
 
 ## Fase 4 — Sistema editorial
-
 Estado: **completada y validada**.
 
-Reference components — `054bf9c`:
-- Hero product-first en mobile;
-- ProductCardMatius;
-- Featured Products con jerarquía;
-- Fabricación sticky CSS.
+Hero product-first, ProductCardMatius, Brand Pillars, Craftsmanship sticky CSS, Leather Detail, Lifestyle, Lookbook, Stores y Final CTA.
 
-Propagación — `36a5285`:
-- Brand Pillars editoriales;
-- Leather Detail;
-- Lookbook;
-- Stores sin placeholders falsos;
-- Final CTA.
-
-No se usa Motion/GSAP/Lenis/WebGL en el bundle actual. El storytelling se resuelve CSS-first.
-
-## Fase 5 — CRO / WhatsApp contextual
-
+## Fase 5 — CRO / WhatsApp
 Estado: **completada y validada**.
 
-Base: `508c7c3`.  
-Mobile safety: `1a515e9`.
-
-- mensajes diferenciados por Hero, producto, sucursal, CTA final y botón flotante;
-- eventos `window.dataLayer` mantienen nombres estables;
-- contexto de producto/sucursal conservado;
-- floating WhatsApp no cubre contenido/CTAs mobile;
-- documentación en `docs/CONVERSION-WHATSAPP.md`.
-
-Proveedor real de analytics (GA4/GTM u otro) aún no está conectado; la capa de eventos sí está preparada.
+Mensajes y eventos diferenciados por Hero, producto, sucursal, CTA final y floating. Mobile floating protegido para no tapar contenido.
 
 ## Fase 6 — Editorial Collection Accordion
+Estado: **completada y validada**.
 
-Estado: **completada y validada visualmente**.
+Hombre / Mujer / Cuero; horizontal desktop, vertical mobile; click/teclado; Escape; cierre mobile; CSS-first.
 
-Commits principales:
-- `480951c` — implementación inicial;
-- `d7b2647` — polish + open-state QA;
-- `811a012` — scope correcto del QA interactivo;
-- `99755e7` — integridad de contenido + cierre mobile.
+## Fase 7 — CI / Visual QA local
+Estado: **completada**.
 
-Características:
-- tres paneles: Hombre / Mujer / Cuero;
-- accordion horizontal en desktop;
-- accordion vertical en mobile;
-- hover como preview únicamente;
-- click/teclado para abrir;
-- Escape para cerrar;
-- cierre visible dentro del contenido mobile;
-- CTA de colección + WhatsApp contextual;
-- CSS-first, sin librerías de motion;
-- `CollectionCard` original conservado como fallback.
-
-La tercera entrada se llama `Cuero`, no `Oxford`, para evitar asociar una fotografía de campaña a un modelo concreto sin evidencia.
-
-## Fase 7 — Visual QA automático
-
-Estado: **completada y validada sobre el HEAD actual**.
-
-Base inicial: `abbc8c1`.  
-Harness Playwright: `2ae1847`.  
-Carga determinística de imágenes: `05f6794`.
-
-CI cubre:
 - lint;
 - typecheck;
 - build;
-- smoke de 11 rutas;
-- Lighthouse mobile;
-- artifacts de reportes;
-- **10 snapshots por PR**:
-  - Hero mobile/desktop;
-  - Colecciones cerradas mobile/desktop;
-  - Colecciones con `Cuero` abierto mobile/desktop;
-  - Fabricación mobile/desktop;
-  - Contacto mobile/desktop.
+- smoke;
+- 10 snapshots;
+- Lighthouse mobile.
 
-El harness:
-- usa `playwright-core` solo como tooling;
-- reutiliza Chrome del runner;
-- fuerza `reducedMotion: reduce`;
-- elimina smooth scroll en la sesión;
-- desplaza a anchors de forma programática;
-- espera la carga real de imágenes lazy antes de capturar.
+## Fase 8 — Preview Safety
+Estado: **completada**.
 
-HEAD validado: `05f67944d197830cfa19983cb569441610f7c582`.
+Preview `noindex,nofollow`, robots compatible con lectura de noindex e indexación desactivada hasta producción final.
 
-## Fase 8 — Preview / Deployment Safety
+## Fase 9 — Railway Preview
+Estado: **completada**.
 
-Estado: **preparada en código; deploy externo pendiente**.
+Proyecto `Matius Preview`, servicio `matius-preview`, branch `feat/landing-foundation` y dominio público Railway.
 
-Feature commit: `5889f10`.
+## Fase 10 — Live Preview QA
+Estado: **completada**. Feature: `c285304`.
 
-- local y preview permanecen `noindex,nofollow`;
-- `VERCEL_ENV=preview` actúa como segundo guard;
-- `robots.txt` permite crawling del preview para que crawlers puedan leer `noindex`;
-- indexación solo se permite en producción final;
-- guía completa en `docs/DEPLOYMENT.md`.
+`/api/deployment-info` sincroniza GitHub Actions con el SHA real servido por Railway. El workflow valida rutas, SEO/noindex, WhatsApp, 10 screenshots y Lighthouse live.
 
-El conector de Vercel aún debe quedar autorizado/conectado para crear el preview desde este entorno.
+Baseline live registrado:
+- Performance 98;
+- Accessibility 100;
+- Best Practices 100;
+- SEO 100;
+- LCP ≈ 2.22 s;
+- CLS 0;
+- TBT ≈ 118 ms.
+
+## Fase 11 — Client-ready Copy
+Estado: **completada y validada**. Feature: `864cac3`.
+
+Se eliminó lenguaje interno/provisional visible del footer y rutas de zapatos, fabricación y sucursales.
+
+## Fase 12 — Copy Regression Guard
+Estado: **completada y validada**. Feature: `61599e8`.
+
+Preview QA falla si rutas públicas vuelven a incluir copy como “Demo editorial”, “Colección preparada”, “Ruta preparada”, “Storytelling preparado” u otros mensajes internos definidos por el gate.
+
+## Fase 13 — Railway Runtime Hardening
+Estado: **implementada y desplegada**. Feature: `f01af44`.
+
+- `/api/health`;
+- start `npm start`;
+- healthcheck `/api/health`;
+- timeout 120 s;
+- sleep desactivado;
+- restart `ON_FAILURE`;
+- 3 reintentos máximos.
+
+Configuración documentada en `docs/RAILWAY-RUNTIME.md`.
 
 ## Pendiente del cliente
 
 ### Marca / assets
-- [ ] logo maestro/vectorial;
-- [ ] originales fotográficos en máxima resolución;
-- [ ] fotografías específicas por producto;
-- [ ] macros de cuero/acabados reales;
-- [ ] material real de fabricación;
-- [ ] fotografías reales de sucursales.
+- [ ] logo maestro/vectorial
+- [ ] fotografías originales en alta resolución
+- [ ] imágenes por producto
+- [ ] macros de cuero/acabados
+- [ ] fotos de fabricación
+- [ ] fotos de sucursales
 
 ### Negocio
-- [ ] direcciones exactas de Central, Sucursal 1 y Sucursal 2;
-- [ ] horarios;
-- [ ] teléfonos por sucursal si varían;
-- [ ] catálogo definitivo;
-- [ ] precios finales vigentes;
-- [ ] tallas y colores;
-- [ ] stock si se desea mostrar;
-- [ ] garantía;
-- [ ] cambios/devoluciones;
-- [ ] claims técnicos de cuero/fabricación autorizados;
-- [ ] testimonios/reseñas reales si se usarán.
+- [ ] direcciones exactas y horarios
+- [ ] teléfonos por sucursal si varían
+- [ ] catálogo definitivo
+- [ ] precios vigentes
+- [ ] tallas/colores
+- [ ] stock si se mostrará
+- [ ] garantía
+- [ ] cambios/devoluciones
+- [ ] claims técnicos autorizados
+- [ ] testimonios reales
+- [ ] proveedor de analytics
 
-## Próximo gate
+## Próximos pasos ejecutables sin cliente
 
-### Preview Deploy
+1. QA funcional Playwright de interacciones clave;
+2. validar keyboard/Escape/aria del accordion live;
+3. validar CTAs y mensajes WhatsApp por source;
+4. revisar rutas secundarias mobile/desktop;
+5. mantener documentación/PR sincronizados.
 
-1. conectar/autorizar Vercel;
-2. desplegar `feat/landing-foundation` como preview separado del sitio oficial;
-3. confirmar `noindex,nofollow` en HTML;
-4. ejecutar QA mobile/desktop sobre la URL real;
-5. probar CTAs WhatsApp reales;
-6. ejecutar Lighthouse/Core Web Vitals sobre el deploy;
-7. corregir cualquier diferencia de infraestructura/crops;
-8. mantener PR draft hasta completar esta revisión.
+## Gate de producción
 
-## Después del preview
-
-- sustituir assets/datos al recibir material del cliente;
-- conectar proveedor de analytics y validar eventos WhatsApp;
-- completar `LocalBusiness` con NAP/horarios confirmados;
-- crear páginas/product schema cuando exista catálogo definitivo;
-- activar `NEXT_PUBLIC_ALLOW_INDEXING=true` únicamente en producción final;
-- sacar PR de draft y mergear solo después de revisión explícita.
+No activar indexación, sacar PR de draft ni mergear a `main` hasta incorporar datos mínimos de producción y recibir revisión explícita.

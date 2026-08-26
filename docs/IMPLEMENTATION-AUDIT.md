@@ -2,74 +2,60 @@
 
 ## Estado general
 
-Foundation, producción visual de demo, design governance, sistema editorial, CRO/WhatsApp y visual QA están implementados en `feat/landing-foundation`.
+La implementación activa vive en `feat/landing-foundation` y se visualiza en Railway:
 
-Este archivo describe el estado técnico real; `DESIGN.md` manda para decisiones visuales y `AGENTS.md` para workflow de agentes.
+`https://matius-preview-production.up.railway.app`
 
-## Checklist implementado
+`DESIGN.md` es la fuente de verdad visual y `AGENTS.md` define el workflow obligatorio para agentes/Codex.
 
-- [x] Scaffold Next.js + TypeScript + Tailwind
-- [x] Design tokens en `app/globals.css`
-- [x] Geist + Cormorant Garamond con `next/font`
-- [x] `next.config.ts` con `allowedDevOrigins` condicionado por entorno
-- [x] `types/` para productos y sucursales
-- [x] `data/` para site, productos, stores, media y WhatsApp
-- [x] `lib/` para utils, WhatsApp, analytics y SEO/JSON-LD
-- [x] UI primitives: button, container, section heading y WhatsApp button
-- [x] Layout: topbar, navbar, footer y floating WhatsApp
-- [x] 10 secciones de Home modularizadas
-- [x] Hero editorial product-first en mobile
+## Implementado
+
+- [x] Next.js 16 + React 19 + TypeScript + Tailwind CSS 4
+- [x] App Router, tokens y `next/font`
+- [x] types/data/lib y UI primitives
+- [x] layout global
+- [x] Home modularizada en 10 secciones
+- [x] Hero product-first mobile
 - [x] Brand Pillars editoriales
-- [x] Collections asimétricas con links SEO reales
-- [x] `ProductCardMatius`
-- [x] Featured Products con jerarquía de Oxford/colecciones
-- [x] Craftsmanship con scroll storytelling sticky CSS
-- [x] Leather Detail editorial
-- [x] Lifestyle
-- [x] Lookbook
-- [x] Stores sin datos visuales inventados
+- [x] Editorial Collection Accordion
+- [x] ProductCardMatius + Featured Products
+- [x] Craftsmanship sticky CSS
+- [x] Leather Detail, Lifestyle y Lookbook
+- [x] Stores sin NAP inventado
 - [x] Final CTA
-- [x] Rutas preparadas: zapatos, fabricación y tiendas
-- [x] Metadata y canonical por página
-- [x] Open Graph/Twitter en Home
-- [x] favicon/icon route
-- [x] sitemap y robots
-- [x] Organization / LocalBusiness / Product / Breadcrumb JSON-LD builders
-- [x] Preview `noindex` por defecto
+- [x] rutas de zapatos/fabricación/tiendas
+- [x] metadata/canonical/OG/favicon/sitemap/robots
+- [x] builders Organization/LocalBusiness/Product/Breadcrumb
+- [x] preview `noindex,nofollow`
 - [x] WhatsApp contextual por source
 - [x] `window.dataLayer` analytics-ready
-- [x] `DESIGN.md` y `AGENTS.md`
-- [x] skills locales de design/CRO/SEO/visual QA
-- [x] GitHub Actions: install + lint + typecheck + build
-- [x] smoke de 11 rutas
-- [x] visual snapshots en CI
-- [x] Lighthouse CI
+- [x] `DESIGN.md`, `AGENTS.md` y skills locales
+- [x] CI: lint/typecheck/build/smoke/snapshots/Lighthouse
+- [x] Railway preview público
+- [x] `/api/deployment-info` para sincronía por SHA
+- [x] Live Preview QA contra Railway
+- [x] copy client-ready en rutas públicas
+- [x] guard anti-copy interno/provisional
+- [x] `/api/health` y runtime hardening Railway
 
-## Motion / JavaScript
+## JavaScript / motion
 
-El proyecto **no usa Motion como dependencia** en su estado actual.
+No se usa Motion/GSAP/Lenis/WebGL en el bundle actual. La estrategia vigente es:
 
-Estrategia vigente:
 1. HTML/CSS;
-2. CSS transitions/sticky;
-3. JS cliente únicamente para interacción necesaria;
-4. introducir librería de motion solo si existe una necesidad demostrada.
+2. transitions/sticky CSS;
+3. JS cliente solo para interacción necesaria;
+4. introducir una librería de motion únicamente si existe una necesidad demostrada.
 
-Los principales Client Components se limitan a funciones interactivas como WhatsApp/floating y navegación cuando corresponda.
+## Assets y datos
 
-## Assets públicos/first-party utilizados
+Se usan assets first-party públicos de campaña registrados en `data/media.ts`. Las fotografías se tratan como universo visual y no como prueba de un modelo concreto.
 
-- cuatro imágenes de campaña expuestas por el sitio oficial y registradas en `data/media.ts`;
-- WhatsApp oficial configurado como fallback;
-- email público de marca;
-- ubicación general Cochabamba/Bolivia;
-- Oxford con el precio público registrado durante la implementación.
+Datos públicos utilizados incluyen el WhatsApp, email y ubicación general de marca ya verificados durante la implementación. No se inventan direcciones, horarios, stock, políticas ni testimonios.
 
-Las imágenes de campaña NO prueban que representen un modelo específico.
+## QA local
 
-## QA actual
-
-Por feature de UI se requiere:
+Cada cambio debe pasar:
 
 ```bash
 npm run lint
@@ -77,51 +63,71 @@ npm run typecheck
 npm run build
 ```
 
-CI añade:
-- 11 rutas smoke;
-- Lighthouse mobile;
-- artifacts visuales;
-- snapshots mobile/desktop de Home/Hero, Collections, Craftsmanship y Contact.
+CI añade smoke, 10 snapshots y Lighthouse mobile.
 
-No marcar una feature como completada por existencia de archivos; el HEAD correspondiente debe pasar CI.
+## QA sobre Railway
 
-## Pendientes antes de producción
+Preview QA:
 
-### Assets
-- [ ] logo definitivo autorizado en vector/alta calidad
-- [ ] originales hero/campaña de alta resolución
-- [ ] fotografía de producto por modelo
-- [ ] macros reales de cuero/acabados
-- [ ] material real de fabricación
-- [ ] fotografías reales de sucursales
+1. espera al SHA exacto servido por `/api/deployment-info`;
+2. valida rutas + `/api/health`;
+3. valida `noindex,nofollow` y WhatsApp;
+4. rechaza copy interno/provisional;
+5. genera 10 snapshots contra Railway;
+6. ejecuta Lighthouse live.
 
-### Cliente / negocio
-- [ ] direcciones exactas de las tres sucursales
-- [ ] horarios
-- [ ] teléfonos por sucursal si varían
-- [ ] catálogo definitivo
-- [ ] precios finales vigentes
-- [ ] tallas/colores
-- [ ] stock si se mostrará
-- [ ] política de cambios/devoluciones
-- [ ] garantía
-- [ ] proceso real de fabricación y claims autorizados
-- [ ] testimonios/reseñas reales si se usarán
+Baseline live registrado en esta fase:
 
-### Producción
-- [ ] preview deploy compartible
-- [ ] QA en dispositivos/navegadores reales
-- [ ] proveedor analytics conectado y eventos validados
-- [ ] LocalBusiness completo con datos verificados
-- [ ] Product/ProductGroup solo cuando exista catálogo real
-- [ ] Lighthouse/Core Web Vitals sobre infraestructura real
-- [ ] dominio final y redirects
-- [ ] indexación activada únicamente al publicar
+- Performance 98
+- Accessibility 100
+- Best Practices 100
+- SEO 100
+- LCP ≈ 2.22 s
+- CLS 0
+- TBT ≈ 118 ms
 
-## Gate para sacar PR #3 de draft
+## Railway runtime
 
-- CI del HEAD verde;
+Ver `docs/RAILWAY-RUNTIME.md`.
+
+Configuración aplicada:
+- `npm start`;
+- healthcheck `/api/health`;
+- timeout 120 s;
+- sleep desactivado;
+- restart `ON_FAILURE`;
+- 3 reintentos.
+
+## Pendiente antes de producción
+
+### Cliente / assets
+- [ ] logo definitivo
+- [ ] fotografías originales de alta resolución
+- [ ] fotografías por producto/fabricación/sucursal
+- [ ] direcciones y horarios exactos
+- [ ] catálogo, tallas, colores, precios y stock
+- [ ] garantía y cambios/devoluciones
+- [ ] claims técnicos autorizados
+- [ ] testimonios reales
+
+### Integraciones / producción
+- [ ] proveedor real de analytics conectado
+- [ ] NAP completo en LocalBusiness
+- [ ] Product/ProductGroup con catálogo definitivo
+- [ ] dominio final/redirects si cambian
+- [ ] indexación activada solo al publicar
+
+## Próximo QA técnico
+
+- Playwright funcional de accordion (click/keyboard/Escape/aria);
+- validación de CTAs WhatsApp por source y mensaje;
+- responsive de rutas secundarias;
+- revisión explícita antes de sacar PR #3 de draft.
+
+## Gate para merge
+
+- CI y Preview QA del HEAD verdes;
 - preview visual revisada;
-- no existen claims ficticios;
-- datos finales mínimos del cliente incorporados o claramente omitidos;
-- decisión explícita de publicar/mergear.
+- sin claims ficticios;
+- datos mínimos de producción incorporados u omitidos de forma segura;
+- autorización explícita para publicar/mergear.
