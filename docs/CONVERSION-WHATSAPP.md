@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-WhatsApp es el canal de conversión primario de la landing. La experiencia no debe depender de un único botón flotante: cada CTA debe conservar el contexto de intención que lo originó.
+WhatsApp es el canal de conversión primario de la landing. La experiencia no depende de un único botón flotante: cada CTA conserva el contexto de intención que lo originó.
 
 ## Fuentes actuales
 
@@ -12,7 +12,7 @@ WhatsApp es el canal de conversión primario de la landing. La experiencia no de
 | `product` | `whatsapp_product_click` | consulta sobre un modelo/colección concreta |
 | `store` | `whatsapp_store_click` | consulta sobre una sucursal |
 | `final-cta` | `whatsapp_final_cta_click` | visitante que recorrió la landing |
-| `floating` | `whatsapp_floating_click` | consulta general persistente |
+| `floating` | `whatsapp_floating_click` | consulta general persistente en pantallas con espacio suficiente |
 | `general` | `whatsapp_general_click` | fallback |
 
 ## Mensajes
@@ -31,6 +31,17 @@ WhatsApp es el canal de conversión primario de la landing. La experiencia no de
 
 ### Floating
 `Hola, estoy viendo la web de Matius Perfect y quisiera hacer una consulta sobre sus zapatos.`
+
+## Floating WhatsApp
+
+El botón flotante es **soporte**, no la conversión principal.
+
+- En mobile (< `md`) se oculta para no tapar contenido ni controles; la conversión se mantiene mediante Hero, Product Cards, navegación, Stores y Final CTA.
+- En desktop/tablet amplio aparece después de superar el Hero.
+- Se oculta cuando `#contacto` entra en viewport para no competir con el CTA contextual final.
+- Conserva el evento `whatsapp_floating_click` cuando está disponible.
+
+Esta regla proviene del visual QA: un CTA fijo pequeño seguía cubriendo copy en pantallas estrechas, aunque cumpliera el target táctil mínimo.
 
 ## Reglas
 
@@ -57,5 +68,6 @@ WhatsApp es el canal de conversión primario de la landing. La experiencia no de
 - URL usa número configurado y mensaje encoded;
 - source/event no cambia accidentalmente;
 - producto/sucursal conserva contexto;
-- CTA visible y usable en mobile;
+- CTAs contextuales siguen visibles y usables en mobile;
+- floating no cubre contenido en snapshots;
 - CI verde.
