@@ -72,6 +72,7 @@ jobs:
             "/robots.txt"
             "/sitemap.xml"
             "/api/deployment-info"
+            "/api/health"
           )
 
           for route in "${routes[@]}"; do
@@ -83,6 +84,9 @@ jobs:
           echo "$html" | grep -qi "noindex"
           echo "$html" | grep -qi "nofollow"
           echo "$html" | grep -q "wa.me/59171431096"
+
+          health="$(curl --fail --silent --show-error --max-time 20 "$PREVIEW_URL/api/health")"
+          echo "$health" | grep -q '"status":"ok"'
 
       - name: Reject internal or provisional copy on public pages
         shell: bash
