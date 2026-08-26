@@ -13,6 +13,20 @@ const cases = [
   { name: "home-desktop", width: 1440, height: 1000 },
   { name: "collections-mobile", width: 390, height: 844, selector: "#zapatos" },
   { name: "collections-desktop", width: 1440, height: 1000, selector: "#zapatos" },
+  {
+    name: "collections-open-mobile",
+    width: 390,
+    height: 844,
+    selector: "#zapatos",
+    openCollection: "Oxford",
+  },
+  {
+    name: "collections-open-desktop",
+    width: 1440,
+    height: 1000,
+    selector: "#zapatos",
+    openCollection: "Oxford",
+  },
   { name: "craftsmanship-mobile", width: 390, height: 844, selector: "#fabricacion" },
   { name: "craftsmanship-desktop", width: 1440, height: 1000, selector: "#fabricacion" },
   { name: "contact-mobile", width: 390, height: 844, selector: "#contacto" },
@@ -49,8 +63,17 @@ try {
         window.scrollTo(0, Math.max(0, targetY));
       });
 
-      await page.waitForTimeout(350);
+      await page.waitForTimeout(250);
       await page.waitForLoadState("networkidle").catch(() => undefined);
+    }
+
+    if (testCase.openCollection) {
+      const trigger = page.getByRole("button", {
+        name: new RegExp(`Abrir colección ${testCase.openCollection}`, "i"),
+      });
+      await trigger.click();
+      await page.getByRole("heading", { name: testCase.openCollection }).waitFor({ state: "visible" });
+      await page.waitForTimeout(150);
     }
 
     await page.screenshot({

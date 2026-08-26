@@ -16,27 +16,46 @@ Verificar manualmente como mínimo:
 
 ## Snapshots automáticos
 
-El CI genera ocho snapshots por PR mediante `scripts/capture-visuals.mjs` + `playwright-core`, reutilizando el Chrome instalado en el runner.
+El CI genera diez snapshots por PR mediante `scripts/capture-visuals.mjs` + `playwright-core`, reutilizando el Chrome instalado en el runner.
 
 ### Mobile — 390 × 844
 - `home-mobile.png`
 - `collections-mobile.png`
+- `collections-open-mobile.png`
 - `craftsmanship-mobile.png`
 - `contact-mobile.png`
 
 ### Desktop — 1440 × 1000
 - `home-desktop.png`
 - `collections-desktop.png`
+- `collections-open-desktop.png`
 - `craftsmanship-desktop.png`
 - `contact-desktop.png`
+
+### Colecciones — estado cerrado y abierto
+
+`collections-mobile/desktop` valida el accordion en reposo.
+
+`collections-open-mobile/desktop` abre programáticamente el panel **Oxford** mediante su botón accesible y valida:
+
+- expansión correcta;
+- paneles secundarios comprimidos;
+- título/copy visibles;
+- CTA `Explorar colección` visible;
+- CTA WhatsApp visible y legible;
+- botón cerrar visible;
+- ausencia de clipping/overflow;
+- floating WhatsApp sin cubrir controles en mobile.
 
 ### Determinismo de captura
 
 Playwright abre Home, espera `networkidle`, fuerza `reducedMotion: reduce`, elimina smooth-scroll para la sesión y desplaza programáticamente el viewport a `#zapatos`, `#fabricacion` o `#contacto` descontando el header sticky.
 
-Esto evita capturas tomadas a mitad del scroll o fuera de la sección. El objetivo del artifact es comparar **layout, crop, jerarquía y CTA**, no validar timing de animación.
+Para los snapshots abiertos, Playwright ejecuta además la interacción real con el botón `Abrir colección Oxford` y espera a que el heading `Oxford` sea visible antes de capturar.
 
-Si un snapshot con selector no muestra la sección indicada, el QA se considera roto aunque GitHub Actions finalice sin error.
+Esto evita capturas tomadas a mitad del scroll o fuera de la sección. El objetivo del artifact es comparar **layout, crop, jerarquía, estados interactivos y CTA**, no validar timing de animación.
+
+Si un snapshot con selector no muestra la sección indicada o el snapshot `collections-open-*` no muestra Oxford abierto, el QA se considera roto aunque GitHub Actions finalice sin error.
 
 Revisar siempre:
 - selector/sección correcta;
@@ -85,6 +104,9 @@ Validar también el mensaje prellenado por origen según `docs/CONVERSION-WHATSA
 - Contraste revisado en overlays sobre fotografías.
 - Skip link disponible.
 - Nombre accesible coincide con la intención visible.
+- Accordion de Colecciones usa botones reales.
+- Accordion de Colecciones puede cerrarse con Escape.
+- Los CTAs del panel abierto no quedan debajo de un overlay/control flotante.
 
 ## Imágenes
 
@@ -130,6 +152,7 @@ Revisar:
 - evitar JS en componentes puramente visuales;
 - comportamiento cliente solo cuando existe interacción real;
 - `playwright-core` es tooling de QA y no debe importarse desde la app;
+- accordion usa estado React mínimo, sin librería de motion;
 - no añadir GSAP/Lenis/WebGL/Motion sin demostrar necesidad;
 - lazy loading por defecto debajo del fold;
 - evitar animaciones de layout costosas.

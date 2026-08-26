@@ -1,7 +1,7 @@
 .accordion {
   display: flex;
-  height: min(72svh, 760px);
-  min-height: 580px;
+  height: min(64svh, 640px);
+  min-height: 520px;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 0.14);
   background: var(--mat-black);
@@ -39,25 +39,25 @@
 }
 
 .panel:not([data-active="true"]) .image {
-  filter: saturate(.62) brightness(.72);
+  filter: saturate(.68) brightness(.82);
 }
 
 .panel[data-active="true"] .image,
 .accordion[data-open="false"] .panel:hover .image {
   transform: scale(1);
-  filter: saturate(1) brightness(.9);
+  filter: saturate(1) brightness(.94);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgb(14 13 12 / 0.08) 10%, rgb(14 13 12 / 0.72) 100%);
+  background: linear-gradient(180deg, rgb(14 13 12 / 0.04) 10%, rgb(14 13 12 / 0.58) 100%);
   transition: background 500ms ease;
 }
 
 .panel[data-active="true"] .overlay {
-  background: linear-gradient(90deg, rgb(14 13 12 / 0.12) 0%, rgb(14 13 12 / 0.42) 42%, rgb(14 13 12 / 0.9) 100%);
+  background: linear-gradient(90deg, rgb(14 13 12 / 0.08) 0%, rgb(14 13 12 / 0.36) 42%, rgb(14 13 12 / 0.88) 100%);
 }
 
 .toggle {
@@ -186,7 +186,7 @@
 .description {
   max-width: 36rem;
   margin: 1.25rem 0 0;
-  color: rgb(255 255 255 / 0.78);
+  color: rgb(255 255 255 / 0.82);
   font-size: clamp(.95rem, 1.2vw, 1.1rem);
   line-height: 1.65;
 }
@@ -213,6 +213,15 @@
 
 .whatsapp {
   min-height: 2.75rem;
+  border-color: var(--mat-warm-white) !important;
+  background: var(--mat-warm-white) !important;
+  color: var(--mat-charcoal) !important;
+}
+
+.whatsapp:hover {
+  border-color: white !important;
+  background: white !important;
+  color: var(--mat-black) !important;
 }
 
 @keyframes contentReveal {
