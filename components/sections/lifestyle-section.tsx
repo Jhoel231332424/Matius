@@ -31,7 +31,6 @@ export function LifestyleSection() {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  unoptimized
                   sizes="(min-width: 768px) 60vw, 100vw"
                   style={{ objectPosition: image.objectPosition }}
                   className="object-cover"
