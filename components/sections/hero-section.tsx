@@ -27,7 +27,7 @@ export function HeroSection() {
           <div className="matius-hero-actions mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="#zapatos"
-              className="inline-flex min-h-12 items-center justify-center rounded-[var(--mat-radius-sm)] bg-[var(--mat-charcoal)] px-6 py-3 text-sm font-semibold text-[var(--mat-warm-white)] transition-colors hover:bg-[var(--mat-dark-brown)]"
+              className="inline-flex min-h-12 items-center justify-center rounded-[var(--mat-radius-sm)] bg-[var(--mat-charcoal)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--mat-dark-brown)]"
             >
               Descubrir zapatos
             </a>
