@@ -77,30 +77,9 @@ jobs:
             curl --fail --silent --show-error "http://localhost:3000${route}" > /dev/null
           done
 
-          mkdir -p visual-snapshots
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
-
-          capture() {
-            local name="$1"
-            local size="$2"
-            local url="$3"
-            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --force-prefers-reduced-motion \
-              --virtual-time-budget=1200 \
-              --window-size="$size" \
-              --screenshot="visual-snapshots/${name}.png" \
-              "$url"
-          }
-
           if [ -n "$CHROME_BIN" ]; then
-            capture "home-mobile" "390,844" "http://localhost:3000/"
-            capture "home-desktop" "1440,1000" "http://localhost:3000/"
-            capture "collections-mobile" "390,844" "http://localhost:3000/#zapatos"
-            capture "collections-desktop" "1440,1000" "http://localhost:3000/#zapatos"
-            capture "craftsmanship-mobile" "390,844" "http://localhost:3000/#fabricacion"
-            capture "craftsmanship-desktop" "1440,1000" "http://localhost:3000/#fabricacion"
-            capture "contact-mobile" "390,844" "http://localhost:3000/#contacto"
-            capture "contact-desktop" "1440,1000" "http://localhost:3000/#contacto"
+            CHROME_BIN="$CHROME_BIN" VISUAL_BASE_URL="http://localhost:3000" npm run visual:snapshots
           else
             echo "Chrome binary not found; visual snapshots skipped."
           fi

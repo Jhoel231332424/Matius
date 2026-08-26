@@ -16,7 +16,7 @@ Verificar manualmente como mínimo:
 
 ## Snapshots automáticos
 
-El CI debe generar ocho snapshots por PR:
+El CI genera ocho snapshots por PR mediante `scripts/capture-visuals.mjs` + `playwright-core`, reutilizando el Chrome instalado en el runner.
 
 ### Mobile — 390 × 844
 - `home-mobile.png`
@@ -32,17 +32,17 @@ El CI debe generar ocho snapshots por PR:
 
 ### Determinismo de captura
 
-Las capturas del CI se ejecutan con `prefers-reduced-motion` forzado. Esto evita que una URL con hash (`#zapatos`, `#fabricacion`, `#contacto`) quede fotografiada a mitad del `scroll-behavior: smooth` o de una animación de entrada.
+Playwright abre Home, espera `networkidle`, fuerza `reducedMotion: reduce`, elimina smooth-scroll para la sesión y desplaza programáticamente el viewport a `#zapatos`, `#fabricacion` o `#contacto` descontando el header sticky.
 
-El objetivo del artifact es comparar **layout/crop/jerarquía**, no validar el timing de motion. Las animaciones/interacciones se revisan por separado cuando una feature las modifica.
+Esto evita capturas tomadas a mitad del scroll o fuera de la sección. El objetivo del artifact es comparar **layout, crop, jerarquía y CTA**, no validar timing de animación.
 
-Si un snapshot con anchor no muestra la sección indicada, el QA se considera roto aunque el job termine verde.
+Si un snapshot con selector no muestra la sección indicada, el QA se considera roto aunque GitHub Actions finalice sin error.
 
 Revisar siempre:
-- que el anchor corresponda a la sección esperada;
+- selector/sección correcta;
 - crop de imágenes;
 - CTA visible;
-- overflow;
+- overflow/clipping;
 - jerarquía tipográfica;
 - contraste;
 - espacios excesivos;
@@ -125,10 +125,11 @@ Gates CI actuales:
 
 Revisar:
 
-- hero como principal candidato LCP;
+- Hero como principal candidato LCP;
 - Server Components por defecto;
 - evitar JS en componentes puramente visuales;
-- comportamiento cliente solo cuando existe interacción real (WhatsApp/floating/nav si aplica);
+- comportamiento cliente solo cuando existe interacción real;
+- `playwright-core` es tooling de QA y no debe importarse desde la app;
 - no añadir GSAP/Lenis/WebGL/Motion sin demostrar necesidad;
 - lazy loading por defecto debajo del fold;
 - evitar animaciones de layout costosas.
