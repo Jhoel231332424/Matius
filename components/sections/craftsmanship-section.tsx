@@ -69,7 +69,7 @@ export function CraftsmanshipSection() {
                   alt={productScene.alt}
                   fill
                   sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 50vw, 100vw"
-                  style={{ objectPosition: productScene.objectPosition }}
+                  style={{ objectPosition: "center bottom" }}
                   className="object-cover saturate-[0.9] brightness-[0.82]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.08)_30%,rgba(1,1,1,0.72)_100%)]" />
