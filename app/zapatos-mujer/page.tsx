@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui/container";
+import Link from "next/link";
+import { EditorialRouteHero } from "@/components/layout/editorial-route-hero";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 
 export const metadata: Metadata = {
@@ -10,15 +11,22 @@ export const metadata: Metadata = {
 
 export default function WomensShoesPage() {
   return (
-    <Container className="py-[var(--mat-section)]">
-      <p className="matius-eyebrow">Mujer</p>
-      <h1 className="matius-section-title mt-4">Zapatos para mujer.</h1>
-      <p className="mt-6 max-w-2xl leading-7 text-black/60">
-        Descubre la selección Matius para mujer y consulta modelos, tallas, colores y disponibilidad directamente por WhatsApp.
-      </p>
-      <WhatsAppButton source="product" productName="Zapatos para mujer" className="mt-8">
+    <EditorialRouteHero
+      eyebrow="Mujer"
+      titleLines={["Zapatos para", "mujer."]}
+      description="Descubre la selección Matius para mujer y consulta modelos, tallas, colores y disponibilidad directamente por WhatsApp."
+      meta="Mujer · Calzado · Cochabamba"
+    >
+      <WhatsAppButton
+        source="product"
+        productName="Zapatos para mujer"
+        className="bg-[var(--mat-red)] text-white hover:bg-[var(--mat-red-hover)]"
+      >
         Consultar disponibilidad
       </WhatsAppButton>
-    </Container>
+      <Link href="/#zapatos" className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4">
+        Volver a colecciones →
+      </Link>
+    </EditorialRouteHero>
   );
 }

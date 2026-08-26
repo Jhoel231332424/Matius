@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/container";
+import { EditorialRouteHero } from "@/components/layout/editorial-route-hero";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { stores } from "@/data/stores";
 import { buildLocalBusinessJsonLd, serializeJsonLd } from "@/lib/seo";
@@ -27,16 +28,25 @@ export default async function StorePage({ params }: { params: Promise<{ slug: st
   const jsonLd = buildLocalBusinessJsonLd(store);
 
   return (
-    <Container className="py-[var(--mat-section)]">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
-      <p className="matius-eyebrow">Sucursal</p>
-      <h1 className="matius-section-title mt-4">{store.name}</h1>
-      <p className="mt-6 max-w-2xl leading-7 text-black/60">
-        Consulta por WhatsApp la ubicación y la atención disponible para esta sucursal Matius Perfect.
-      </p>
-      <WhatsAppButton source="store" storeName={store.name} className="mt-8">
-        Consultar esta sucursal
-      </WhatsAppButton>
-    </Container>
+      <EditorialRouteHero
+        eyebrow="Sucursal"
+        titleLines={[store.name]}
+        description="Consulta por WhatsApp la ubicación y la atención disponible para este punto Matius Perfect."
+        meta="Sucursal · Cochabamba · Consulta directa"
+      >
+        <WhatsAppButton
+          source="store"
+          storeName={store.name}
+          className="bg-[var(--mat-red)] text-white hover:bg-[var(--mat-red-hover)]"
+        >
+          Consultar esta sucursal
+        </WhatsAppButton>
+        <Link href="/tiendas" className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4">
+          Ver todas las tiendas →
+        </Link>
+      </EditorialRouteHero>
+    </>
   );
 }

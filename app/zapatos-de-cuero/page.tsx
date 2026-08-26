@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui/container";
+import Link from "next/link";
+import { EditorialRouteHero } from "@/components/layout/editorial-route-hero";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { brandMedia } from "@/data/media";
 
 export const metadata: Metadata = {
   title: "Zapatos de cuero",
@@ -10,15 +12,24 @@ export const metadata: Metadata = {
 
 export default function LeatherShoesPage() {
   return (
-    <Container className="py-[var(--mat-section)]">
-      <p className="matius-eyebrow">Colección de cuero</p>
-      <h1 className="matius-section-title mt-4">Zapatos de cuero.</h1>
-      <p className="mt-6 max-w-2xl leading-7 text-black/60">
-        Explora el universo de calzado Matius y consulta modelos, tallas, colores y disponibilidad directamente por WhatsApp.
-      </p>
-      <WhatsAppButton source="product" productName="Zapatos de cuero" className="mt-8">
+    <EditorialRouteHero
+      eyebrow="Colección de cuero"
+      titleLines={["Zapatos de", "cuero."]}
+      description="Explora el universo de calzado Matius y consulta modelos, tallas, colores y disponibilidad directamente por WhatsApp."
+      image={brandMedia.campaign[3]}
+      imageLabel="Campaña Matius Perfect"
+      meta="Cuero · Calzado · Cochabamba"
+    >
+      <WhatsAppButton
+        source="product"
+        productName="Zapatos de cuero"
+        className="bg-[var(--mat-red)] text-white hover:bg-[var(--mat-red-hover)]"
+      >
         Consultar disponibilidad
       </WhatsAppButton>
-    </Container>
+      <Link href="/#zapatos" className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4">
+        Volver a colecciones →
+      </Link>
+    </EditorialRouteHero>
   );
 }

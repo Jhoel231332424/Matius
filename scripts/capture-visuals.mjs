@@ -39,6 +39,12 @@ const cases = [
   },
   { name: "contact-mobile", width: 390, height: 844, selector: "#contacto" },
   { name: "contact-desktop", width: 1440, height: 1000, selector: "#contacto" },
+  { name: "leather-route-mobile", width: 390, height: 844, path: "/zapatos-de-cuero" },
+  { name: "leather-route-desktop", width: 1440, height: 1000, path: "/zapatos-de-cuero" },
+  { name: "craft-route-mobile", width: 390, height: 844, path: "/nuestra-fabricacion" },
+  { name: "craft-route-desktop", width: 1440, height: 1000, path: "/nuestra-fabricacion" },
+  { name: "stores-route-mobile", width: 390, height: 844, path: "/tiendas" },
+  { name: "stores-route-desktop", width: 1440, height: 1000, path: "/tiendas" },
 ];
 
 async function waitForSectionImages(locator) {
@@ -76,7 +82,7 @@ try {
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}${testCase.path ?? "/"}`, { waitUntil: "networkidle" });
     await page.addStyleTag({ content: "::-webkit-scrollbar{display:none!important}html{scroll-behavior:auto!important}" });
 
     if (testCase.openMenu) {
