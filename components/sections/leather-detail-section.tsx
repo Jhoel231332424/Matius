@@ -1,41 +1,26 @@
-"use client";
-
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { brandMedia } from "@/data/media";
 
 export function LeatherDetailSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-
   return (
-    <section ref={sectionRef} className="overflow-hidden py-[var(--mat-section)]">
+    <section className="overflow-hidden py-[var(--mat-section)]">
       <Container>
         <SectionHeading
           eyebrow="Detalle"
           title="El cuero, de cerca."
           description="La fotografía toma protagonismo para acercar material, forma y acabado sin saturar la interfaz."
         />
-        <div className="relative mt-12 min-h-[34rem] overflow-hidden bg-[var(--mat-dark-brown)] sm:min-h-[42rem]">
-          <motion.div style={reduceMotion ? undefined : { scale }} className="absolute inset-0 origin-center">
-            <Image
-              src={brandMedia.leatherDetail.src}
-              alt={brandMedia.leatherDetail.alt}
-              fill
-              unoptimized
-              sizes="(min-width: 1280px) 80rem, 100vw"
-              style={{ objectPosition: brandMedia.leatherDetail.objectPosition }}
-              className="object-cover"
-            />
-          </motion.div>
+        <div className="group relative mt-12 min-h-[34rem] overflow-hidden bg-[var(--mat-dark-brown)] sm:min-h-[42rem]">
+          <Image
+            src={brandMedia.leatherDetail.src}
+            alt={brandMedia.leatherDetail.alt}
+            fill
+            sizes="(min-width: 1280px) 80rem, 100vw"
+            style={{ objectPosition: brandMedia.leatherDetail.objectPosition }}
+            className="object-cover transition-transform duration-[1200ms] ease-out motion-reduce:transition-none lg:group-hover:scale-[1.025]"
+          />
           <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(14,13,12,0.12),rgba(14,13,12,0.7))]" />
 
           <div className="absolute left-6 top-6 max-w-xs text-white sm:left-8 sm:top-8">
