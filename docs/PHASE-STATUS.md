@@ -5,7 +5,7 @@
 Branch activa: `feat/landing-foundation`  
 PR: #3 (draft)
 
-La landing ya superó la fase de wireframe. Existe una demo visual, modular y medible construida con assets first-party disponibles públicamente, y el repositorio contiene reglas para que futuros agentes no rediseñen la marca por intuición.
+La landing ya superó foundation, wireframe y primera producción visual. Existe una demo editorial modular, medible y protegida para preview, con reglas versionadas para evitar rediseños arbitrarios por agentes/Codex.
 
 ## Fase 1 — Foundation
 
@@ -20,7 +20,6 @@ Estado: **completada**.
 - Rutas de zapatos, fabricación y tiendas.
 - Metadata, canonical por página, sitemap y robots.
 - Builders Organization / LocalBusiness / Product / Breadcrumb.
-- Preview `noindex` por defecto.
 - CI base: install, lint, typecheck y build.
 
 ## Fase 2 — Producción visual de demo
@@ -32,7 +31,7 @@ Estado: **completada con los assets first-party actualmente disponibles**.
 - Hero con prioridad LCP.
 - Brand Pillars, Collections, Lifestyle, Lookbook y Leather Detail con fotografía.
 - Final CTA fotográfico.
-- Oxford con precio público registrado en la fuente usada durante la implementación.
+- Oxford conserva la información pública verificada en la capa de producto.
 - Allowlist remota limitada a `matiusperfect.com/assets/**`.
 
 Importante: las imágenes de campaña se usan como universo visual; no se asignan a un modelo concreto sin verificación.
@@ -53,23 +52,21 @@ Feature commit: `c21319c`.
 
 Principio central: `Modern Bolivian Leather / Editorial Commerce`.
 
-## Fase 4 — Sistema editorial de referencia
+## Fase 4 — Sistema editorial
 
 Estado: **completada y validada**.
 
-Reference components — commit `054bf9c`:
+Reference components — `054bf9c`:
 - Hero product-first en mobile;
-- CollectionCard editorial;
-- Collections asimétricas;
 - ProductCardMatius;
 - Featured Products con jerarquía;
 - Fabricación sticky CSS.
 
-Propagación — commit `36a5285`:
+Propagación — `36a5285`:
 - Brand Pillars editoriales;
 - Leather Detail;
 - Lookbook;
-- Stores sin placeholders visuales falsos;
+- Stores sin placeholders falsos;
 - Final CTA.
 
 No se usa Motion/GSAP/Lenis/WebGL en el bundle actual. El storytelling se resuelve CSS-first.
@@ -78,20 +75,48 @@ No se usa Motion/GSAP/Lenis/WebGL en el bundle actual. El storytelling se resuel
 
 Estado: **completada y validada**.
 
-Feature commit: `508c7c3`.
+Base: `508c7c3`.  
+Mobile safety: `1a515e9`.
 
 - mensajes diferenciados por Hero, producto, sucursal, CTA final y botón flotante;
 - eventos `window.dataLayer` mantienen nombres estables;
 - contexto de producto/sucursal conservado;
+- floating WhatsApp no cubre contenido/CTAs mobile;
 - documentación en `docs/CONVERSION-WHATSAPP.md`.
 
 Proveedor real de analytics (GA4/GTM u otro) aún no está conectado; la capa de eventos sí está preparada.
 
-## Fase 6 — Visual QA automático
+## Fase 6 — Editorial Collection Accordion
 
-Estado: **implementado; usar el CI del HEAD para confirmar cada cambio**.
+Estado: **completada y validada visualmente**.
 
-Feature commit: `abbc8c1`.
+Commits principales:
+- `480951c` — implementación inicial;
+- `d7b2647` — polish + open-state QA;
+- `811a012` — scope correcto del QA interactivo;
+- `99755e7` — integridad de contenido + cierre mobile.
+
+Características:
+- tres paneles: Hombre / Mujer / Cuero;
+- accordion horizontal en desktop;
+- accordion vertical en mobile;
+- hover como preview únicamente;
+- click/teclado para abrir;
+- Escape para cerrar;
+- cierre visible dentro del contenido mobile;
+- CTA de colección + WhatsApp contextual;
+- CSS-first, sin librerías de motion;
+- `CollectionCard` original conservado como fallback.
+
+La tercera entrada se llama `Cuero`, no `Oxford`, para evitar asociar una fotografía de campaña a un modelo concreto sin evidencia.
+
+## Fase 7 — Visual QA automático
+
+Estado: **completada y validada sobre el HEAD actual**.
+
+Base inicial: `abbc8c1`.  
+Harness Playwright: `2ae1847`.  
+Carga determinística de imágenes: `05f6794`.
 
 CI cubre:
 - lint;
@@ -100,11 +125,36 @@ CI cubre:
 - smoke de 11 rutas;
 - Lighthouse mobile;
 - artifacts de reportes;
-- 8 snapshots por PR:
+- **10 snapshots por PR**:
   - Hero mobile/desktop;
-  - Colecciones mobile/desktop;
+  - Colecciones cerradas mobile/desktop;
+  - Colecciones con `Cuero` abierto mobile/desktop;
   - Fabricación mobile/desktop;
   - Contacto mobile/desktop.
+
+El harness:
+- usa `playwright-core` solo como tooling;
+- reutiliza Chrome del runner;
+- fuerza `reducedMotion: reduce`;
+- elimina smooth scroll en la sesión;
+- desplaza a anchors de forma programática;
+- espera la carga real de imágenes lazy antes de capturar.
+
+HEAD validado: `05f67944d197830cfa19983cb569441610f7c582`.
+
+## Fase 8 — Preview / Deployment Safety
+
+Estado: **preparada en código; deploy externo pendiente**.
+
+Feature commit: `5889f10`.
+
+- local y preview permanecen `noindex,nofollow`;
+- `VERCEL_ENV=preview` actúa como segundo guard;
+- `robots.txt` permite crawling del preview para que crawlers puedan leer `noindex`;
+- indexación solo se permite en producción final;
+- guía completa en `docs/DEPLOYMENT.md`.
+
+El conector de Vercel aún debe quedar autorizado/conectado para crear el preview desde este entorno.
 
 ## Pendiente del cliente
 
@@ -129,15 +179,24 @@ CI cubre:
 - [ ] claims técnicos de cuero/fabricación autorizados;
 - [ ] testimonios/reseñas reales si se usarán.
 
-## Próximos pasos
+## Próximo gate
 
-1. Confirmar CI verde del HEAD actual.
-2. Desplegar un **preview** separado del sitio oficial.
-3. Ejecutar QA visual completo sobre URL desplegada y dispositivos reales.
-4. Sustituir assets/datos al recibir material del cliente.
-5. Conectar proveedor de analytics y validar eventos WhatsApp.
-6. Completar `LocalBusiness` con NAP/horarios confirmados.
-7. Crear páginas/product schema cuando exista catálogo definitivo.
-8. Ejecutar Lighthouse/Core Web Vitals sobre el deploy real.
-9. Activar `NEXT_PUBLIC_ALLOW_INDEXING=true` únicamente en producción final.
-10. Sacar PR de draft y mergear solo después de revisión explícita.
+### Preview Deploy
+
+1. conectar/autorizar Vercel;
+2. desplegar `feat/landing-foundation` como preview separado del sitio oficial;
+3. confirmar `noindex,nofollow` en HTML;
+4. ejecutar QA mobile/desktop sobre la URL real;
+5. probar CTAs WhatsApp reales;
+6. ejecutar Lighthouse/Core Web Vitals sobre el deploy;
+7. corregir cualquier diferencia de infraestructura/crops;
+8. mantener PR draft hasta completar esta revisión.
+
+## Después del preview
+
+- sustituir assets/datos al recibir material del cliente;
+- conectar proveedor de analytics y validar eventos WhatsApp;
+- completar `LocalBusiness` con NAP/horarios confirmados;
+- crear páginas/product schema cuando exista catálogo definitivo;
+- activar `NEXT_PUBLIC_ALLOW_INDEXING=true` únicamente en producción final;
+- sacar PR de draft y mergear solo después de revisión explícita.
