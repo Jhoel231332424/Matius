@@ -23,41 +23,44 @@ export function ProductCardMatius({ product }: { product: Product }) {
               src={primaryImage.src}
               alt={primaryImage.alt}
               fill
-              sizes="(min-width: 768px) 33vw, 100vw"
-              className="object-cover transition duration-700 ease-out group-hover:scale-[1.025]"
+              sizes="(min-width: 1024px) 50vw, (min-width: 768px) 33vw, 100vw"
+              className="object-cover transition duration-700 ease-out group-hover:scale-[1.02]"
             />
             {secondaryImage ? (
               <Image
                 src={secondaryImage.src}
                 alt={secondaryImage.alt}
                 fill
-                sizes="(min-width: 768px) 33vw, 100vw"
+                sizes="(min-width: 1024px) 50vw, (min-width: 768px) 33vw, 100vw"
                 className="object-cover opacity-0 transition duration-500 ease-out group-hover:opacity-100"
               />
             ) : null}
           </>
         ) : (
-          <div className="matius-hero-grid absolute inset-0 bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(222,210,194,0.28),transparent_34%),linear-gradient(155deg,transparent_20%,rgba(14,13,12,0.72)_82%)]" />
-            <div className="absolute -right-4 top-4 select-none font-[family-name:var(--font-display)] text-[10rem] font-medium leading-none text-white/[0.06] sm:text-[13rem]">
+          <div className="absolute inset-0 bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)]" aria-hidden="true">
+            <div className="absolute left-6 top-6 h-0.5 w-10 bg-[var(--mat-red)]" />
+            <div className="absolute -right-5 top-2 select-none font-[family-name:var(--font-display)] text-[10rem] font-medium leading-none text-white/[0.05] sm:text-[13rem]">
               M
             </div>
-            <div className="absolute inset-x-5 bottom-5 border-t border-white/20 pt-4">
-              <p className="matius-eyebrow text-white/75">Matius Perfect</p>
-              <p className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{product.name}</p>
+            <div className="absolute inset-x-6 bottom-6 border-t border-white/25 pt-5">
+              <p className="matius-eyebrow text-white/75">{product.isDemo ? "Colección" : "Matius Perfect"}</p>
+              <p className="mt-2 max-w-[10ch] font-[family-name:var(--font-display)] text-4xl font-medium leading-[0.9]">
+                {product.name}
+              </p>
             </div>
           </div>
         )}
       </div>
 
-      <div className="mt-5 flex items-start justify-between gap-4">
+      <div className="mt-5 flex items-start justify-between gap-4 border-t border-black/15 pt-5">
         <div>
           <p className="matius-eyebrow text-black/65">{product.category}</p>
-          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">{product.name}</h3>
+          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium leading-none">{product.name}</h3>
         </div>
         {formattedPrice ? <p className="whitespace-nowrap text-sm font-semibold">{formattedPrice}</p> : null}
       </div>
-      <p className="mt-3 text-sm leading-6 text-black/70">{product.shortDescription}</p>
+
+      <p className="mt-3 max-w-[34rem] text-sm leading-6 text-black/70">{product.shortDescription}</p>
 
       <WhatsAppButton source="product" productName={product.name} variant="ghost" className="mt-4 px-0">
         {product.isDemo ? "Consultar colección →" : "Consultar disponibilidad →"}

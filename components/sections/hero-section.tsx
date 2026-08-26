@@ -6,11 +6,14 @@ import { brandMedia } from "@/data/media";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-[var(--mat-ivory)]">
-      <Container className="grid min-h-[calc(100svh-7rem)] items-center gap-10 py-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:py-16">
-        <div className="relative z-10 max-w-2xl">
-          <p className="matius-eyebrow matius-hero-eyebrow mb-6 text-black/65">
-            Matius Perfect · Cochabamba
-          </p>
+      <Container className="grid gap-8 py-8 sm:gap-10 sm:py-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:py-16">
+        <div className="order-2 relative z-10 max-w-2xl lg:order-1">
+          <div className="mb-6 flex items-center gap-3">
+            <span className="h-0.5 w-8 bg-[var(--mat-red)]" aria-hidden="true" />
+            <p className="matius-eyebrow matius-hero-eyebrow text-black/65">
+              Matius Perfect · Cochabamba
+            </p>
+          </div>
 
           <div className="overflow-hidden pb-2">
             <h1 className="matius-display matius-hero-title">
@@ -37,7 +40,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <figure className="matius-hero-media relative min-h-[30rem] overflow-hidden rounded-[var(--mat-radius-md)] bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[38rem] lg:min-h-[46rem]">
+        <figure className="matius-hero-media order-1 relative min-h-[20rem] overflow-hidden bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[28rem] lg:order-2 lg:min-h-[46rem] lg:rounded-[var(--mat-radius-md)]">
           <Image
             src={brandMedia.hero.src}
             alt={brandMedia.hero.alt}
@@ -48,18 +51,18 @@ export function HeroSection() {
             style={{ objectPosition: brandMedia.hero.objectPosition }}
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(155deg,rgba(14,13,12,0.04)_20%,rgba(14,13,12,0.72)_90%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,12,0.03)_35%,rgba(14,13,12,0.68)_100%)]" />
 
-          <div className="absolute left-6 top-6 flex items-center gap-3 sm:left-8 sm:top-8">
-            <span className="h-px w-10 bg-white/70" />
+          <div className="absolute left-5 top-5 flex items-center gap-3 sm:left-8 sm:top-8">
+            <span className="h-px w-8 bg-white/70" aria-hidden="true" />
             <span className="matius-eyebrow text-white/90">Leather / Cochabamba</span>
           </div>
 
-          <figcaption className="absolute inset-x-6 bottom-6 border-t border-white/35 pt-5 sm:inset-x-8 sm:bottom-8">
+          <figcaption className="absolute inset-x-5 bottom-5 border-t border-white/35 pt-4 sm:inset-x-8 sm:bottom-8 sm:pt-5">
             <div className="flex items-end justify-between gap-5">
               <div>
                 <p className="matius-eyebrow text-white/80">Matius Perfect</p>
-                <p className="mt-2 max-w-sm font-[family-name:var(--font-display)] text-3xl leading-none sm:text-4xl">
+                <p className="mt-2 max-w-sm font-[family-name:var(--font-display)] text-2xl leading-none sm:text-4xl">
                   Elegancia sin esfuerzo.
                 </p>
               </div>
