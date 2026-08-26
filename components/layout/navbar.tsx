@@ -7,11 +7,11 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-[var(--mat-warm-white)]">
       <Container className="flex min-h-[4.75rem] items-center justify-between gap-6">
-        <Link href="/" className="group inline-flex flex-col leading-none" aria-label="Matius Perfect, inicio">
+        <Link href="/" className="group inline-flex flex-col leading-none" title="Inicio">
           <span className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.02em] sm:text-[1.7rem]">
             MATIUS
           </span>
-          <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.34em] text-black/45 transition-colors group-hover:text-black/70">
+          <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.34em] text-black/70 transition-colors group-hover:text-black">
             Perfect
           </span>
         </Link>
