@@ -36,6 +36,8 @@ const chapters = [
 ] as const;
 
 export function CraftsmanshipSection() {
+  const productScene = brandMedia.campaign[1];
+
   return (
     <section id="fabricacion" className="overflow-clip bg-[var(--mat-black)] py-[var(--mat-section)] text-[var(--mat-warm-white)]">
       <Container>
@@ -63,11 +65,11 @@ export function CraftsmanshipSection() {
             <figure className="relative overflow-hidden bg-[var(--mat-dark-brown)] lg:sticky lg:top-24 lg:min-h-[calc(100vh-7rem)]">
               <div className="relative min-h-[28rem] sm:min-h-[38rem] lg:min-h-[calc(100vh-7rem)]">
                 <Image
-                  src={brandMedia.leatherDetail.src}
-                  alt={brandMedia.leatherDetail.alt}
+                  src={productScene.src}
+                  alt={productScene.alt}
                   fill
                   sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 50vw, 100vw"
-                  style={{ objectPosition: brandMedia.leatherDetail.objectPosition }}
+                  style={{ objectPosition: productScene.objectPosition }}
                   className="object-cover saturate-[0.9] brightness-[0.82]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.08)_30%,rgba(1,1,1,0.72)_100%)]" />
