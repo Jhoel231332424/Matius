@@ -10,7 +10,6 @@ export function FinalCtaSection() {
         src={brandMedia.finalCta.src}
         alt=""
         fill
-        unoptimized
         sizes="100vw"
         style={{ objectPosition: brandMedia.finalCta.objectPosition }}
         className="object-cover opacity-35"
