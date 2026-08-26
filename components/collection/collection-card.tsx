@@ -22,7 +22,6 @@ export function CollectionCard({
         src={image.src}
         alt={image.alt}
         fill
-        unoptimized
         sizes="(min-width: 768px) 50vw, 100vw"
         style={{ objectPosition: image.objectPosition }}
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
