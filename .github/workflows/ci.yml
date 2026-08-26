@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Production route smoke test
+      - name: Production route smoke test and visual snapshots
         shell: bash
         run: |
           set -euo pipefail
@@ -76,6 +76,30 @@ jobs:
             echo "Checking ${route}"
             curl --fail --silent --show-error "http://localhost:3000${route}" > /dev/null
           done
+
+          mkdir -p visual-snapshots
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -n "$CHROME_BIN" ]; then
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --window-size=390,844 \
+              --screenshot=visual-snapshots/home-mobile.png \
+              http://localhost:3000/
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --window-size=1440,1000 \
+              --screenshot=visual-snapshots/home-desktop.png \
+              http://localhost:3000/
+          else
+            echo "Chrome binary not found; visual snapshots skipped."
+          fi
+
+      - name: Upload visual snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: visual-snapshots/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Install Lighthouse CI
         run: npm install --global @lhci/cli@0.15.x --no-audit --no-fund
