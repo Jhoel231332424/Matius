@@ -9,7 +9,7 @@ export function Footer() {
         <div>
           <p className="font-serif text-2xl">MATIUS PERFECT</p>
           <p className="mt-4 max-w-sm text-sm leading-6 text-white/65">
-            Demo editorial enfocada en zapatos de cuero, fabricación y durabilidad.
+            Calzado y artículos de cuero con una propuesta centrada en fabricación, durabilidad y diseño desde Cochabamba, Bolivia.
           </p>
         </div>
         <div className="flex flex-col gap-3 text-sm">
@@ -21,7 +21,8 @@ export function Footer() {
         <div className="flex flex-col gap-3 text-sm">
           <strong>Marca</strong>
           <a href={siteConfig.instagram} target="_blank" rel="noreferrer">Instagram</a>
-          <span>Datos de contacto pendientes del cliente</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          <span>{siteConfig.location}</span>
         </div>
       </Container>
     </footer>
