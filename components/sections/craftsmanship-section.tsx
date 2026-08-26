@@ -63,16 +63,16 @@ export function CraftsmanshipSection() {
         <div className="mt-10 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-10 xl:gap-16">
           <div className="lg:col-span-6 xl:col-span-7">
             <figure className="relative overflow-hidden bg-[var(--mat-dark-brown)] lg:sticky lg:top-24 lg:min-h-[calc(100vh-7rem)]">
-              <div className="relative min-h-[28rem] sm:min-h-[38rem] lg:min-h-[calc(100vh-7rem)]">
+              <div className="relative min-h-[30rem] bg-[var(--mat-tobacco)] sm:min-h-[40rem] lg:min-h-[calc(100vh-7rem)]">
                 <Image
                   src={productScene.src}
                   alt={productScene.alt}
                   fill
                   sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 50vw, 100vw"
                   style={{ objectPosition: productScene.objectPosition }}
-                  className="object-cover saturate-[0.9] brightness-[0.82]"
+                  className="object-contain px-5 pb-44 pt-16 saturate-[0.92] brightness-[0.9] sm:px-9 sm:pb-52 sm:pt-20 lg:px-10 lg:pb-56"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.08)_30%,rgba(1,1,1,0.72)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.02)_48%,rgba(1,1,1,0.58)_100%)]" />
                 <div className="absolute inset-x-5 top-5 flex items-center justify-between gap-4 border-t border-white/30 pt-4 sm:inset-x-7 sm:top-7">
                   <span className="matius-eyebrow text-white/80">Matius Perfect</span>
                   <span className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/65">Imagen de campaña</span>
