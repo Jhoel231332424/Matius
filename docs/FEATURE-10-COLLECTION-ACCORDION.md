@@ -33,7 +33,9 @@ Paneles:
 
 1. Hombre
 2. Mujer
-3. Oxford
+3. Cuero
+
+La tercera entrada es deliberadamente genérica: las imágenes disponibles son assets first-party de campaña, no fotografías verificadas de un modelo Oxford concreto. Oxford permanece como producto destacado en la capa de producto, donde el nombre/precio pueden tratarse de forma explícita sin atribuirle una fotografía incorrecta.
 
 Cada panel usa únicamente imágenes first-party ya registradas en `data/media.ts`. Estas imágenes se presentan como **universo de campaña**, no como evidencia de que una fotografía represente un modelo exacto.
 
@@ -55,6 +57,7 @@ Cada panel usa únicamente imágenes first-party ya registradas en `data/media.t
 - cada rail completo es un botón táctil;
 - el panel activo ocupa la mayor parte del bloque;
 - los CTAs se apilan a ancho completo;
+- existe un botón `Cerrar colección` dentro del contenido para no depender de un icono que pueda quedar fuera del viewport después de la expansión;
 - interacción compatible con `prefers-reduced-motion`.
 
 ## Accesibilidad
@@ -62,6 +65,7 @@ Cada panel usa únicamente imágenes first-party ya registradas en `data/media.t
 - controles reales `<button>`;
 - `aria-expanded` + `aria-controls`;
 - cierre mediante Escape;
+- cierre mobile visible dentro del contenido;
 - focus visible;
 - enlaces/WhatsApp solo aparecen dentro del panel activo;
 - targets táctiles amplios;
@@ -101,6 +105,8 @@ Antes de considerar la feature terminada:
 - smoke de rutas;
 - snapshot `collections-mobile.png`;
 - snapshot `collections-desktop.png`;
+- snapshot `collections-open-mobile.png` con **Cuero** abierto;
+- snapshot `collections-open-desktop.png` con **Cuero** abierto;
 - Lighthouse CI;
-- inspección visual real de ambos snapshots;
+- inspección visual real de ambos estados;
 - verificar que floating WhatsApp no cubra CTAs en mobile.

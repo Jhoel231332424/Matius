@@ -22,7 +22,7 @@ const collections = [
     image: brandMedia.campaign[1],
   },
   {
-    title: "Oxford",
+    title: "Cuero",
     eyebrow: "Selección destacada",
     description:
       "Explora el universo de zapatos de cuero Matius y consulta modelos, tallas y colores directamente por WhatsApp.",

@@ -86,6 +86,13 @@ export function CollectionAccordion({ panels }: { panels: CollectionPanel[] }) {
                     Consultar por WhatsApp
                   </WhatsAppButton>
                 </div>
+                <button
+                  type="button"
+                  className={styles.mobileClose}
+                  onClick={() => setActiveIndex(null)}
+                >
+                  Cerrar colección
+                </button>
               </div>
             )}
           </article>

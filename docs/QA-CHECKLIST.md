@@ -36,7 +36,7 @@ El CI genera diez snapshots por PR mediante `scripts/capture-visuals.mjs` + `pla
 
 `collections-mobile/desktop` valida el accordion en reposo.
 
-`collections-open-mobile/desktop` abre programáticamente el panel **Oxford** mediante su botón accesible y valida:
+`collections-open-mobile/desktop` abre programáticamente el panel **Cuero** mediante su botón accesible y valida:
 
 - expansión correcta;
 - paneles secundarios comprimidos;
@@ -44,6 +44,7 @@ El CI genera diez snapshots por PR mediante `scripts/capture-visuals.mjs` + `pla
 - CTA `Explorar colección` visible;
 - CTA WhatsApp visible y legible;
 - botón cerrar visible;
+- botón `Cerrar colección` visible dentro del contenido mobile;
 - ausencia de clipping/overflow;
 - floating WhatsApp sin cubrir controles en mobile.
 
@@ -51,11 +52,11 @@ El CI genera diez snapshots por PR mediante `scripts/capture-visuals.mjs` + `pla
 
 Playwright abre Home, espera `networkidle`, fuerza `reducedMotion: reduce`, elimina smooth-scroll para la sesión y desplaza programáticamente el viewport a `#zapatos`, `#fabricacion` o `#contacto` descontando el header sticky.
 
-Para los snapshots abiertos, Playwright ejecuta además la interacción real con el botón `Abrir colección Oxford` y espera a que el heading `Oxford` sea visible antes de capturar.
+Para los snapshots abiertos, Playwright ejecuta además la interacción real con el botón `Abrir colección Cuero` y espera a que el heading `Cuero` sea visible dentro de `#zapatos` antes de capturar.
 
 Esto evita capturas tomadas a mitad del scroll o fuera de la sección. El objetivo del artifact es comparar **layout, crop, jerarquía, estados interactivos y CTA**, no validar timing de animación.
 
-Si un snapshot con selector no muestra la sección indicada o el snapshot `collections-open-*` no muestra Oxford abierto, el QA se considera roto aunque GitHub Actions finalice sin error.
+Si un snapshot con selector no muestra la sección indicada o el snapshot `collections-open-*` no muestra Cuero abierto, el QA se considera roto aunque GitHub Actions finalice sin error.
 
 Revisar siempre:
 - selector/sección correcta;
@@ -106,6 +107,7 @@ Validar también el mensaje prellenado por origen según `docs/CONVERSION-WHATSA
 - Nombre accesible coincide con la intención visible.
 - Accordion de Colecciones usa botones reales.
 - Accordion de Colecciones puede cerrarse con Escape.
+- Accordion mobile ofrece un cierre visible dentro del contenido.
 - Los CTAs del panel abierto no quedan debajo de un overlay/control flotante.
 
 ## Imágenes
