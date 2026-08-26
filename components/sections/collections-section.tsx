@@ -18,6 +18,7 @@ export function CollectionsSection() {
           eyebrow="Colecciones"
           title="Encuentra tu próximo par."
           description="Explora el universo de calzado Matius desde una mirada editorial y directa."
+          tone="dark"
         />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {collections.map((collection, index) => (
