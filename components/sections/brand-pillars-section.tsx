@@ -40,7 +40,6 @@ export function BrandPillarsSection() {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    unoptimized
                     sizes="(min-width: 1024px) 33vw, 100vw"
                     style={{ objectPosition: image.objectPosition }}
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
