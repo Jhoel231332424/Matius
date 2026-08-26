@@ -1,0 +1,124 @@
+name: Preview QA
+
+on:
+  push:
+    branches:
+      - feat/landing-foundation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: matius-preview-qa
+  cancel-in-progress: true
+
+jobs:
+  live-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PREVIEW_URL: https://matius-preview-production.up.railway.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Wait for Railway to serve this commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          matched=false
+
+          for attempt in {1..60}; do
+            body="$(curl --fail --silent --show-error --max-time 10 "$PREVIEW_URL/api/deployment-info" || true)"
+            echo "Attempt ${attempt}: ${body:-preview not ready}"
+
+            if [[ "$body" == *"$GITHUB_SHA"* ]]; then
+              matched=true
+              break
+            fi
+
+            sleep 10
+          done
+
+          if [ "$matched" != "true" ]; then
+            echo "Railway did not expose commit $GITHUB_SHA within the wait window."
+            exit 1
+          fi
+
+      - name: Live route, SEO and WhatsApp smoke checks
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          routes=(
+            "/"
+            "/zapatos-de-cuero"
+            "/zapatos-hombre"
+            "/zapatos-mujer"
+            "/nuestra-fabricacion"
+            "/tiendas"
+            "/tiendas/central"
+            "/tiendas/sucursal-1"
+            "/tiendas/sucursal-2"
+            "/robots.txt"
+            "/sitemap.xml"
+            "/api/deployment-info"
+          )
+
+          for route in "${routes[@]}"; do
+            echo "Checking ${PREVIEW_URL}${route}"
+            curl --fail --silent --show-error --max-time 20 "${PREVIEW_URL}${route}" > /dev/null
+          done
+
+          html="$(curl --fail --silent --show-error --max-time 20 "$PREVIEW_URL/")"
+          echo "$html" | grep -qi "noindex"
+          echo "$html" | grep -qi "nofollow"
+          echo "$html" | grep -q "wa.me/59171431096"
+
+      - name: Capture live mobile and desktop snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+
+          if [ -z "$CHROME_BIN" ]; then
+            echo "Chrome binary not found."
+            exit 1
+          fi
+
+          rm -rf visual-snapshots
+          CHROME_BIN="$CHROME_BIN" VISUAL_BASE_URL="$PREVIEW_URL" npm run visual:snapshots
+
+      - name: Upload live preview snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-preview-snapshots
+          path: visual-snapshots/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.x --no-audit --no-fund
+
+      - name: Lighthouse against Railway preview
+        run: lhci autorun --config=./lighthouserc.preview.cjs
+
+      - name: Upload Railway Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-lighthouse-report
+          path: .lighthouseci-preview/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
