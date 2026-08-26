@@ -16,8 +16,9 @@ export default function LeatherShoesPage() {
       eyebrow="Colección de cuero"
       titleLines={["Zapatos de", "cuero."]}
       description="Explora el universo de calzado Matius y consulta modelos, tallas, colores y disponibilidad directamente por WhatsApp."
-      image={brandMedia.campaign[3]}
+      image={brandMedia.hero}
       imageLabel="Campaña Matius Perfect"
+      imageFit="contain"
       meta="Cuero · Calzado · Cochabamba"
     >
       <WhatsAppButton

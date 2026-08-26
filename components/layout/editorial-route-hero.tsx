@@ -9,6 +9,7 @@ type EditorialRouteHeroProps = {
   description: string;
   image?: BrandAsset;
   imageLabel?: string;
+  imageFit?: "cover" | "contain";
   meta?: string;
   children?: ReactNode;
 };
@@ -19,6 +20,7 @@ export function EditorialRouteHero({
   description,
   image,
   imageLabel = "Imagen de campaña",
+  imageFit = "cover",
   meta = "Matius Perfect · Cochabamba",
   children,
 }: EditorialRouteHeroProps) {
@@ -67,7 +69,7 @@ export function EditorialRouteHero({
               fetchPriority="high"
               sizes="(min-width: 1024px) 55vw, 100vw"
               style={{ objectPosition: image.objectPosition }}
-              className="matius-hero-image object-cover"
+              className={`matius-hero-image ${imageFit === "contain" ? "object-contain" : "object-cover"}`}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.08)_25%,rgba(1,1,1,0.72)_100%)]" />
             <div className="absolute inset-x-5 top-5 flex items-center justify-between gap-4 border-t border-white/30 pt-4 sm:inset-x-8 sm:top-8">
