@@ -9,8 +9,8 @@ type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> & {
 };
 
 const variants = {
-  primary: "bg-[var(--mat-charcoal)] text-[var(--mat-warm-white)] hover:bg-[var(--mat-dark-brown)]",
-  secondary: "border border-[var(--mat-charcoal)] text-[var(--mat-charcoal)] hover:bg-[var(--mat-charcoal)] hover:text-[var(--mat-warm-white)]",
+  primary: "bg-[var(--mat-charcoal)] text-white hover:bg-[var(--mat-dark-brown)]",
+  secondary: "border border-[var(--mat-charcoal)] text-[var(--mat-charcoal)] hover:bg-[var(--mat-charcoal)] hover:text-white",
   ghost: "text-[var(--mat-charcoal)] underline underline-offset-4",
 };
 
