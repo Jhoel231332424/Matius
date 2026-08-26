@@ -69,6 +69,77 @@ async function assertLastAnalyticsEvent(page, expected) {
   }
 }
 
+async function testFullscreenMenu(browser) {
+  const desktop = await createPage(browser, { width: 1440, height: 1000 });
+
+  try {
+    await goto(desktop.page);
+
+    const trigger = desktop.page.getByRole("button", { name: "Abrir menú" });
+    await trigger.click();
+
+    const dialog = desktop.page.getByRole("dialog", { name: "Menú principal" });
+    await dialog.waitFor({ state: "visible" });
+    assert.equal(await trigger.getAttribute("aria-expanded"), "true");
+    assert.equal(await dialog.getAttribute("data-active-index"), "0");
+
+    await desktop.page.waitForFunction(() => document.body.style.overflow === "hidden");
+
+    const close = dialog.getByRole("button", { name: "Cerrar menú" });
+    await assertFocused(close, "Opening the fullscreen menu should move focus to its close control.");
+
+    const menuWhatsApp = dialog.getByRole("link", { name: "Consultar por WhatsApp" });
+    await desktop.page.keyboard.press("Shift+Tab");
+    await assertFocused(menuWhatsApp, "Shift+Tab from the first control should wrap focus to the last control.");
+    await desktop.page.keyboard.press("Tab");
+    await assertFocused(close, "Tab from the last control should wrap focus to the close control.");
+
+    const fabrication = dialog.getByRole("link", { name: "Fabricación", exact: true });
+    await fabrication.focus();
+    assert.equal(
+      await dialog.getAttribute("data-active-index"),
+      "2",
+      "Focusing Fabricación should activate its photographic crossfade state.",
+    );
+
+    await desktop.page.keyboard.press("Escape");
+    assert.equal(await trigger.getAttribute("aria-expanded"), "false");
+    await assertFocused(trigger, "Escape should close the fullscreen menu and restore focus to the trigger.");
+    await desktop.page.waitForFunction(() => document.body.style.overflow !== "hidden");
+
+    console.log("✓ Fullscreen menu desktop focus trap, Escape and crossfade state");
+  } finally {
+    await desktop.context.close();
+  }
+
+  const mobile = await createPage(browser, { width: 390, height: 844 });
+
+  try {
+    await goto(mobile.page);
+    const trigger = mobile.page.getByRole("button", { name: "Abrir menú" });
+    await trigger.click();
+
+    const dialog = mobile.page.getByRole("dialog", { name: "Menú principal" });
+    await dialog.waitFor({ state: "visible" });
+    const bounds = await dialog.boundingBox();
+    assert.ok(bounds, "Fullscreen menu should have measurable bounds on mobile.");
+    assert.ok(bounds.width >= 389, "Fullscreen menu should cover the mobile viewport width.");
+    assert.ok(bounds.height >= 843, "Fullscreen menu should cover the mobile viewport height.");
+
+    const stores = dialog.getByRole("link", { name: "Tiendas", exact: true });
+    await stores.focus();
+    assert.equal(await dialog.getAttribute("data-active-index"), "3");
+
+    const close = dialog.getByRole("button", { name: "Cerrar menú" });
+    await close.click();
+    await assertFocused(trigger, "Closing the mobile fullscreen menu should restore focus to the trigger.");
+
+    console.log("✓ Fullscreen menu mobile viewport coverage and close behavior");
+  } finally {
+    await mobile.context.close();
+  }
+}
+
 async function testAccordionDesktop(browser) {
   const { context, page } = await createPage(browser, { width: 1440, height: 1000 });
 
@@ -232,6 +303,7 @@ const browser = await chromium.launch({
 });
 
 try {
+  await testFullscreenMenu(browser);
   await testAccordionDesktop(browser);
   await testAccordionMobile(browser);
   await testWhatsAppContexts(browser);
