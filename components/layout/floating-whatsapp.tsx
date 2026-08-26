@@ -7,14 +7,19 @@ import { createWhatsAppUrl } from "@/lib/whatsapp";
 export function FloatingWhatsApp() {
   const [pastHero, setPastHero] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
+  const [desktopViewport, setDesktopViewport] = useState(false);
 
   useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const updateDesktopViewport = () => setDesktopViewport(desktopMedia.matches);
     const updateVisibility = () => {
       const threshold = Math.min(window.innerHeight * 0.72, 720);
       setPastHero(window.scrollY > threshold);
     };
 
+    updateDesktopViewport();
     updateVisibility();
+    desktopMedia.addEventListener("change", updateDesktopViewport);
     window.addEventListener("scroll", updateVisibility, { passive: true });
     window.addEventListener("resize", updateVisibility);
 
@@ -29,13 +34,14 @@ export function FloatingWhatsApp() {
     if (contact && observer) observer.observe(contact);
 
     return () => {
+      desktopMedia.removeEventListener("change", updateDesktopViewport);
       window.removeEventListener("scroll", updateVisibility);
       window.removeEventListener("resize", updateVisibility);
       observer?.disconnect();
     };
   }, []);
 
-  const visible = pastHero && !contactVisible;
+  const visible = desktopViewport && pastHero && !contactVisible;
 
   return (
     <a
