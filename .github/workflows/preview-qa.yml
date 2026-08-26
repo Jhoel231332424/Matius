@@ -118,6 +118,19 @@ jobs:
 
           echo "Public copy guard passed."
 
+      - name: Functional interaction QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+
+          if [ -z "$CHROME_BIN" ]; then
+            echo "Chrome binary not found."
+            exit 1
+          fi
+
+          CHROME_BIN="$CHROME_BIN" FUNCTIONAL_BASE_URL="$PREVIEW_URL" npm run qa:functional
+
       - name: Capture live mobile and desktop snapshots
         shell: bash
         run: |

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BrandAsset } from "@/data/media";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import styles from "./collection-accordion.module.css";
@@ -17,21 +17,52 @@ type CollectionPanel = {
 
 export function CollectionAccordion({ panels }: { panels: CollectionPanel[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const closeRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const restoreFocusIndexRef = useRef<number | null>(null);
+
+  const openPanel = (index: number) => {
+    restoreFocusIndexRef.current = null;
+    setActiveIndex(index);
+  };
+
+  const closePanel = (index: number) => {
+    restoreFocusIndexRef.current = index;
+    setActiveIndex(null);
+  };
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActiveIndex(null);
+      if (event.key === "Escape" && activeIndex !== null) {
+        event.preventDefault();
+        restoreFocusIndexRef.current = activeIndex;
+        setActiveIndex(null);
+      }
     };
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (activeIndex !== null) {
+      closeRefs.current[activeIndex]?.focus();
+      return;
+    }
+
+    const restoreIndex = restoreFocusIndexRef.current;
+    if (restoreIndex !== null) {
+      triggerRefs.current[restoreIndex]?.focus();
+      restoreFocusIndexRef.current = null;
+    }
+  }, [activeIndex]);
 
   return (
     <div className={styles.accordion} data-open={activeIndex !== null}>
       {panels.map((panel, index) => {
         const active = activeIndex === index;
         const panelId = `collection-panel-${index}`;
+        const titleId = `collection-title-${index}`;
 
         return (
           <article key={panel.title} className={styles.panel} data-active={active}>
@@ -47,11 +78,14 @@ export function CollectionAccordion({ panels }: { panels: CollectionPanel[] }) {
 
             {!active ? (
               <button
+                ref={(node) => {
+                  triggerRefs.current[index] = node;
+                }}
                 type="button"
                 className={styles.toggle}
                 aria-expanded="false"
                 aria-controls={panelId}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => openPanel(index)}
               >
                 <span className={styles.number}>0{index + 1}</span>
                 <span className={styles.railLine} aria-hidden="true" />
@@ -60,18 +94,28 @@ export function CollectionAccordion({ panels }: { panels: CollectionPanel[] }) {
                 <span className="sr-only">Abrir colección {panel.title}</span>
               </button>
             ) : (
-              <div id={panelId} className={styles.content}>
+              <div
+                id={panelId}
+                className={styles.content}
+                role="region"
+                aria-labelledby={titleId}
+              >
                 <button
+                  ref={(node) => {
+                    closeRefs.current[index] = node;
+                  }}
                   type="button"
                   className={styles.close}
                   aria-label={`Cerrar colección ${panel.title}`}
-                  onClick={() => setActiveIndex(null)}
+                  aria-expanded="true"
+                  aria-controls={panelId}
+                  onClick={() => closePanel(index)}
                 >
                   ×
                 </button>
                 <span className={styles.contentNumber}>0{index + 1}</span>
                 <p className={styles.eyebrow}>{panel.eyebrow}</p>
-                <h3 className={styles.title}>{panel.title}</h3>
+                <h3 id={titleId} className={styles.title}>{panel.title}</h3>
                 <p className={styles.description}>{panel.description}</p>
                 <div className={styles.actions}>
                   <Link href={panel.href} className={styles.primaryLink}>
@@ -89,7 +133,9 @@ export function CollectionAccordion({ panels }: { panels: CollectionPanel[] }) {
                 <button
                   type="button"
                   className={styles.mobileClose}
-                  onClick={() => setActiveIndex(null)}
+                  aria-expanded="true"
+                  aria-controls={panelId}
+                  onClick={() => closePanel(index)}
                 >
                   Cerrar colección
                 </button>

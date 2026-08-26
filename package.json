@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "visual:snapshots": "node scripts/capture-visuals.mjs"
+    "visual:snapshots": "node scripts/capture-visuals.mjs",
+    "qa:functional": "node scripts/functional-qa.mjs"
   },
   "dependencies": {
     "next": "16.3.0",
