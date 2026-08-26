@@ -33,7 +33,7 @@ export function EditorialRouteHero({
             : "grid gap-12 py-14 sm:py-20 lg:min-h-[70svh] lg:grid-cols-12 lg:items-center lg:py-24"
         }
       >
-        <div className={image ? "max-w-3xl" : "max-w-4xl lg:col-span-8"}>
+        <div className={image ? "order-2 max-w-3xl lg:order-1" : "max-w-4xl lg:col-span-8"}>
           <div className="mb-6 flex items-center gap-3">
             <span className="h-px w-10 bg-[var(--mat-red)]" aria-hidden="true" />
             <p className="matius-eyebrow matius-hero-eyebrow text-white/65">{eyebrow}</p>
@@ -60,7 +60,7 @@ export function EditorialRouteHero({
         </div>
 
         {image ? (
-          <figure className="matius-hero-media relative min-h-[24rem] overflow-hidden bg-[var(--mat-dark-brown)] sm:min-h-[34rem] lg:min-h-[46rem]">
+          <figure className="matius-hero-media order-1 relative min-h-[24rem] overflow-hidden bg-[var(--mat-dark-brown)] sm:min-h-[34rem] lg:order-2 lg:min-h-[46rem]">
             <Image
               src={image.src}
               alt={image.alt}
