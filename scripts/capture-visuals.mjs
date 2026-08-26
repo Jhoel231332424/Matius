@@ -33,6 +33,24 @@ const cases = [
   { name: "contact-desktop", width: 1440, height: 1000, selector: "#contacto" },
 ];
 
+async function waitForSectionImages(locator) {
+  await locator.evaluate(async (element) => {
+    const images = [...element.querySelectorAll("img")];
+
+    await Promise.all(
+      images.map((image) => {
+        if (image.complete && image.naturalWidth > 0) return Promise.resolve();
+
+        return new Promise((resolve) => {
+          const done = () => resolve();
+          image.addEventListener("load", done, { once: true });
+          image.addEventListener("error", done, { once: true });
+        });
+      }),
+    );
+  });
+}
+
 await mkdir("visual-snapshots", { recursive: true });
 
 const browser = await chromium.launch({
@@ -63,7 +81,8 @@ try {
         window.scrollTo(0, Math.max(0, targetY));
       });
 
-      await page.waitForTimeout(250);
+      await page.waitForTimeout(150);
+      await waitForSectionImages(locator);
       await page.waitForLoadState("networkidle").catch(() => undefined);
     }
 
