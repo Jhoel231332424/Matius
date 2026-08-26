@@ -200,6 +200,7 @@ export function FullscreenMenu() {
                   <Link
                     key={item.href}
                     href={item.href}
+                    aria-label={item.label}
                     tabIndex={open ? 0 : -1}
                     aria-current={item.href === pathname ? "page" : undefined}
                     data-active={activeIndex === item.imageIndex}
