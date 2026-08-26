@@ -34,7 +34,7 @@ export function FullscreenMenu() {
   const closeMenu = useCallback(
     (restoreFocus = true) => {
       setOpen(false);
-      if (restoreFocus) triggerRef.current?.focus();
+      if (restoreFocus) triggerRef.current?.focus({ preventScroll: true });
 
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
       closeTimerRef.current = setTimeout(
@@ -57,7 +57,10 @@ export function FullscreenMenu() {
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    requestAnimationFrame(() => closeRef.current?.focus());
+
+    const focusClose = () => closeRef.current?.focus({ preventScroll: true });
+    focusClose();
+    const focusFrame = requestAnimationFrame(focusClose);
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -91,6 +94,7 @@ export function FullscreenMenu() {
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
