@@ -49,15 +49,29 @@ No inventar:
 - UI: legible, sobria, sin tracking exagerado salvo eyebrows.
 - No introducir una tercera familia sin revisión del contrato.
 
+Los títulos editoriales deben sentirse estables y con autoridad. El movimiento se resuelve por líneas completas, no letra por letra.
+
 ## 5. Paleta
 
-Tokens existentes en `app/globals.css` son la fuente técnica de verdad.
+Los tokens de `app/globals.css` son la fuente técnica de verdad.
+
+Paleta aprobada para esta fase:
+- black: `#010101`;
+- charcoal: `#17110d`;
+- dark brown: `#28140a`;
+- tobacco: `#5a3521`;
+- cognac: `#7d3f23`;
+- ivory: `#e6dfcf`;
+- warm white: `#f0eadf`;
+- Matius red: `#9e2c1b`.
 
 Uso visual:
-- warm white / ivory: respiración y fondos editoriales;
-- charcoal / black: autoridad, navegación, producto y contraste;
-- cognac / tobacco / dark brown: material/cuero;
-- Matius red: acento escaso para conversión o firma de marca.
+- black / charcoal: autoridad, navegación, secciones inmersivas y contraste;
+- dark brown / tobacco / cognac: material, cuero y transiciones cromáticas;
+- ivory / warm white: respiración editorial y legibilidad;
+- Matius red: acento escaso para conversión, foco o firma de marca.
+
+Proporción orientativa en escenas de alto impacto: 60–70% oscuridad, 20–30% fotografía/material, 5–10% marfil y menos de 3% rojo.
 
 Regla: no usar el rojo como fondo dominante repetido en múltiples secciones.
 
@@ -69,7 +83,8 @@ Preferir:
 - imágenes grandes que atraviesen la retícula;
 - cambios de ritmo entre secciones claras/oscuras;
 - mucho espacio negativo alrededor del producto;
-- numeración funcional cuando explica secuencia/proceso.
+- numeración funcional cuando explica secuencia/proceso;
+- líneas finas como separadores y elementos de ritmo.
 
 Evitar:
 - bento grids genéricos;
@@ -98,6 +113,8 @@ No usar:
 - decoración que compita con el producto.
 
 La imagen hero es candidata LCP: `next/image`, `fetchPriority="high"`, `sizes` correcto, sin animaciones que retrasen paint.
+
+El H1 usa reveal por línea mediante clip/translate suave. La fotografía puede entrar con un scale máximo aproximado de `1.045 → 1` y cambio de saturación/luminosidad muy leve.
 
 ## 8. Product Card
 
@@ -147,19 +164,33 @@ Reglas:
 
 Motion refuerza jerarquía/material; nunca compensa una composición débil.
 
+Lenguaje aprobado:
+- títulos Hero: clip-reveal por línea, `~760–850ms`, easing editorial `cubic-bezier(0.22, 1, 0.36, 1)`;
+- títulos de sección: reveal al entrar al viewport, preferentemente CSS scroll-driven con fallback estático;
+- eyebrows/copy: fade + translate breve;
+- reglas editoriales: expansión horizontal desde el origen;
+- imágenes: scale máximo aproximado `1.045 → 1`, crossfade y cambios leves de saturación/brightness;
+- hover: color/opacity/scale mínimo;
+- sticky storytelling solo cuando la relación producto/material lo justifique.
+
+Principio: **las imágenes pueden moverse; los títulos mantienen autoridad**.
+
 Permitido:
 - fade/translate breve;
 - scale muy sutil de imagen;
 - sticky storytelling;
 - hover de segunda imagen;
-- clip/reveal cuando ayuda a presentar material.
+- clip/reveal cuando ayuda a presentar material;
+- crossfade entre estados visuales;
+- transiciones oscuras entre escenas si no bloquean navegación ni LCP.
 
 Límites:
 - una escena de scroll compleja máxima;
 - evitar animación letra por letra en todo el sitio;
 - nada de loops infinitos decorativos;
 - respetar `prefers-reduced-motion`;
-- evitar nuevas dependencias de animación sin demostrar que CSS no alcanza.
+- evitar nuevas dependencias de animación sin demostrar que CSS no alcanza;
+- no introducir springs, bounce, elastic, tilt 3D, particles o cursores custom para “hacerlo premium”.
 
 ## 13. WhatsApp / CRO
 

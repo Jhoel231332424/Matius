@@ -9,19 +9,20 @@ export function HeroSection() {
       <Container className="grid gap-8 py-8 sm:gap-10 sm:py-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:py-16">
         <div className="order-2 relative z-10 max-w-2xl lg:order-1">
           <div className="mb-6 flex items-center gap-3">
-            <span className="h-0.5 w-8 bg-[var(--mat-red)]" aria-hidden="true" />
+            <span className="h-px w-10 bg-[var(--mat-red)]" aria-hidden="true" />
             <p className="matius-eyebrow matius-hero-eyebrow text-black/65">
               Matius Perfect · Cochabamba
             </p>
           </div>
 
-          <div className="overflow-hidden pb-2">
-            <h1 className="matius-display matius-hero-title">
-              Cuero que
-              <br />
-              deja huella.
-            </h1>
-          </div>
+          <h1 className="matius-display matius-hero-title pb-2">
+            <span className="matius-title-line-wrap">
+              <span className="matius-title-line">Cuero que</span>
+            </span>
+            <span className="matius-title-line-wrap">
+              <span className="matius-title-line">deja huella.</span>
+            </span>
+          </h1>
 
           <p className="matius-hero-copy mt-7 max-w-xl text-base leading-7 text-black/70 sm:text-lg sm:leading-8">
             Zapatos de cuero hechos en Cochabamba con una propuesta que une oficio, elegancia y durabilidad.
@@ -30,7 +31,7 @@ export function HeroSection() {
           <div className="matius-hero-actions mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="#zapatos"
-              className="inline-flex min-h-12 items-center justify-center rounded-[var(--mat-radius-sm)] bg-[var(--mat-charcoal)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--mat-dark-brown)]"
+              className="inline-flex min-h-12 items-center justify-center rounded-[var(--mat-radius-sm)] bg-[var(--mat-black)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--mat-dark-brown)]"
             >
               Descubrir zapatos
             </a>
@@ -49,9 +50,9 @@ export function HeroSection() {
             fetchPriority="high"
             sizes="(min-width: 1024px) 55vw, 100vw"
             style={{ objectPosition: brandMedia.hero.objectPosition }}
-            className="object-cover"
+            className="matius-hero-image object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,12,0.03)_35%,rgba(14,13,12,0.68)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.02)_30%,rgba(1,1,1,0.72)_100%)]" />
 
           <div className="absolute left-5 top-5 flex items-center gap-3 sm:left-8 sm:top-8">
             <span className="h-px w-8 bg-white/70" aria-hidden="true" />
