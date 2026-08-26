@@ -1,95 +1,127 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { brandMedia } from "@/data/media";
 
-const steps = [
+const chapters = [
   {
     number: "01",
-    title: "Material",
-    copy: "El cuero abre la historia con textura, tono y presencia antes de convertirse en un par terminado.",
+    eyebrow: "Cuero",
+    title: "El material abre la historia.",
+    copy: "El cuero es uno de los pilares de Matius Perfect. Aquí la lectura se concentra en superficie, tono y presencia, sin atribuir a la imagen un tipo técnico de cuero que no esté confirmado.",
+    note: "Material / textura / presencia",
   },
   {
     number: "02",
-    title: "Oficio",
-    copy: "La fabricación pone el foco en el cuidado del detalle y en el trabajo que sostiene cada pieza.",
+    eyebrow: "Oficio",
+    title: "Hecho en Cochabamba.",
+    copy: "La marca comunica fabricación en Cochabamba y una propuesta artesanal. Este capítulo pone en primer plano esa relación entre producto y oficio sin describir pasos de producción que todavía no estén documentados.",
+    note: "Origen / fabricación / cuidado",
   },
   {
     number: "03",
-    title: "Acabado",
-    copy: "Costuras, superficies y terminaciones cierran la narrativa con una mirada cercana al resultado final.",
+    eyebrow: "Acabado",
+    title: "Los detalles sostienen el carácter.",
+    copy: "Costuras, bordes, forma y terminaciones son la manera más directa de leer un zapato de cerca. La interfaz se retira para dejar que el producto y sus detalles ocupen el centro de la escena.",
+    note: "Forma / costura / terminación",
   },
-];
+  {
+    number: "04",
+    eyebrow: "Durabilidad",
+    title: "Diseñado para permanecer.",
+    copy: "La durabilidad forma parte de los pilares comunicados por Matius Perfect. Se presenta como una intención de producto y de marca, sin convertirla en una promesa cuantificada ni en una garantía no confirmada.",
+    note: "Uso / permanencia / confianza",
+  },
+] as const;
 
 export function CraftsmanshipSection() {
   return (
-    <section id="fabricacion" className="bg-[var(--mat-ivory)] py-[var(--mat-section)]">
+    <section id="fabricacion" className="overflow-clip bg-[var(--mat-black)] py-[var(--mat-section)] text-[var(--mat-warm-white)]">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+        <div className="grid gap-8 border-b border-white/15 pb-12 lg:grid-cols-12 lg:items-end lg:pb-16">
           <div className="lg:col-span-8">
             <SectionHeading
-              eyebrow="Fabricación"
-              title="Detrás de cada par."
-              description="Tres momentos para acercarse al material, al oficio y al acabado que dan carácter al calzado."
+              eyebrow="Producto / material / oficio"
+              title="Un par. Cuatro lecturas."
+              description="El producto permanece en escena mientras la historia avanza por cuero, oficio, acabado y durabilidad."
+              tone="dark"
             />
           </div>
           <div className="lg:col-span-3 lg:col-start-10 lg:text-right">
-            <Link href="/nuestra-fabricacion" className="inline-block text-sm font-semibold underline underline-offset-4">
+            <Link
+              href="/nuestra-fabricacion"
+              className="inline-block text-sm font-semibold text-white underline decoration-white/45 underline-offset-4 transition-colors hover:text-[var(--mat-warm-white)]"
+            >
               Conocer la fabricación →
             </Link>
           </div>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
-          <aside className="hidden lg:block">
-            <div className="sticky top-28 border-t border-black/15 pt-6">
-              <div className="mb-5 h-0.5 w-8 bg-[var(--mat-red)]" aria-hidden="true" />
-              <p className="matius-eyebrow text-black/65">Secuencia</p>
-              <p className="mt-5 max-w-xs font-[family-name:var(--font-display)] text-4xl font-medium leading-[0.95]">
-                Material.
-                <br />
-                Oficio.
-                <br />
-                Acabado.
-              </p>
-              <p className="mt-6 max-w-xs text-sm leading-6 text-black/65">
-                Una lectura pausada del producto, sin convertir el proceso en una demostración técnica ni distraer del calzado.
-              </p>
-            </div>
-          </aside>
-
-          <div className="relative">
-            {steps.map((step, index) => (
-              <article
-                key={step.number}
-                className="relative mb-8 min-h-[30rem] overflow-hidden border border-white/10 bg-[var(--mat-dark-brown)] p-7 text-white sm:p-9 lg:sticky lg:min-h-[68vh]"
-                style={{ top: `${7 + index * 1.35}rem`, zIndex: index + 1 }}
-              >
-                <div className="absolute left-7 top-7 h-0.5 w-10 bg-[var(--mat-red)] sm:left-9 sm:top-9" aria-hidden="true" />
-                <div className="absolute -right-3 top-8 select-none font-[family-name:var(--font-display)] text-[9rem] font-medium leading-none text-white/[0.05] sm:text-[13rem]" aria-hidden="true">
-                  {step.number}
+        <div className="mt-10 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-10 xl:gap-16">
+          <div className="lg:col-span-6 xl:col-span-7">
+            <figure className="relative overflow-hidden bg-[var(--mat-dark-brown)] lg:sticky lg:top-24 lg:min-h-[calc(100vh-7rem)]">
+              <div className="relative min-h-[28rem] sm:min-h-[38rem] lg:min-h-[calc(100vh-7rem)]">
+                <Image
+                  src={brandMedia.leatherDetail.src}
+                  alt={brandMedia.leatherDetail.alt}
+                  fill
+                  sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 50vw, 100vw"
+                  style={{ objectPosition: brandMedia.leatherDetail.objectPosition }}
+                  className="object-cover saturate-[0.9] brightness-[0.82]"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,1,0.08)_30%,rgba(1,1,1,0.72)_100%)]" />
+                <div className="absolute inset-x-5 top-5 flex items-center justify-between gap-4 border-t border-white/30 pt-4 sm:inset-x-7 sm:top-7">
+                  <span className="matius-eyebrow text-white/80">Matius Perfect</span>
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/65">Imagen de campaña</span>
                 </div>
-
-                <div className="relative flex h-full min-h-[26rem] flex-col justify-between lg:min-h-[60vh]">
-                  <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
-                    <span className="matius-eyebrow text-white/75">Proceso</span>
-                    <span className="text-xs uppercase tracking-[0.16em] text-white/65">{step.number} / 03</span>
-                  </div>
-
-                  <div className="py-12">
-                    <h3 className="max-w-[9ch] font-[family-name:var(--font-display)] text-5xl font-medium leading-[0.9] sm:text-7xl">
-                      {step.title}
-                    </h3>
-                    <p className="mt-6 max-w-xl text-base leading-7 text-white/75">{step.copy}</p>
-                  </div>
-
-                  <div className="flex items-center gap-3 border-t border-white/20 pt-5 text-xs uppercase tracking-[0.16em] text-white/60">
-                    <span>Matius Perfect</span>
+                <figcaption className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+                  <div className="mb-5 h-0.5 w-8 bg-[var(--mat-red)]" aria-hidden="true" />
+                  <p className="max-w-[11ch] font-[family-name:var(--font-display)] text-5xl font-medium leading-[0.88] sm:text-6xl lg:text-7xl">
+                    El producto primero.
+                  </p>
+                  <div className="mt-6 flex items-center gap-3 border-t border-white/25 pt-4 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/65">
+                    <span>Calzado</span>
                     <span className="h-px flex-1 bg-white/20" aria-hidden="true" />
                     <span>Cochabamba</span>
                   </div>
-                </div>
-              </article>
-            ))}
+                </figcaption>
+              </div>
+            </figure>
+          </div>
+
+          <div className="lg:col-span-6 xl:col-span-5">
+            <div className="border-t border-white/18">
+              {chapters.map((chapter) => (
+                <article
+                  key={chapter.number}
+                  className="grid min-h-[26rem] content-center border-b border-white/18 py-12 sm:min-h-[30rem] lg:min-h-[58vh] lg:py-16"
+                >
+                  <div className="grid gap-8 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-5">
+                    <div className="flex items-start justify-between gap-4 sm:block">
+                      <span className="font-[family-name:var(--font-display)] text-4xl font-medium leading-none text-[var(--mat-red)] sm:text-5xl">
+                        {chapter.number}
+                      </span>
+                      <span className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/45 sm:mt-5 sm:block">
+                        / 04
+                      </span>
+                    </div>
+
+                    <div>
+                      <p className="matius-eyebrow text-white/60">{chapter.eyebrow}</p>
+                      <h3 className="mt-4 max-w-[11ch] font-[family-name:var(--font-display)] text-5xl font-medium leading-[0.9] sm:text-6xl lg:text-[4.6rem]">
+                        {chapter.title}
+                      </h3>
+                      <p className="mt-7 max-w-xl text-base leading-7 text-white/68">{chapter.copy}</p>
+                      <div className="mt-9 flex items-center gap-3 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                        <span>{chapter.note}</span>
+                        <span className="h-px flex-1 bg-white/15" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </Container>
