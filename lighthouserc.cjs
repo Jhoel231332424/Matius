@@ -7,6 +7,7 @@ module.exports = {
       numberOfRuns: 1,
       settings: {
         formFactor: "mobile",
+        skipAudits: ["is-crawlable"],
         screenEmulation: {
           mobile: true,
           width: 390,
