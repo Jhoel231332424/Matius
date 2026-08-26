@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       NEXT_PUBLIC_SITE_URL: https://matiusperfect.com
       NEXT_PUBLIC_WHATSAPP_NUMBER: "59171431096"
@@ -35,3 +35,18 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.x --no-audit --no-fund
+
+      - name: Lighthouse mobile audit
+        run: lhci autorun
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          if-no-files-found: ignore
+          retention-days: 7
