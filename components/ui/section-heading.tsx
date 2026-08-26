@@ -5,17 +5,27 @@ export function SectionHeading({
   title,
   description,
   className,
+  tone = "light",
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
+  tone?: "light" | "dark";
 }) {
+  const isDark = tone === "dark";
+
   return (
     <div className={cn("max-w-3xl", className)}>
-      {eyebrow ? <p className="matius-eyebrow mb-4">{eyebrow}</p> : null}
-      <h2 className="matius-section-title">{title}</h2>
-      {description ? <p className="mt-6 max-w-2xl text-base leading-7 text-black/65 sm:text-lg">{description}</p> : null}
+      {eyebrow ? (
+        <p className={cn("matius-eyebrow mb-4", isDark ? "text-white/75" : "text-black/65")}>{eyebrow}</p>
+      ) : null}
+      <h2 className={cn("matius-section-title", isDark && "text-white")}>{title}</h2>
+      {description ? (
+        <p className={cn("mt-6 max-w-2xl text-base leading-7 sm:text-lg", isDark ? "text-white/80" : "text-black/70")}>
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }
