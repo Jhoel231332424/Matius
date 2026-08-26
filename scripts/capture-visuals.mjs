@@ -67,12 +67,15 @@ try {
       await page.waitForLoadState("networkidle").catch(() => undefined);
     }
 
-    if (testCase.openCollection) {
-      const trigger = page.getByRole("button", {
+    if (testCase.openCollection && testCase.selector) {
+      const section = page.locator(testCase.selector);
+      const trigger = section.getByRole("button", {
         name: new RegExp(`Abrir colección ${testCase.openCollection}`, "i"),
       });
       await trigger.click();
-      await page.getByRole("heading", { name: testCase.openCollection }).waitFor({ state: "visible" });
+      await section
+        .getByRole("heading", { name: testCase.openCollection, exact: true })
+        .waitFor({ state: "visible" });
       await page.waitForTimeout(150);
     }
 
