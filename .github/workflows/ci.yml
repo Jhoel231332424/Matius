@@ -85,6 +85,7 @@ jobs:
             local size="$2"
             local url="$3"
             "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --force-prefers-reduced-motion \
               --virtual-time-budget=1200 \
               --window-size="$size" \
               --screenshot="visual-snapshots/${name}.png" \

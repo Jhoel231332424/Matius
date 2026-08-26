@@ -30,7 +30,16 @@ El CI debe generar ocho snapshots por PR:
 - `craftsmanship-desktop.png`
 - `contact-desktop.png`
 
+### Determinismo de captura
+
+Las capturas del CI se ejecutan con `prefers-reduced-motion` forzado. Esto evita que una URL con hash (`#zapatos`, `#fabricacion`, `#contacto`) quede fotografiada a mitad del `scroll-behavior: smooth` o de una animación de entrada.
+
+El objetivo del artifact es comparar **layout/crop/jerarquía**, no validar el timing de motion. Las animaciones/interacciones se revisan por separado cuando una feature las modifica.
+
+Si un snapshot con anchor no muestra la sección indicada, el QA se considera roto aunque el job termine verde.
+
 Revisar siempre:
+- que el anchor corresponda a la sección esperada;
 - crop de imágenes;
 - CTA visible;
 - overflow;
@@ -134,7 +143,7 @@ npm run build
 
 Además deben pasar:
 - smoke de 11 rutas;
-- snapshots automáticos;
+- snapshots automáticos inspeccionados, no solo generados;
 - Lighthouse CI.
 
 Los gates deben estar verdes antes de sacar el PR de draft.
