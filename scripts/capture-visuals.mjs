@@ -31,6 +31,12 @@ const cases = [
   },
   { name: "craftsmanship-mobile", width: 390, height: 844, selector: "#fabricacion" },
   { name: "craftsmanship-desktop", width: 1440, height: 1000, selector: "#fabricacion" },
+  {
+    name: "craftsmanship-story-desktop",
+    width: 1440,
+    height: 1000,
+    selector: "#fabricacion figure",
+  },
   { name: "contact-mobile", width: 390, height: 844, selector: "#contacto" },
   { name: "contact-desktop", width: 1440, height: 1000, selector: "#contacto" },
 ];
