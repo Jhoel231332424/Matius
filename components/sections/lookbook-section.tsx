@@ -35,7 +35,6 @@ export function LookbookSection() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                unoptimized
                 sizes={index === 0 ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
                 style={{ objectPosition: image.objectPosition }}
                 className="object-cover transition-transform duration-700 ease-out hover:scale-[1.025]"
