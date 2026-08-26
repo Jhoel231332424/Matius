@@ -14,6 +14,32 @@ Verificar manualmente como mínimo:
 - 1440 × 900
 - 1920 × 1080
 
+## Snapshots automáticos
+
+El CI debe generar ocho snapshots por PR:
+
+### Mobile — 390 × 844
+- `home-mobile.png`
+- `collections-mobile.png`
+- `craftsmanship-mobile.png`
+- `contact-mobile.png`
+
+### Desktop — 1440 × 1000
+- `home-desktop.png`
+- `collections-desktop.png`
+- `craftsmanship-desktop.png`
+- `contact-desktop.png`
+
+Revisar siempre:
+- crop de imágenes;
+- CTA visible;
+- overflow;
+- jerarquía tipográfica;
+- contraste;
+- espacios excesivos;
+- drift respecto de `DESIGN.md`;
+- floating WhatsApp sin tapar controles.
+
 ## Navegación
 
 - Navbar no tapa anchors al navegar.
@@ -35,6 +61,8 @@ Validar eventos:
 
 Cada evento debe incluir `source`, `page_path` y contexto de producto/sucursal cuando corresponda.
 
+Validar también el mensaje prellenado por origen según `docs/CONVERSION-WHATSAPP.md`.
+
 ## Accesibilidad
 
 - Un solo H1 en Home.
@@ -46,14 +74,17 @@ Cada evento debe incluir `source`, `page_path` y contexto de producto/sucursal c
 - Nada depende exclusivamente de hover.
 - `prefers-reduced-motion` desactiva motion no esencial.
 - Contraste revisado en overlays sobre fotografías.
+- Skip link disponible.
+- Nombre accesible coincide con la intención visible.
 
 ## Imágenes
 
-- Hero usa `priority`.
+- Hero usa `fetchPriority="high"` y carga eager.
 - Todas las imágenes reservan espacio mediante `fill` + contenedor posicionado.
 - `sizes` definido.
 - No se usan imágenes CSS para contenido indexable principal.
 - Reemplazar URLs first-party externas por originales locales/CDN antes de producción si el cliente entrega assets.
+- No asociar una foto de campaña con un producto específico sin verificación.
 
 ## SEO
 
@@ -63,21 +94,33 @@ Cada evento debe incluir `source`, `page_path` y contexto de producto/sucursal c
 - JSON-LD sin datos ficticios.
 - `LocalBusiness` no completa dirección/horarios/teléfono hasta validarlos.
 - `Product` no publica stock/tallas/variantes no verificadas.
+- Open Graph/Twitter coherentes con la página.
 
 ## Performance
 
-Objetivos:
+Objetivos de producto:
 
-- LCP <= 2.5 s
+- LCP <= 2.5 s en campo
 - INP <= 200 ms
 - CLS <= 0.1
+
+Gates CI actuales:
+
+- Accessibility >= 0.95
+- Best Practices >= 0.90
+- SEO >= 0.95
+- Performance warning si < 0.75
+- LCP warning si > 4 s
+- CLS error si > 0.1
+- TBT warning si > 350 ms
 
 Revisar:
 
 - hero como principal candidato LCP;
+- Server Components por defecto;
 - evitar JS en componentes puramente visuales;
-- solo Hero, Leather Detail, Craftsmanship y WhatsApp tracking requieren comportamiento cliente;
-- no añadir GSAP/Lenis/WebGL en v1;
+- comportamiento cliente solo cuando existe interacción real (WhatsApp/floating/nav si aplica);
+- no añadir GSAP/Lenis/WebGL/Motion sin demostrar necesidad;
 - lazy loading por defecto debajo del fold;
 - evitar animaciones de layout costosas.
 
@@ -89,4 +132,9 @@ npm run typecheck
 npm run build
 ```
 
-Los tres comandos deben estar verdes antes de sacar el PR de draft.
+Además deben pasar:
+- smoke de 11 rutas;
+- snapshots automáticos;
+- Lighthouse CI.
+
+Los gates deben estar verdes antes de sacar el PR de draft.

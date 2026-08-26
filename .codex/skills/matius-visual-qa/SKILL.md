@@ -13,9 +13,22 @@ Use after any UI, imagery, typography, navigation, responsive, motion or CTA cha
 2. `npm run typecheck`
 3. `npm run build`
 4. route smoke tests
-5. mobile snapshot: 390×844
-6. desktop snapshot: 1440×1000
-7. Lighthouse when change can affect first viewport, JS, images, SEO or a11y
+5. snapshots de Hero/Colecciones/Fabricación/Contacto en mobile y desktop
+6. Lighthouse cuando el cambio puede afectar first viewport, JS, imágenes, SEO o a11y
+
+## Snapshot matrix
+
+### Mobile 390×844
+- `home-mobile.png`
+- `collections-mobile.png`
+- `craftsmanship-mobile.png`
+- `contact-mobile.png`
+
+### Desktop 1440×1000
+- `home-desktop.png`
+- `collections-desktop.png`
+- `craftsmanship-desktop.png`
+- `contact-desktop.png`
 
 ## Visual inspection
 
@@ -30,7 +43,8 @@ Never rely only on scores. Inspect screenshots for:
 - floating WhatsApp overlap;
 - excessive empty space;
 - typography wrapping problems;
-- dark/light section contrast problems.
+- dark/light section contrast problems;
+- section-anchor snapshots landing in the wrong visual region.
 
 ## Mobile review
 
@@ -75,8 +89,9 @@ When a snapshot changes:
 1. identify whether change is intentional;
 2. compare against `DESIGN.md`;
 3. verify desktop and mobile;
-4. fix unintended drift before adding more UI;
-5. only then accept/update baseline assumptions.
+4. inspect the affected section snapshot, not only Home;
+5. fix unintended drift before adding more UI;
+6. only then accept/update baseline assumptions.
 
 ## Done
 

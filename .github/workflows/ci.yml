@@ -79,15 +79,27 @@ jobs:
 
           mkdir -p visual-snapshots
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+
+          capture() {
+            local name="$1"
+            local size="$2"
+            local url="$3"
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --virtual-time-budget=1200 \
+              --window-size="$size" \
+              --screenshot="visual-snapshots/${name}.png" \
+              "$url"
+          }
+
           if [ -n "$CHROME_BIN" ]; then
-            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --window-size=390,844 \
-              --screenshot=visual-snapshots/home-mobile.png \
-              http://localhost:3000/
-            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --window-size=1440,1000 \
-              --screenshot=visual-snapshots/home-desktop.png \
-              http://localhost:3000/
+            capture "home-mobile" "390,844" "http://localhost:3000/"
+            capture "home-desktop" "1440,1000" "http://localhost:3000/"
+            capture "collections-mobile" "390,844" "http://localhost:3000/#zapatos"
+            capture "collections-desktop" "1440,1000" "http://localhost:3000/#zapatos"
+            capture "craftsmanship-mobile" "390,844" "http://localhost:3000/#fabricacion"
+            capture "craftsmanship-desktop" "1440,1000" "http://localhost:3000/#fabricacion"
+            capture "contact-mobile" "390,844" "http://localhost:3000/#contacto"
+            capture "contact-desktop" "1440,1000" "http://localhost:3000/#contacto"
           else
             echo "Chrome binary not found; visual snapshots skipped."
           fi
