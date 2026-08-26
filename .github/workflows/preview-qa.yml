@@ -84,6 +84,36 @@ jobs:
           echo "$html" | grep -qi "nofollow"
           echo "$html" | grep -q "wa.me/59171431096"
 
+      - name: Reject internal or provisional copy on public pages
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          public_routes=(
+            "/"
+            "/zapatos-de-cuero"
+            "/zapatos-hombre"
+            "/zapatos-mujer"
+            "/nuestra-fabricacion"
+            "/tiendas"
+            "/tiendas/central"
+            "/tiendas/sucursal-1"
+            "/tiendas/sucursal-2"
+          )
+
+          forbidden='Demo editorial|Colección preparada|Ruta preparada|Storytelling preparado|Datos de contacto pendientes|pendientes de confirmación|pendiente de validación|arquitectura SEO|catálogo real se conectará|JSON-LD solo'
+
+          for route in "${public_routes[@]}"; do
+            html="$(curl --fail --silent --show-error --max-time 20 "${PREVIEW_URL}${route}")"
+            if printf '%s' "$html" | grep -Eqi "$forbidden"; then
+              echo "Internal/provisional copy detected on ${route}:"
+              printf '%s' "$html" | grep -Eio "$forbidden" | sort -u
+              exit 1
+            fi
+          done
+
+          echo "Public copy guard passed."
+
       - name: Capture live mobile and desktop snapshots
         shell: bash
         run: |
