@@ -21,6 +21,9 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600"],
 });
 
+const allowIndexing =
+  process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true" && process.env.VERCEL_ENV !== "preview";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -28,6 +31,9 @@ export const metadata: Metadata = {
     template: "%s | Matius Perfect",
   },
   description: siteConfig.description,
+  robots: allowIndexing
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
