@@ -8,29 +8,43 @@ export function StoresSection() {
   return (
     <section className="bg-[var(--mat-ivory)] py-[var(--mat-section)]">
       <Container>
-        <SectionHeading
-          eyebrow="Presencia física"
-          title="Tres puntos para encontrarnos."
-          description="Consulta la ubicación y atención de cada punto directamente con Matius Perfect."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <SectionHeading
+              eyebrow="Presencia física"
+              title="Tres puntos para encontrarnos."
+              description="Consulta la ubicación y atención de cada punto directamente con Matius Perfect."
+            />
+          </div>
+          <p className="max-w-sm text-sm leading-6 text-black/65 lg:col-span-3 lg:col-start-10 lg:text-right">
+            Las direcciones y horarios se incorporarán únicamente cuando estén confirmados por la marca.
+          </p>
+        </div>
+
+        <div className="mt-14 border-y border-black/15">
           {stores.map((store, index) => (
-            <article key={store.slug} className="group border border-black/12 bg-[var(--mat-warm-white)] p-7">
-              <div className="flex items-center justify-between gap-4">
-                <span className="matius-eyebrow text-black/65">Cochabamba</span>
-                <span className="text-xs font-medium text-black/65">0{index + 1}</span>
+            <article key={store.slug} className="grid gap-5 border-b border-black/15 py-7 last:border-b-0 md:grid-cols-12 md:items-center md:py-8">
+              <div className="flex items-center gap-3 md:col-span-2">
+                <span className="h-0.5 w-8 bg-[var(--mat-red)]" aria-hidden="true" />
+                <span className="matius-eyebrow text-black/65">0{index + 1}</span>
               </div>
-              <div className="matius-hero-grid relative mt-8 min-h-52 overflow-hidden bg-[var(--mat-dark-brown)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_25%,rgba(222,210,194,0.2),transparent_34%)]" />
-                <span className="absolute bottom-5 left-5 font-[family-name:var(--font-display)] text-3xl font-medium text-white">{store.name}</span>
+
+              <div className="md:col-span-5">
+                <p className="matius-eyebrow text-black/65">Cochabamba</p>
+                <h3 className="mt-2 font-[family-name:var(--font-display)] text-4xl font-medium leading-none sm:text-5xl">
+                  {store.name}
+                </h3>
               </div>
-              <h3 className="mt-6 font-[family-name:var(--font-display)] text-3xl font-medium">{store.name}</h3>
-              <p className="mt-3 text-sm leading-6 text-black/70">Información de ubicación y atención disponible por contacto directo.</p>
-              <div className="mt-6 flex flex-col items-start gap-3">
+
+              <p className="max-w-sm text-sm leading-6 text-black/70 md:col-span-2">
+                Ubicación y atención disponibles por contacto directo.
+              </p>
+
+              <div className="flex flex-col items-start gap-3 md:col-span-3 md:items-end">
                 <Link href={`/tiendas/${store.slug}`} className="text-sm font-semibold underline underline-offset-4">
                   Ver sucursal →
                 </Link>
-                <WhatsAppButton source="store" storeName={store.name} variant="ghost" className="px-0">
+                <WhatsAppButton source="store" storeName={store.name} variant="ghost" className="px-0 md:justify-end">
                   Consultar sucursal →
                 </WhatsAppButton>
               </div>
