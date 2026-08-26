@@ -11,6 +11,8 @@ if (!executablePath) {
 const cases = [
   { name: "home-mobile", width: 390, height: 844 },
   { name: "home-desktop", width: 1440, height: 1000 },
+  { name: "menu-mobile", width: 390, height: 844, openMenu: true, menuTarget: "Fabricación" },
+  { name: "menu-desktop", width: 1440, height: 1000, openMenu: true, menuTarget: "Tiendas" },
   { name: "collections-mobile", width: 390, height: 844, selector: "#zapatos" },
   { name: "collections-desktop", width: 1440, height: 1000, selector: "#zapatos" },
   {
@@ -70,6 +72,20 @@ try {
     const page = await context.newPage();
     await page.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
     await page.addStyleTag({ content: "::-webkit-scrollbar{display:none!important}html{scroll-behavior:auto!important}" });
+
+    if (testCase.openMenu) {
+      await page.getByRole("button", { name: "Abrir menú" }).click();
+      const dialog = page.getByRole("dialog", { name: "Menú principal" });
+      await dialog.waitFor({ state: "visible" });
+
+      if (testCase.menuTarget) {
+        await dialog.getByRole("link", { name: testCase.menuTarget, exact: true }).focus();
+      }
+
+      await waitForSectionImages(dialog);
+      await page.waitForLoadState("networkidle").catch(() => undefined);
+      await page.waitForTimeout(120);
+    }
 
     if (testCase.selector) {
       const locator = page.locator(testCase.selector);
