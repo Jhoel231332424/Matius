@@ -43,13 +43,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es" className={`${geist.variable} ${cormorant.variable}`}>
       <body>
+        <a
+          href="#contenido-principal"
+          className="fixed left-4 top-4 z-[100] -translate-y-24 bg-[var(--mat-charcoal)] px-4 py-3 text-sm font-semibold text-white transition-transform focus:translate-y-0 motion-reduce:transition-none"
+        >
+          Saltar al contenido principal
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }}
         />
         <Topbar />
         <Navbar />
-        <main>{children}</main>
+        <main id="contenido-principal" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
         <FloatingWhatsApp />
       </body>
