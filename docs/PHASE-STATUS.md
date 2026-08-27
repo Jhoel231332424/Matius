@@ -6,7 +6,7 @@ Branch: `feat/landing-foundation`
 PR: #3 (draft)  
 Preview: `https://matius-preview-production.up.railway.app`
 
-La landing ya cuenta con diseño editorial, CRO de WhatsApp, QA visual, preview público protegido y validación automática contra Railway.
+La landing cuenta con diseño editorial, motion progresivo, CRO por WhatsApp, rutas secundarias coherentes, QA funcional/visual y deployment Railway protegido.
 
 ## Fase 1 — Foundation
 Estado: **completada**.
@@ -16,54 +16,80 @@ Next.js/React/TypeScript/Tailwind, App Router, tokens, fuentes, data/types/lib, 
 ## Fase 2 — Producción visual
 Estado: **completada con assets first-party disponibles**.
 
-Fotografía oficial de campaña integrada sin atribuir imágenes a modelos concretos sin verificación.
+Fotografía pública de campaña integrada como universo visual, sin atribuir una imagen a un modelo/proceso/sucursal concretos sin evidencia.
 
 ## Fase 3 — Design governance
-Estado: **completada**. Commit base: `c21319c`.
+Estado: **completada**.
 
 `DESIGN.md`, `AGENTS.md` y skills locales para design/CRO/SEO/visual QA.
 
-## Fase 4 — Sistema editorial
+## Fase 4 — Sistema editorial + motion
 Estado: **completada y validada**.
 
-Hero product-first, ProductCardMatius, Brand Pillars, Craftsmanship sticky CSS, Leather Detail, Lifestyle, Lookbook, Stores y Final CTA.
+- Hero product-first;
+- paleta Modern Bolivian Leather;
+- title/section reveals;
+- crossfades fotográficos;
+- menú fullscreen;
+- View Transitions progresivas;
+- reduced motion;
+- CSS-first, sin librería de motion.
 
 ## Fase 5 — CRO / WhatsApp
 Estado: **completada y validada**.
 
-Mensajes y eventos diferenciados por Hero, producto, sucursal, CTA final y floating. Mobile floating protegido para no tapar contenido.
+Mensajes/eventos diferenciados por Hero, producto, sucursal, CTA final y floating. Floating mobile desactivado para no cubrir contenido.
 
 ## Fase 6 — Editorial Collection Accordion
 Estado: **completada y validada**.
 
-Hombre / Mujer / Cuero; horizontal desktop, vertical mobile; click/teclado; Escape; cierre mobile; CSS-first.
+Hombre / Mujer / Cuero; horizontal desktop, vertical mobile; click/teclado; Escape; focus management; cierre mobile.
 
-## Fase 7 — CI / Visual QA local
+## Fase 7 — Product Storytelling
+Estado: **completada y validada**.
+
+Una única escena compleja de scroll en `#fabricacion`: producto sticky desktop + cuatro capítulos Cuero / Oficio / Acabado / Durabilidad. Mobile usa lectura vertical natural.
+
+## Fase 8 — Rutas editoriales
+Estado: **completada y validada**.
+
+Zapatos de cuero, Hombre, Mujer, Fabricación, Tiendas y detalle de sucursal usan el mismo sistema visual. La ruta general de cuero es product-first también en mobile.
+
+## Fase 9 — CI / Visual QA
 Estado: **completada**.
 
 - lint;
 - typecheck;
 - build;
 - smoke;
-- 10 snapshots;
+- Functional Interaction QA;
+- **21 snapshots**;
 - Lighthouse mobile.
 
-## Fase 8 — Preview Safety
+Los snapshots cubren Home, menú, accordion cerrado/abierto, storytelling sticky, CTA, rutas Cuero/Fabricación/Tiendas y detalle de sucursal.
+
+## Fase 10 — Preview Safety
 Estado: **completada**.
 
-Preview `noindex,nofollow`, robots compatible con lectura de noindex e indexación desactivada hasta producción final.
+Preview `noindex,nofollow`, robots compatible con lectura de noindex e indexación desactivada hasta publicación final.
 
-## Fase 9 — Railway Preview
+## Fase 11 — Railway Preview / Runtime
 Estado: **completada**.
 
-Proyecto `Matius Preview`, servicio `matius-preview`, branch `feat/landing-foundation` y dominio público Railway.
+- servicio `matius-preview`;
+- branch `feat/landing-foundation`;
+- dominio Railway;
+- `npm start`;
+- `/api/health`;
+- timeout 120 s;
+- restart `ON_FAILURE`, 3 reintentos.
 
-## Fase 10 — Live Preview QA
-Estado: **completada**. Feature: `c285304`.
+## Fase 12 — Live Preview QA
+Estado: **completada y activa**.
 
-`/api/deployment-info` sincroniza GitHub Actions con el SHA real servido por Railway. El workflow valida rutas, SEO/noindex, WhatsApp, 10 screenshots y Lighthouse live.
+`/api/deployment-info` sincroniza el workflow con el SHA exacto servido por Railway. El gate valida rutas, health, SEO/noindex, WhatsApp, copy, Functional QA, 21 snapshots y Lighthouse live.
 
-Baseline live registrado:
+Baseline live registrada durante esta fase:
 - Performance 98;
 - Accessibility 100;
 - Best Practices 100;
@@ -72,28 +98,10 @@ Baseline live registrado:
 - CLS 0;
 - TBT ≈ 118 ms.
 
-## Fase 11 — Client-ready Copy
-Estado: **completada y validada**. Feature: `864cac3`.
+## Fase 13 — Client-ready Copy / Regression Guards
+Estado: **completada y validada**.
 
-Se eliminó lenguaje interno/provisional visible del footer y rutas de zapatos, fabricación y sucursales.
-
-## Fase 12 — Copy Regression Guard
-Estado: **completada y validada**. Feature: `61599e8`.
-
-Preview QA falla si rutas públicas vuelven a incluir copy como “Demo editorial”, “Colección preparada”, “Ruta preparada”, “Storytelling preparado” u otros mensajes internos definidos por el gate.
-
-## Fase 13 — Railway Runtime Hardening
-Estado: **implementada y desplegada**. Feature: `f01af44`.
-
-- `/api/health`;
-- start `npm start`;
-- healthcheck `/api/health`;
-- timeout 120 s;
-- sleep desactivado;
-- restart `ON_FAILURE`;
-- 3 reintentos máximos.
-
-Configuración documentada en `docs/RAILWAY-RUNTIME.md`.
+Se eliminó lenguaje interno/provisional de footer, rutas y Product Storytelling. Preview QA bloquea expresiones internas como demo/preparado/pendiente, catálogo provisional y disclaimers dirigidos al equipo.
 
 ## Pendiente del cliente
 
@@ -102,7 +110,7 @@ Configuración documentada en `docs/RAILWAY-RUNTIME.md`.
 - [ ] fotografías originales en alta resolución
 - [ ] imágenes por producto
 - [ ] macros de cuero/acabados
-- [ ] fotos de fabricación
+- [ ] fotos reales de fabricación
 - [ ] fotos de sucursales
 
 ### Negocio
@@ -118,14 +126,11 @@ Configuración documentada en `docs/RAILWAY-RUNTIME.md`.
 - [ ] testimonios reales
 - [ ] proveedor de analytics
 
-## Próximos pasos ejecutables sin cliente
-
-1. QA funcional Playwright de interacciones clave;
-2. validar keyboard/Escape/aria del accordion live;
-3. validar CTAs y mensajes WhatsApp por source;
-4. revisar rutas secundarias mobile/desktop;
-5. mantener documentación/PR sincronizados.
-
 ## Gate de producción
 
-No activar indexación, sacar PR de draft ni mergear a `main` hasta incorporar datos mínimos de producción y recibir revisión explícita.
+No activar indexación, sacar PR de draft ni mergear a `main` hasta:
+
+1. incorporar u omitir de forma segura los datos faltantes;
+2. revisar la preview final;
+3. tener CI y Preview QA verdes en el HEAD final;
+4. recibir autorización explícita.

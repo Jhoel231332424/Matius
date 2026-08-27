@@ -1,6 +1,6 @@
 # Matius Perfect — Editorial Landing
 
-Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión contextual a WhatsApp.
+Landing editorial para Matius Perfect enfocada en calzado de cuero, narrativa de producto y conversión contextual a WhatsApp.
 
 ## Preview actual
 
@@ -8,7 +8,7 @@ Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión
 - Branch desplegada: `feat/landing-foundation`
 - PR activo: #3 (draft)
 - Preview protegido con `noindex,nofollow`
-- `main` no se usa para el preview y no debe mergearse sin revisión explícita.
+- `main` permanece intacto hasta revisión explícita.
 
 ## Stack
 
@@ -16,9 +16,9 @@ Landing editorial para Matius Perfect enfocada en zapatos de cuero y conversión
 - Tailwind CSS 4
 - App Router
 - `next/font`: Geist + Cormorant Garamond
-- Interacciones CSS-first
+- motion CSS-first + View Transitions progresivas
 - `playwright-core` solo como tooling de QA
-- Metadata, canonical, robots, sitemap y builders JSON-LD
+- metadata, canonical, robots, sitemap y builders JSON-LD
 
 ## Desarrollo
 
@@ -35,7 +35,7 @@ npm run typecheck
 npm run build
 ```
 
-El workflow CI añade smoke de rutas, 10 snapshots mobile/desktop y Lighthouse mobile.
+El workflow CI añade smoke de rutas/recursos públicos, **21 snapshots mobile/desktop** y Lighthouse mobile.
 
 ## Live Preview QA
 
@@ -43,15 +43,15 @@ El workflow CI añade smoke de rutas, 10 snapshots mobile/desktop y Lighthouse m
 
 Antes de auditar, espera a que `/api/deployment-info` exponga exactamente `GITHUB_SHA`. Después comprueba:
 
-- rutas públicas;
-- `/api/health`;
+- rutas públicas y `/api/health`;
 - `noindex,nofollow`;
-- WhatsApp oficial;
+- WhatsApp oficial y mensajes contextuales;
 - ausencia de copy interno/provisional;
-- 10 snapshots mobile/desktop;
-- Lighthouse sobre Railway.
+- Functional Interaction QA;
+- **21 snapshots** contra Railway;
+- Lighthouse sobre la URL pública.
 
-Última línea base live registrada durante esta fase:
+Baseline live registrada durante esta fase:
 
 - Performance: 98
 - Accessibility: 100
@@ -61,31 +61,60 @@ Antes de auditar, espera a que `/api/deployment-info` exponga exactamente `GITHU
 - CLS = 0
 - TBT ≈ 118 ms
 
-## Railway runtime
-
-Configuración documentada en `docs/RAILWAY-RUNTIME.md`:
-
-- start: `npm start`;
-- healthcheck: `/api/health`;
-- healthcheck timeout: 120 s;
-- sleep desactivado;
-- restart: `ON_FAILURE`;
-- máximo 3 reintentos.
-
-## Arquitectura de Home
+## Arquitectura actual de Home
 
 1. Hero
 2. Brand Pillars
 3. Editorial Collection Accordion
 4. Featured Products
-5. Craftsmanship
-6. Leather Detail
-7. Lifestyle
-8. Lookbook
-9. Stores
-10. Final CTA
+5. Product Storytelling / Craftsmanship
+6. Lifestyle
+7. Lookbook
+8. Stores
+9. Final CTA
 
-Colecciones usa tres entradas: Hombre / Mujer / Cuero. El accordion es horizontal en desktop y vertical en mobile, accesible por click/teclado y sin dependencia funcional de hover.
+La antigua sección independiente de detalle de cuero se retiró para evitar duplicar narrativa. La escena `#fabricacion` concentra el momento complejo de scroll: producto sticky en desktop y lectura vertical natural en mobile.
+
+## Sistema visual / motion
+
+La dirección vigente es **Modern Bolivian Leather / Editorial Commerce**:
+
+- negro profundo, chocolate, tobacco, cognac, marfil cálido y rojo Matius como acento;
+- Cormorant Garamond para display y Geist para UI/copy;
+- title reveal por líneas;
+- scroll reveal CSS para headings;
+- zoom/crossfade fotográfico sutil;
+- menú fullscreen editorial con crossfade por hover/focus;
+- View Transitions progresivas para navegación;
+- `prefers-reduced-motion` desactiva motion no esencial;
+- sin Motion, GSAP, Lenis, WebGL ni shaders.
+
+## Conversión
+
+WhatsApp es la conversión principal. Los mensajes y eventos se diferencian por:
+
+- Hero;
+- producto/colección;
+- sucursal;
+- CTA final;
+- floating desktop.
+
+El floating WhatsApp permanece inactivo en mobile para no competir con CTAs contextuales.
+
+## Rutas editoriales
+
+Las rutas públicas comparten el mismo sistema visual de Home:
+
+- `/zapatos-de-cuero`
+- `/zapatos-hombre`
+- `/zapatos-mujer`
+- `/nuestra-fabricacion`
+- `/tiendas`
+- `/tiendas/central`
+- `/tiendas/sucursal-1`
+- `/tiendas/sucursal-2`
+
+No se inventan direcciones, horarios, stock, políticas, testimonios ni claims técnicos.
 
 ## Design governance
 
@@ -108,39 +137,43 @@ Skills locales de Codex:
 
 ## Estado funcional
 
-Ya implementado:
+Ya implementado y validado:
 
-- sistema editorial `Modern Bolivian Leather / Editorial Commerce`;
-- assets first-party públicos de campaña;
-- Hero product-first mobile;
-- accordion editorial cerrado/abierto validado;
-- fabricación sticky CSS;
-- WhatsApp contextual por source;
-- copy client-ready en rutas públicas;
-- guard contra copy interno/provisional;
-- SEO técnico y preview noindex;
-- Railway preview;
-- healthcheck y runtime hardening;
-- CI local + Live Preview QA.
+- design governance;
+- sistema editorial + motion;
+- Hero product-first;
+- accordion de Colecciones;
+- Product Storytelling sticky;
+- navegación fullscreen/crossfade;
+- rutas secundarias editoriales;
+- WhatsApp contextual + eventos `dataLayer`;
+- copy client-facing y regression guards;
+- SEO técnico + preview noindex;
+- Railway runtime hardening;
+- Functional Interaction QA;
+- **21 snapshots** locales y live;
+- Lighthouse local y Railway.
 
 ## Pendiente del cliente antes de producción
 
 - logo maestro/vectorial;
 - originales fotográficos de alta resolución;
-- fotografías por producto y fabricación;
-- fotografías/direcciones/horarios de las tres sucursales;
+- fotografías por producto/fabricación/sucursal;
+- direcciones y horarios exactos;
 - catálogo definitivo, tallas, colores, precios y stock;
 - garantía y políticas de cambios/devoluciones;
 - claims técnicos autorizados;
 - testimonios reales si se usarán;
-- proveedor de analytics (GA4/GTM/u otro).
+- proveedor de analytics.
 
-## Próximos pasos que no requieren datos del cliente
+## Siguiente gate
 
-1. ampliar QA funcional de interacciones y CTAs;
-2. validar teclado/Escape/aria del accordion en el deploy real;
-3. validar URLs y mensajes contextuales de WhatsApp con Playwright;
-4. revisar comportamiento responsive de rutas secundarias;
-5. mantener PR #3 en draft hasta la revisión explícita.
+Sin datos adicionales del cliente, el trabajo técnico principal queda en mantenimiento/regresión. Antes de producción:
 
-No activar `NEXT_PUBLIC_ALLOW_INDEXING=true` ni mergear a `main` antes de completar los datos de producción y la revisión final.
+1. incorporar datos reales faltantes;
+2. revisar visualmente la preview con el cliente;
+3. completar NAP/Product structured data solo con datos confirmados;
+4. configurar analytics elegido;
+5. volver a ejecutar CI + Preview QA del HEAD final;
+6. activar indexación únicamente al publicar;
+7. sacar PR #3 de draft/mergear solo con autorización explícita.
