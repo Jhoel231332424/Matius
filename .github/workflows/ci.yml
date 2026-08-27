@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_SITE_URL: https://matiusperfect.com
+      NEXT_PUBLIC_WHATSAPP_NUMBER: "59171431096"
+      NEXT_PUBLIC_ALLOW_INDEXING: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Production route smoke test and visual snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm start > /tmp/matius-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          READY=false
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:3000/ > /dev/null; then
+              READY=true
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$READY" != "true" ]; then
+            cat /tmp/matius-next.log
+            exit 1
+          fi
+
+          routes=(
+            "/"
+            "/zapatos-de-cuero"
+            "/zapatos-hombre"
+            "/zapatos-mujer"
+            "/nuestra-fabricacion"
+            "/tiendas"
+            "/tiendas/central"
+            "/tiendas/sucursal-1"
+            "/tiendas/sucursal-2"
+            "/robots.txt"
+            "/sitemap.xml"
+          )
+
+          for route in "${routes[@]}"; do
+            echo "Checking ${route}"
+            curl --fail --silent --show-error "http://localhost:3000${route}" > /dev/null
+          done
+
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -n "$CHROME_BIN" ]; then
+            CHROME_BIN="$CHROME_BIN" ROUTE_QA_BASE_URL="http://localhost:3000" npm run qa:routes
+            CHROME_BIN="$CHROME_BIN" VISUAL_BASE_URL="http://localhost:3000" npm run visual:snapshots
+          else
+            echo "Chrome binary not found; route QA and visual snapshots skipped."
+          fi
+
+      - name: Upload visual snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: visual-snapshots/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.x --no-audit --no-fund
+
+      - name: Lighthouse mobile audit
+        run: lhci autorun
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7

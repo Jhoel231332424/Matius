@@ -69,44 +69,42 @@ WhatsApp debe aparecer como canal de compra/consulta contextual durante todo el 
 ### Neutrales
 
 ```css
---mat-ivory: #F5F0E8;
---mat-warm-white: #FBF8F3;
---mat-sand: #DED2C2;
---mat-stone: #A99C8D;
---mat-charcoal: #1D1B19;
---mat-black: #0E0D0C;
+--mat-ivory: #E6DFCF;
+--mat-warm-white: #F0EADF;
+--mat-sand: #C9B9A5;
+--mat-stone: #9A8875;
+--mat-charcoal: #17110D;
+--mat-black: #010101;
 ```
 
 ### Leather tones
 
 ```css
---mat-cognac: #9B5C32;
---mat-tobacco: #744226;
---mat-dark-brown: #3B261C;
+--mat-cognac: #7D3F23;
+--mat-tobacco: #5A3521;
+--mat-dark-brown: #28140A;
 ```
 
 ### Brand accent
 
 ```css
---mat-red: #A72B2B;
---mat-red-hover: #8F2323;
+--mat-red: #9E2C1B;
+--mat-red-hover: #7F2015;
 ```
 
 > El rojo debe utilizarse de forma controlada: CTA secundario de marca, pequeños estados activos o detalles. No debe convertirse en el color dominante del sitio.
 
-### Semantic tokens sugeridos
+### Roles semánticos runtime
 
 ```css
---background: var(--mat-warm-white);
---foreground: var(--mat-charcoal);
---surface: var(--mat-ivory);
---surface-muted: #EEE7DE;
---border: #D8CEC2;
---muted-foreground: #766D64;
---primary: var(--mat-charcoal);
---primary-foreground: var(--mat-warm-white);
---accent: var(--mat-red);
---accent-foreground: #FFFFFF;
+--mat-canvas: var(--mat-warm-white);
+--mat-surface: var(--mat-ivory);
+--mat-surface-dark: var(--mat-charcoal);
+--mat-text: var(--mat-charcoal);
+--mat-text-inverse: var(--mat-warm-white);
+--mat-action: var(--mat-charcoal);
+--mat-action-hover: var(--mat-dark-brown);
+--mat-accent: var(--mat-red);
 ```
 
 ### Contraste
@@ -754,47 +752,11 @@ Mobile: stack / accordion si aumenta contenido.
 
 ---
 
-# 17. Tokens sugeridos para globals.css
+# 17. Tokens de implementación
 
-```css
-:root {
-  --mat-ivory: #f5f0e8;
-  --mat-warm-white: #fbf8f3;
-  --mat-sand: #ded2c2;
-  --mat-stone: #a99c8d;
-  --mat-charcoal: #1d1b19;
-  --mat-black: #0e0d0c;
-  --mat-cognac: #9b5c32;
-  --mat-tobacco: #744226;
-  --mat-dark-brown: #3b261c;
-  --mat-red: #a72b2b;
-  --mat-red-hover: #8f2323;
+La fuente runtime está en `styles/variables.css`; `app/globals.css` la importa y `styles/theme.css` expone los roles compatibles con Tailwind CSS v4. `token.json` replica el contrato en un formato interoperable para handoff y tooling, pero no se carga en producción.
 
-  --background: var(--mat-warm-white);
-  --foreground: var(--mat-charcoal);
-  --surface: var(--mat-ivory);
-  --surface-muted: #eee7de;
-  --border: #d8cec2;
-  --muted-foreground: #766d64;
-  --primary: var(--mat-charcoal);
-  --primary-foreground: var(--mat-warm-white);
-  --accent: var(--mat-red);
-  --accent-foreground: #fff;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 14px;
-  --radius-pill: 999px;
-
-  --duration-fast: 160ms;
-  --duration-base: 240ms;
-  --duration-slow: 480ms;
-  --duration-editorial: 700ms;
-
-  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
-}
-```
+No volver a declarar colores, spacing, radios o duraciones dentro de componentes. Si cambia un valor global, actualizar `styles/variables.css` y mantener sincronizado `token.json`.
 
 ---
 

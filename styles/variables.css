@@ -1,0 +1,81 @@
+:root {
+  /* Brand primitives */
+  --mat-ivory: #e6dfcf;
+  --mat-warm-white: #f0eadf;
+  --mat-sand: #c9b9a5;
+  --mat-stone: #9a8875;
+  --mat-charcoal: #17110d;
+  --mat-black: #010101;
+  --mat-cognac: #7d3f23;
+  --mat-tobacco: #5a3521;
+  --mat-dark-brown: #28140a;
+  --mat-red: #9e2c1b;
+  --mat-red-hover: #7f2015;
+
+  /* Semantic color roles */
+  --mat-canvas: var(--mat-warm-white);
+  --mat-surface: var(--mat-ivory);
+  --mat-surface-dark: var(--mat-charcoal);
+  --mat-text: var(--mat-charcoal);
+  --mat-text-inverse: var(--mat-warm-white);
+  --mat-action: var(--mat-charcoal);
+  --mat-action-hover: var(--mat-dark-brown);
+  --mat-accent: var(--mat-red);
+  --mat-border: color-mix(in srgb, var(--mat-charcoal) 18%, transparent);
+  --mat-border-inverse: color-mix(in srgb, var(--mat-warm-white) 24%, transparent);
+
+  /* 4px spacing base and responsive layout */
+  --mat-space-1: 0.25rem;
+  --mat-space-2: 0.5rem;
+  --mat-space-3: 0.75rem;
+  --mat-space-4: 1rem;
+  --mat-space-5: 1.25rem;
+  --mat-space-6: 1.5rem;
+  --mat-space-8: 2rem;
+  --mat-space-10: 2.5rem;
+  --mat-space-12: 3rem;
+  --mat-space-16: 4rem;
+  --mat-space-20: 5rem;
+  --mat-space-24: 6rem;
+  --mat-container: 80rem;
+  --mat-gutter: 1.25rem;
+  --mat-section: clamp(4rem, 9vw, 9rem);
+
+  /* Shape and controls */
+  --mat-radius-sm: 0.375rem;
+  --mat-radius-md: 0.75rem;
+  --mat-radius-lg: 1.25rem;
+  --mat-radius-full: 9999px;
+  --mat-control-height: 3rem;
+
+  /* Motion */
+  --mat-instant: 100ms;
+  --mat-fast: 160ms;
+  --mat-base: 240ms;
+  --mat-slow: 520ms;
+  --mat-editorial: 760ms;
+  --mat-ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mat-ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --mat-gutter: 2rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --mat-gutter: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --mat-instant: 0ms;
+    --mat-fast: 0ms;
+    --mat-base: 0ms;
+    --mat-slow: 0ms;
+    --mat-editorial: 0ms;
+  }
+}

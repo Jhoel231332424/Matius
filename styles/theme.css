@@ -1,0 +1,19 @@
+/* Tailwind v4 bridge. Runtime values remain centralized in variables.css. */
+@theme inline {
+  --color-matius-canvas: var(--mat-canvas);
+  --color-matius-surface: var(--mat-surface);
+  --color-matius-charcoal: var(--mat-charcoal);
+  --color-matius-black: var(--mat-black);
+  --color-matius-cognac: var(--mat-cognac);
+  --color-matius-tobacco: var(--mat-tobacco);
+  --color-matius-brown: var(--mat-dark-brown);
+  --color-matius-red: var(--mat-red);
+  --color-matius-ivory: var(--mat-ivory);
+
+  --radius-matius-sm: var(--mat-radius-sm);
+  --radius-matius-md: var(--mat-radius-md);
+  --radius-matius-lg: var(--mat-radius-lg);
+
+  --ease-matius-ui: var(--mat-ease-ui);
+  --ease-matius-editorial: var(--mat-ease-editorial);
+}

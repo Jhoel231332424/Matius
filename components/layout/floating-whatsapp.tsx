@@ -1,0 +1,63 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { trackWhatsAppClick } from "@/lib/analytics";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
+
+export function FloatingWhatsApp() {
+  const [pastHero, setPastHero] = useState(false);
+  const [contactVisible, setContactVisible] = useState(false);
+  const [desktopViewport, setDesktopViewport] = useState(false);
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const updateDesktopViewport = () => setDesktopViewport(desktopMedia.matches);
+    const updateVisibility = () => {
+      const threshold = Math.min(window.innerHeight * 0.72, 720);
+      setPastHero(window.scrollY > threshold);
+    };
+
+    updateDesktopViewport();
+    updateVisibility();
+    desktopMedia.addEventListener("change", updateDesktopViewport);
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("resize", updateVisibility);
+
+    const contact = document.querySelector("#contacto");
+    const observer = contact
+      ? new IntersectionObserver(
+          ([entry]) => setContactVisible(entry.isIntersecting),
+          { threshold: 0.12 },
+        )
+      : null;
+
+    if (contact && observer) observer.observe(contact);
+
+    return () => {
+      desktopMedia.removeEventListener("change", updateDesktopViewport);
+      window.removeEventListener("scroll", updateVisibility);
+      window.removeEventListener("resize", updateVisibility);
+      observer?.disconnect();
+    };
+  }, []);
+
+  const visible = desktopViewport && pastHero && !contactVisible;
+
+  return (
+    <a
+      href={createWhatsAppUrl({ source: "floating" })}
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label="Consultar a Matius Perfect por WhatsApp"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
+      onClick={() => trackWhatsAppClick({ source: "floating" })}
+      className={`fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-50 hidden min-h-12 min-w-12 place-items-center rounded-full bg-[var(--mat-red)] px-4 text-sm font-bold text-white shadow-lg transition duration-300 motion-reduce:transition-none md:grid ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+      }`}
+    >
+      <span aria-hidden="true">WA</span>
+      <span className="sr-only">WhatsApp</span>
+    </a>
+  );
+}

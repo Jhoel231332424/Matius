@@ -1,0 +1,72 @@
+import type { Metadata } from "next";
+import { Cormorant_Garamond, Geist } from "next/font/google";
+import "./globals.css";
+import { Topbar } from "@/components/layout/topbar";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
+import { siteConfig } from "@/data/site";
+import { buildOrganizationJsonLd, serializeJsonLd } from "@/lib/seo";
+
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+  weight: ["400", "500", "600"],
+});
+
+const allowIndexing =
+  process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true" && process.env.VERCEL_ENV !== "preview";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: "Matius Perfect | Zapatos de cuero en Cochabamba",
+    template: "%s | Matius Perfect",
+  },
+  description: siteConfig.description,
+  robots: allowIndexing
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    siteName: siteConfig.name,
+    title: "Matius Perfect | Zapatos de cuero en Cochabamba",
+    description: siteConfig.description,
+  },
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const organizationJsonLd = buildOrganizationJsonLd();
+
+  return (
+    <html lang="es" className={`${geist.variable} ${cormorant.variable}`}>
+      <body>
+        <a
+          href="#contenido-principal"
+          className="fixed left-4 top-4 z-[100] -translate-y-24 bg-[var(--mat-charcoal)] px-4 py-3 text-sm font-semibold text-white transition-transform focus:translate-y-0 motion-reduce:transition-none"
+        >
+          Saltar al contenido principal
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }}
+        />
+        <Topbar />
+        <Navbar />
+        <main id="contenido-principal" tabIndex={-1}>
+          {children}
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
+      </body>
+    </html>
+  );
+}
