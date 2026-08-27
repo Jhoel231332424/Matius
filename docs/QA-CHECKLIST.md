@@ -120,6 +120,22 @@ Revisar siempre:
 - drift respecto de `DESIGN.md`;
 - floating WhatsApp sin tapar controles.
 
+## Route Quality QA
+
+`npm run qa:routes` recorre las 9 rutas HTML públicas en **390 × 844** y **1440 × 1000**.
+
+Valida automáticamente:
+
+- respuesta HTTP correcta;
+- un único H1 visible;
+- `title` y meta description presentes;
+- canonical con pathname coherente con la ruta;
+- `noindex,nofollow` en preview;
+- ausencia de overflow horizontal;
+- ausencia de `pageerror` y `console.error`.
+
+Se ejecuta tanto contra el servidor de producción local en CI como contra Railway en Preview QA.
+
 ## Navegación
 
 - Navbar no tapa anchors al navegar.
@@ -224,6 +240,7 @@ npm run build
 
 Además deben pasar:
 - smoke de 13 rutas/recursos públicos;
+- Route Quality QA en 9 rutas × 2 viewports;
 - Functional Interaction QA;
 - 21 snapshots automáticos inspeccionados, no solo generados;
 - Lighthouse CI local;

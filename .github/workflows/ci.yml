@@ -79,9 +79,10 @@ jobs:
 
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           if [ -n "$CHROME_BIN" ]; then
+            CHROME_BIN="$CHROME_BIN" ROUTE_QA_BASE_URL="http://localhost:3000" npm run qa:routes
             CHROME_BIN="$CHROME_BIN" VISUAL_BASE_URL="http://localhost:3000" npm run visual:snapshots
           else
-            echo "Chrome binary not found; visual snapshots skipped."
+            echo "Chrome binary not found; route QA and visual snapshots skipped."
           fi
 
       - name: Upload visual snapshots

@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "visual:snapshots": "node scripts/capture-visuals.mjs",
-    "qa:functional": "node scripts/functional-qa.mjs"
+    "qa:functional": "node scripts/functional-qa.mjs",
+    "qa:routes": "node scripts/route-quality.mjs"
   },
   "dependencies": {
     "next": "16.3.0",
