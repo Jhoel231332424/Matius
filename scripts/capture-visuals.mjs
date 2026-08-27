@@ -45,6 +45,8 @@ const cases = [
   { name: "craft-route-desktop", width: 1440, height: 1000, path: "/nuestra-fabricacion" },
   { name: "stores-route-mobile", width: 390, height: 844, path: "/tiendas" },
   { name: "stores-route-desktop", width: 1440, height: 1000, path: "/tiendas" },
+  { name: "store-detail-mobile", width: 390, height: 844, path: "/tiendas/central" },
+  { name: "store-detail-desktop", width: 1440, height: 1000, path: "/tiendas/central" },
 ];
 
 async function waitForSectionImages(locator) {

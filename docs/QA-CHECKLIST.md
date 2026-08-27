@@ -16,7 +16,7 @@ Verificar manualmente como mínimo:
 
 ## Snapshots automáticos
 
-El CI genera **19 snapshots** por PR mediante `scripts/capture-visuals.mjs` + `playwright-core`, reutilizando el Chrome instalado en el runner.
+El CI genera **21 snapshots** por PR mediante `scripts/capture-visuals.mjs` + `playwright-core`, reutilizando el Chrome instalado en el runner.
 
 ### Mobile — 390 × 844
 - `home-mobile.png`
@@ -28,6 +28,7 @@ El CI genera **19 snapshots** por PR mediante `scripts/capture-visuals.mjs` + `p
 - `leather-route-mobile.png`
 - `craft-route-mobile.png`
 - `stores-route-mobile.png`
+- `store-detail-mobile.png`
 
 ### Desktop — 1440 × 1000
 - `home-desktop.png`
@@ -40,6 +41,7 @@ El CI genera **19 snapshots** por PR mediante `scripts/capture-visuals.mjs` + `p
 - `leather-route-desktop.png`
 - `craft-route-desktop.png`
 - `stores-route-desktop.png`
+- `store-detail-desktop.png`
 
 ### Menú fullscreen
 
@@ -83,7 +85,7 @@ El CI genera **19 snapshots** por PR mediante `scripts/capture-visuals.mjs` + `p
 
 ### Rutas secundarias
 
-Los snapshots `leather-route-*`, `craft-route-*` y `stores-route-*` validan que las páginas internas mantengan el mismo sistema visual de Home.
+Los snapshots `leather-route-*`, `craft-route-*`, `stores-route-*` y `store-detail-*` validan que las páginas internas mantengan el mismo sistema visual de Home. `store-detail-*` usa la sucursal Central como caso representativo sin inventar dirección ni horarios.
 
 Revisar especialmente:
 
@@ -223,7 +225,7 @@ npm run build
 Además deben pasar:
 - smoke de 13 rutas/recursos públicos;
 - Functional Interaction QA;
-- 19 snapshots automáticos inspeccionados, no solo generados;
+- 21 snapshots automáticos inspeccionados, no solo generados;
 - Lighthouse CI local;
 - Preview QA + Lighthouse sobre Railway.
 
