@@ -9,14 +9,14 @@ const chapters = [
     number: "01",
     eyebrow: "Cuero",
     title: "El material abre la historia.",
-    copy: "El cuero es uno de los pilares de Matius Perfect. Aquí la lectura se concentra en superficie, tono y presencia, sin atribuir a la imagen un tipo técnico de cuero que no esté confirmado.",
+    copy: "El cuero es uno de los pilares de Matius Perfect. Superficie, tono y presencia construyen la primera lectura de un par con una expresión sobria y atemporal.",
     note: "Material / textura / presencia",
   },
   {
     number: "02",
     eyebrow: "Oficio",
     title: "Hecho en Cochabamba.",
-    copy: "La marca comunica fabricación en Cochabamba y una propuesta artesanal. Este capítulo pone en primer plano esa relación entre producto y oficio sin describir pasos de producción que todavía no estén documentados.",
+    copy: "Matius Perfect comunica fabricación en Cochabamba y una propuesta artesanal. El oficio aparece en la relación entre material, forma y terminación que da carácter a cada par.",
     note: "Origen / fabricación / cuidado",
   },
   {
@@ -30,7 +30,7 @@ const chapters = [
     number: "04",
     eyebrow: "Durabilidad",
     title: "Diseñado para permanecer.",
-    copy: "La durabilidad forma parte de los pilares comunicados por Matius Perfect. Se presenta como una intención de producto y de marca, sin convertirla en una promesa cuantificada ni en una garantía no confirmada.",
+    copy: "La durabilidad forma parte de los pilares de Matius Perfect. Material, forma y construcción se reúnen en una propuesta pensada para acompañar el uso cotidiano con carácter.",
     note: "Uso / permanencia / confianza",
   },
 ] as const;
