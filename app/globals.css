@@ -1,29 +1,6 @@
 @import "tailwindcss";
-
-:root {
-  --mat-ivory: #e6dfcf;
-  --mat-warm-white: #f0eadf;
-  --mat-sand: #c9b9a5;
-  --mat-stone: #9a8875;
-  --mat-charcoal: #17110d;
-  --mat-black: #010101;
-  --mat-cognac: #7d3f23;
-  --mat-tobacco: #5a3521;
-  --mat-dark-brown: #28140a;
-  --mat-red: #9e2c1b;
-  --mat-red-hover: #7f2015;
-  --mat-border: color-mix(in srgb, var(--mat-charcoal) 18%, transparent);
-  --mat-container: 80rem;
-  --mat-section: clamp(5rem, 9vw, 9rem);
-  --mat-radius-sm: 0.375rem;
-  --mat-radius-md: 0.75rem;
-  --mat-radius-lg: 1.25rem;
-  --mat-fast: 160ms;
-  --mat-base: 240ms;
-  --mat-slow: 520ms;
-  --mat-editorial: 760ms;
-  --mat-ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
-}
+@import "../styles/variables.css";
+@import "../styles/theme.css";
 
 @layer base {
   a {
@@ -85,7 +62,7 @@ a {
 
 .matius-display {
   font-family: var(--font-display), Georgia, "Times New Roman", serif;
-  font-size: clamp(3.75rem, 8vw, 8.5rem);
+  font-size: clamp(3.35rem, 8vw, 8.5rem);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 0.88;

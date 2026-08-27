@@ -6,7 +6,7 @@ import { brandMedia } from "@/data/media";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-[var(--mat-ivory)]">
-      <Container className="grid gap-8 py-8 sm:gap-10 sm:py-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:py-16">
+      <Container className="grid gap-6 py-6 sm:gap-10 sm:py-10 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:py-16">
         <div className="order-2 relative z-10 max-w-2xl lg:order-1">
           <div className="mb-6 flex items-center gap-3">
             <span className="h-px w-10 bg-[var(--mat-red)]" aria-hidden="true" />
@@ -24,11 +24,11 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <p className="matius-hero-copy mt-7 max-w-xl text-base leading-7 text-black/70 sm:text-lg sm:leading-8">
-            Zapatos de cuero hechos en Cochabamba con una propuesta que une oficio, elegancia y durabilidad.
+          <p className="matius-hero-copy mt-5 max-w-xl text-base leading-7 text-black/70 sm:mt-7 sm:text-lg sm:leading-8">
+            Calzado de cuero auténtico hecho en Cochabamba, con una propuesta que une oficio, elegancia y durabilidad.
           </p>
 
-          <div className="matius-hero-actions mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="matius-hero-actions mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
             <a
               href="#zapatos"
               className="inline-flex min-h-12 items-center justify-center rounded-[var(--mat-radius-sm)] bg-[var(--mat-black)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--mat-dark-brown)]"
@@ -41,7 +41,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <figure className="matius-hero-media order-1 relative min-h-[20rem] overflow-hidden bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[28rem] lg:order-2 lg:min-h-[46rem] lg:rounded-[var(--mat-radius-md)]">
+        <figure className="matius-hero-media order-1 relative min-h-[18.5rem] overflow-hidden bg-[var(--mat-dark-brown)] text-[var(--mat-warm-white)] sm:min-h-[28rem] lg:order-2 lg:min-h-[46rem] lg:rounded-[var(--mat-radius-md)]">
           <Image
             src={brandMedia.hero.src}
             alt={brandMedia.hero.alt}

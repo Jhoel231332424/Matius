@@ -16,7 +16,7 @@ const variants = {
 
 export function Button({ href, variant = "primary", className, children, onClick, ...props }: ButtonProps) {
   const classes = cn(
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-[var(--mat-radius-sm)] px-5 py-3 text-sm font-semibold transition-colors duration-[var(--mat-base)]",
+    "inline-flex min-h-[var(--mat-control-height)] items-center justify-center gap-2 rounded-[var(--mat-radius-sm)] px-6 py-3 text-sm font-semibold transition-[color,background-color,border-color,transform] duration-[var(--mat-base)] ease-[var(--mat-ease-ui)] hover:-translate-y-px motion-reduce:transform-none",
     variants[variant],
     className,
   );

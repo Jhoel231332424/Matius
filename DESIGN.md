@@ -160,7 +160,31 @@ Reglas:
 - no afirmar que un asset de campaña representa un producto específico sin evidencia;
 - usar crops específicos por breakpoint cuando sea necesario.
 
-## 12. Motion
+## 12. Banner editorial de material
+
+Entre la selección de producto y la historia de fabricación debe existir una transición fotográfica de ancho completo. Su función es cambiar el ritmo desde catálogo hacia material/oficio sin introducir un efecto aislado.
+
+Reglas:
+- usar una fotografía autorizada de producto o detalle con overlay oscuro suficiente;
+- copy de una o dos líneas, con mezcla sobria de peso regular y semibold;
+- no atribuir a Matius servicios observados en otras marcas;
+- en esta fase comunica `cuero auténtico`, `calzado hecho en Cochabamba` y carácter del material;
+- altura menor al hero, sin autoplay ni interacción obligatoria;
+- mobile mantiene imagen, contraste y texto legible sin depender de un crop desktop.
+
+## 13. Barra institucional de confianza
+
+Antes del footer debe aparecer una franja de confianza basada solo en datos verificados de Matius. No usar claims de financiación, cambios, garantía, checkout o envíos si el cliente no los confirma.
+
+Contenido aprobado para esta fase:
+1. cuero auténtico;
+2. hecho en Cochabamba;
+3. atención directa por WhatsApp;
+4. presencia física: Central y dos sucursales.
+
+La barra usa una superficie institucional Matius —tobacco/charcoal, nunca verde PACCO—, numeración o líneas editoriales y texto breve. No debe convertirse en un conjunto de cards SaaS. Desktop usa cuatro columnas; mobile apila en una columna o dos cuando el ancho lo permita.
+
+## 14. Motion
 
 Motion refuerza jerarquía/material; nunca compensa una composición débil.
 
@@ -192,7 +216,7 @@ Límites:
 - evitar nuevas dependencias de animación sin demostrar que CSS no alcanza;
 - no introducir springs, bounce, elastic, tilt 3D, particles o cursores custom para “hacerlo premium”.
 
-## 13. WhatsApp / CRO
+## 15. WhatsApp / CRO
 
 WhatsApp debe aparecer en momentos de intención, no como ruido constante.
 
@@ -208,7 +232,7 @@ Cada CTA de producto/sucursal debe producir mensaje contextual cuando existan es
 
 El botón flotante es soporte, no reemplaza los CTAs narrativos.
 
-## 14. Mobile-first
+## 16. Mobile-first
 
 Mobile no es desktop comprimido.
 
@@ -227,7 +251,7 @@ En mobile:
 - textos editoriales no deben producir líneas huérfanas extremas;
 - WhatsApp flotante no cubre navegación/CTAs.
 
-## 15. Accesibilidad
+## 17. Accesibilidad
 
 Hard gates:
 - navegación por teclado;
@@ -242,7 +266,7 @@ Hard gates:
 
 Objetivo Lighthouse Accessibility: **≥ 0.95**, ideal **1.00**.
 
-## 16. Performance
+## 18. Performance
 
 Objetivos de laboratorio/CI:
 - Performance ≥ 0.75 como gate inicial, objetivo ≥ 0.90;
@@ -253,7 +277,7 @@ Objetivos de laboratorio/CI:
 
 No instalar una librería para un componente que puede resolverse con CSS/React/HTML existente.
 
-## 17. SEO visual/estructural
+## 19. SEO visual/estructural
 
 - un H1 por página;
 - headings por semántica, no por tamaño;
@@ -264,7 +288,7 @@ No instalar una librería para un componente que puede resolverse con CSS/React/
 - LocalBusiness/Product solo con datos reales suficientes;
 - no publicar rutas doorway duplicadas.
 
-## 18. Regla de decisión
+## 20. Regla de decisión
 
 Antes de añadir una técnica/componente, responder:
 
@@ -272,7 +296,7 @@ Antes de añadir una técnica/componente, responder:
 
 Si la respuesta es “más efectos”, rechazarla.
 
-## 19. Definition of Done visual
+## 21. Definition of Done visual
 
 Un cambio visual no está terminado hasta que:
 - respeta este contrato;
@@ -283,3 +307,18 @@ Un cambio visual no está terminado hasta que:
 - Lighthouse no introduce regresiones relevantes;
 - CTAs funcionan y son visibles;
 - no genera drift visual respecto del sistema aprobado.
+
+## 22. Archivos del sistema de diseño
+
+El sistema se entrega como cuatro piezas coordinadas y responsive; mobile no mantiene una variante separada:
+
+| Archivo | Responsabilidad |
+| --- | --- |
+| `DESIGN.md` | Contrato visual, narrativo, responsive y de calidad. |
+| `styles/variables.css` | Fuente runtime de colores, roles semánticos, espaciado, controles, layout y motion. |
+| `styles/theme.css` | Puente de los tokens runtime hacia utilidades de Tailwind CSS v4. |
+| `token.json` | Handoff interoperable para diseño, tooling y futuras plataformas. No se importa en producción. |
+
+La referencia editorial de calzado se traduce a Matius, no se copia: se conservan fotografía dominante, escala de 4 px, botones de 48 px, bordes discretos, movimiento sobrio y gutters `20 / 32 / 48 px`; se sustituyen sus colores y tipografía por la identidad verificada de Matius (negro, marfil, cuero cognac, rojo, Cormorant Garamond y Geist).
+
+En mobile, los mismos tokens cambian por breakpoint. La barra superior usa un mensaje corto de una línea, el hero reduce altura y espaciado sin perder jerarquía, los CTAs mantienen 48 px y ninguna acción depende de hover.

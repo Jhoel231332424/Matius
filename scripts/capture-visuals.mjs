@@ -29,6 +29,8 @@ const cases = [
     selector: "#zapatos",
     openCollection: "Cuero",
   },
+  { name: "material-editorial-mobile", width: 390, height: 844, selector: "#material-editorial" },
+  { name: "material-editorial-desktop", width: 1440, height: 1000, selector: "#material-editorial" },
   { name: "craftsmanship-mobile", width: 390, height: 844, selector: "#fabricacion" },
   { name: "craftsmanship-desktop", width: 1440, height: 1000, selector: "#fabricacion" },
   {
@@ -39,6 +41,8 @@ const cases = [
   },
   { name: "contact-mobile", width: 390, height: 844, selector: "#contacto" },
   { name: "contact-desktop", width: 1440, height: 1000, selector: "#contacto" },
+  { name: "trust-bar-mobile", width: 390, height: 844, selector: "#confianza" },
+  { name: "trust-bar-desktop", width: 1440, height: 1000, selector: "#confianza" },
   { name: "leather-route-mobile", width: 390, height: 844, path: "/zapatos-de-cuero" },
   { name: "leather-route-desktop", width: 1440, height: 1000, path: "/zapatos-de-cuero" },
   { name: "craft-route-mobile", width: 390, height: 844, path: "/nuestra-fabricacion" },
