@@ -62,6 +62,7 @@ Estado: **completada**.
 - typecheck;
 - build;
 - smoke;
+- Route Quality QA en 9 rutas × 2 viewports;
 - Functional Interaction QA;
 - **21 snapshots**;
 - Lighthouse mobile.
@@ -87,7 +88,7 @@ Estado: **completada**.
 ## Fase 12 — Live Preview QA
 Estado: **completada y activa**.
 
-`/api/deployment-info` sincroniza el workflow con el SHA exacto servido por Railway. El gate valida rutas, health, SEO/noindex, WhatsApp, copy, Functional QA, 21 snapshots y Lighthouse live.
+`/api/deployment-info` sincroniza el workflow con el SHA exacto servido por Railway. El gate valida rutas, health, SEO/noindex, WhatsApp, copy, Route Quality QA, Functional QA, 21 snapshots y Lighthouse live.
 
 Baseline live registrada durante esta fase:
 - Performance 98;

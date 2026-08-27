@@ -33,6 +33,7 @@ Preview: `https://matius-preview-production.up.railway.app`
 - [x] `/api/deployment-info` para sincronía por SHA
 - [x] `/api/health` + runtime hardening
 - [x] guard anti-copy interno/provisional
+- [x] Route Quality QA (9 rutas × 2 viewports)
 - [x] Functional Interaction QA
 - [x] **21 snapshots** local + Railway
 - [x] Lighthouse local + live
@@ -62,7 +63,7 @@ npm run typecheck
 npm run build
 ```
 
-CI añade smoke, Functional Interaction QA donde corresponde, 21 snapshots y Lighthouse mobile.
+CI añade smoke, Route Quality QA, Functional Interaction QA donde corresponde, 21 snapshots y Lighthouse mobile.
 
 ## QA sobre Railway
 
@@ -72,9 +73,10 @@ Preview QA:
 2. valida rutas + `/api/health`;
 3. valida `noindex,nofollow` y WhatsApp;
 4. rechaza copy interno/provisional;
-5. ejecuta Functional Interaction QA;
-6. genera 21 snapshots contra Railway;
-7. ejecuta Lighthouse live.
+5. ejecuta Route Quality QA;
+6. ejecuta Functional Interaction QA;
+7. genera 21 snapshots contra Railway;
+8. ejecuta Lighthouse live.
 
 ## Cobertura funcional relevante
 

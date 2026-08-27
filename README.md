@@ -47,6 +47,7 @@ Antes de auditar, espera a que `/api/deployment-info` exponga exactamente `GITHU
 - `noindex,nofollow`;
 - WhatsApp oficial y mensajes contextuales;
 - ausencia de copy interno/provisional;
+- Route Quality QA en 9 rutas × 2 viewports;
 - Functional Interaction QA;
 - **21 snapshots** contra Railway;
 - Lighthouse sobre la URL pública.
@@ -150,6 +151,7 @@ Ya implementado y validado:
 - copy client-facing y regression guards;
 - SEO técnico + preview noindex;
 - Railway runtime hardening;
+- Route Quality QA;
 - Functional Interaction QA;
 - **21 snapshots** locales y live;
 - Lighthouse local y Railway.
@@ -165,6 +167,10 @@ Ya implementado y validado:
 - claims técnicos autorizados;
 - testimonios reales si se usarán;
 - proveedor de analytics.
+
+## Route Quality Gate
+
+`npm run qa:routes` valida las 9 rutas HTML públicas en mobile y desktop: HTTP, H1 visible único, title/description, canonical, `noindex,nofollow`, overflow horizontal y errores `pageerror`/`console.error`. Corre tanto en CI local como en Railway.
 
 ## Siguiente gate
 
