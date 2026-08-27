@@ -105,7 +105,7 @@ jobs:
             "/tiendas/sucursal-2"
           )
 
-          forbidden='Demo editorial|Colección preparada|Ruta preparada|Storytelling preparado|Datos de contacto pendientes|pendientes de confirmación|pendiente de validación|arquitectura SEO|catálogo real se conectará|JSON-LD solo'
+          forbidden='Demo editorial|Colección preparada|Ruta preparada|Storytelling preparado|Datos de contacto pendientes|pendientes de confirmación|pendiente de validación|arquitectura SEO|catálogo real se conectará|catálogo real|mientras se completa|contenido provisional|entrada provisional|JSON-LD solo'
 
           for route in "${public_routes[@]}"; do
             html="$(curl --fail --silent --show-error --max-time 20 "${PREVIEW_URL}${route}")"

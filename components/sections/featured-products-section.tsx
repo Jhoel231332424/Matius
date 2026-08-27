@@ -22,7 +22,7 @@ export function FeaturedProductsSection() {
             />
           </div>
           <p className="max-w-sm text-sm leading-6 text-black/65 lg:col-span-4 lg:col-start-9 lg:text-right">
-            El modelo Oxford se muestra con el precio publicado; las demás entradas funcionan como acceso a colección mientras se completa el catálogo real.
+            Oxford conserva el precio publicado. Hombre y Mujer abren la colección para consultar modelos, tallas, colores y disponibilidad directamente por WhatsApp.
           </p>
         </div>
 
